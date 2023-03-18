@@ -1,9 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
+
+//components
 import NavBar from './components/NavBar';
+
+//pages
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import LandingPage from './pages/LandingPage';
+import ErrorPage from './pages/ErrorPage';
+
+
 
 /* 
 to use ThemeContext in each component:
@@ -22,11 +29,19 @@ function App() {
     <NavBar/>
 
     <Routes>
-      <Route to="" /> {/* index page */}
-      <Route to="" /> {/* signup page */}
-      <Route to="" /> {/* login page */}
-      <Route to="" /> {/* main page */}
-      <Route to="" /> {/* chat page */}
+      {/* Authorization routes */}
+      <Route to="/signup" element={<SignupPage/>}/>
+      <Route to="/login" element={<LoginPage/>}/>
+
+      <Route to="/home" element={<LandingPage/>}/> {/* index page */}
+      <Route to=":userId" /> {/* chat page */}
+      <Route to=":userId/posts" /> {/* chat page */}
+      <Route to=":userId/favorites" /> {/* chat page */}
+
+      <Route to="/new-post" /> {/* main page */}
+
+      {/* route for the error page with message */}
+      <Route to="*" element={<ErrorPage/>}/>
     </Routes>
       
     </div>
