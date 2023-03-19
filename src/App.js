@@ -30,18 +30,18 @@ function App() {
 
     <Routes>
       {/* Authorization routes */}
-      <Route to="/signup" element={<SignupPage/>}/>
-      <Route to="/login" element={<LoginPage/>}/>
+      <Route path="/signup" element={<SignupPage/>}/>
+      <Route path="/login" element={<LoginPage/>}/>
 
-      <Route to="/home" element={<LandingPage/>}/> {/* index page */}
-      <Route to=":userId" /> {/* chat page */}
-      <Route to=":userId/posts" /> {/* chat page */}
-      <Route to=":userId/favorites" /> {/* chat page */}
+      <Route path="/home" element={<LandingPage/>}/> {/* index page */}
+      <Route path=":userId" /> {/* chat page */}
+      <Route path=":userId/posts" /> {/* chat page */}
+      <Route path=":userId/favorites" /> {/* chat page */}
 
-      <Route to="/new-post" /> {/* main page */}
+      <Route path="/new-post" /> {/* main page */}
 
       {/* route for the error page with message */}
-      <Route to="*" element={<ErrorPage/>}/>
+      <Route path="*" element={<ErrorPage/>}/>
     </Routes>
       
     </div>

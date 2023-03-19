@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-.light {
+/* .light {
   background-color: #efeded;
 }
  
@@ -40,4 +40,31 @@ code {
 .dark h1,
 .dark h3 {
   color: #ffffff;
+} */
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  width: fit-content;
+}
+
+.page-img {
+  width: 80%;
+  height: auto;
+}
+.error-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
