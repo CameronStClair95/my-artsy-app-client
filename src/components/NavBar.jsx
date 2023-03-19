@@ -20,6 +20,12 @@ function NavBar() {
         <Link to={"/"}><button>About Page</button></Link>
         <Link to={"/signup"}><button>Sign Up</button></Link>
         <Link to={"/login"}><button>Login</button></Link>
+        <Link to={"/new-post"}><button>Create new Post</button></Link>
+        {/* <select>
+          <option><Link to={"/UserId"}><button>User Profile</button></Link></option>
+          <option><button>change the theme</button></option>
+          <option><Link to={"/UserId"}><button>Log Out</button></Link></option>
+        </select> */}
       </div>
     </div>
   )

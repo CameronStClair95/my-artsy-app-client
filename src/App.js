@@ -9,6 +9,8 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import LandingPage from './pages/LandingPage';
 import ErrorPage from './pages/ErrorPage';
+import HomePage from './pages/HomePage';
+import NewPost from './pages/NewPostPage';
 
 
 
@@ -33,12 +35,13 @@ function App() {
       <Route path="/signup" element={<SignupPage/>}/>
       <Route path="/login" element={<LoginPage/>}/>
 
-      <Route path="/home" element={<LandingPage/>}/> {/* index page */}
+      <Route path="/" element={<LandingPage/>}/> {/* index page */}
+      <Route path="/home" element={<HomePage/>}/> {/* index page */}
       <Route path=":userId" /> {/* chat page */}
       <Route path=":userId/posts" /> {/* chat page */}
       <Route path=":userId/favorites" /> {/* chat page */}
 
-      <Route path="/new-post" /> {/* main page */}
+      <Route path="new-post" element={<NewPost/>}/>
 
       {/* route for the error page with message */}
       <Route path="*" element={<ErrorPage/>}/>
