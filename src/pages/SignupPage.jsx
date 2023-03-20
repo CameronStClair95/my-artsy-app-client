@@ -6,7 +6,7 @@ const API_URL = "http://localhost:5005";
 
 
 function SignupPage(props) {
-  const [name, setName] = useState("");
+  const [fullname, setFullName] = useState("");
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +14,7 @@ function SignupPage(props) {
 
   const navigate = useNavigate();
   
-  const handleName = (e) => setName(e.target.value);
+  const handleName = (e) => setFullName(e.target.value);
   const handleUsername = (e) => setUsername(e.target.value)
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -22,17 +22,17 @@ function SignupPage(props) {
   
   const handleSignupSubmit = (e) => {
     e.preventDefault()
-    const requestBody = {name, username, email, password}
+    const requestBody = {fullname, username, email, password}
     axios.post(`${API_URL}/auth/signup`, requestBody)
         .then(response => navigate("/login"))
 
         .catch((error) => {
+          console.log('The error is', error)
             const errorDescription = error.response.data.errorMessage
             setErrorMessage(errorDescription)
         })
   };
 
-  
   return (
     <div className="SignupPage">
       <h1>Sign Up</h1>
@@ -41,7 +41,7 @@ function SignupPage(props) {
 
         <label>
           Name:
-          <input type="text" name="name" value={name} onChange={handleName}/>
+          <input type="text" name="name" value={fullname} onChange={handleName}/>
         </label>
 
         <label>
@@ -65,8 +65,8 @@ function SignupPage(props) {
 
       { errorMessage && <p className="error-message">{errorMessage}</p> }
 
-      <alert>Already have account?</alert>
-      <Link to={"/login"}> Login</Link>
+      <p>Already have an account? <Link to={"/login"}> Login</Link></p>
+      
     </div>
   )
 }
