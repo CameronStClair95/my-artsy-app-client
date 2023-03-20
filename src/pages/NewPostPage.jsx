@@ -7,9 +7,9 @@ function NewPostPage() {
 
   return (
     <div >
-{/*   <NewPost/>
- */}
-  <NewArtpost/>
+  <NewPost/>
+
+{/*   <NewArtpost/> */}
     </div>
   )
 }

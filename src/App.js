@@ -11,6 +11,7 @@ import LandingPage from './pages/LandingPage';
 import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import NewPost from './pages/NewPostPage';
+import NewArtpost from './components/NewArtpost';
 
 
 
@@ -41,7 +42,8 @@ function App() {
       <Route path=":userId/posts" /> {/* chat page */}
       <Route path=":userId/favorites" /> {/* chat page */}
 
-      <Route path="new-post" element={<NewPost/>}/>
+      <Route path="new-post/post" element={<NewPost/>}/>
+      <Route path="new-post/artpost" element={<NewArtpost/>}/>
 
       {/* route for the error page with message */}
       <Route path="*" element={<ErrorPage/>}/>

@@ -44,11 +44,6 @@ function NewArtpost() {
     <form onSubmit={handleArtpostSubmit}>
 
         <label>
-
-            <input/>
-        </label>
-
-        <label>
         Artist:
             <input type="text" name="artist" value={artist} onChange={handleArtist}/>
         </label>
@@ -84,9 +79,10 @@ function NewArtpost() {
         Image
             <input type="text" name='art_image' value={art_image} onChange={handleArt_image}/>
         </label>
-    </form>
 
     <button type="submit"> Submit</button>
+    </form>
+
     
     </div>
   )

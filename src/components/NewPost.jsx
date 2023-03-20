@@ -46,11 +46,12 @@ function NewPost() {
 
             <label>
             Show it
-                <input type="text" name="post_image" value={post_image} onChange={post_image}/>
+                <input type="text" name="post_image" value={post_image} onChange={handlePost_image}/>
             </label>
+
+        <button type="submit">Submit</button>
         </form>
 
-        <button type="submit"> Submit</button>
         
     </div>
   )
