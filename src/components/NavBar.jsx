@@ -8,13 +8,11 @@ import reactLogo from "../images/logo192.png"
 
 function NavBar() {
 
-  
   return (
     <div className={navbarCSS.navbar}>
       <img src={reactLogo} alt="" />
       
-
-      <h3>Macartsy</h3>
+      <h3 className={navbarCSS.h3}>Macartsy</h3>
 
       <div className={navbarCSS.buttons}>
         <Link to={"/about"}><button>About Page</button></Link>

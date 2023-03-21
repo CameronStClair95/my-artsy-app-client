@@ -1,51 +1,89 @@
+/* 
 import React, { useState, useEffect } from 'react';
 import axios from "axios"
 
-const API_URL = "http://localhost:5005"
+const API_URL = "http://localhost:5005/api/home"
 
+function HomePage({}) {
 
+    const [posts, setPosts] = useState([])
+    
+    const [isLoading, setLoading] = useState(true)
+    
+    function getPosts(){
+        axios.get(API_URL)
+            .then((response) => {
+                setPosts(response.data)
+                console.log(response.data)
+                setLoading(false)
+            })
+            .catch(error => console.log(error))
+    }
+    useEffect(() => {
+        getPosts();
+    }, []);
+    return(
+        <div>
+                            <p>Max</p>
+
+            {isLoading ? <p>Loading</p> : (
+                <div>
+                    <h1>Posts</h1>
+                    
+                </div>
+            )}
+            {posts.map((post) => {
+                        return(
+                            <div key={post._id}>
+                            <p>{post.content}</p>
+                        </div>
+                        )
+                    })}
+        </div>
+    )
+}
+export default HomePage */
+
+import React, { useState, useEffect } from 'react';
+import axios from "axios"
+
+const API_URL = "http://localhost:5005/api/home"
 
 function HomePage() {
 
-    const [posts, setPosts] = useState([])
-    const {content, place, post_image} = posts
+   const [posts,setPosts] = useState([1])
 
-    const [artPosts, setArtposts] = useState([])
-    const {artist, title, description, medium, year, dimensions, art_image} = artPosts
+   function getPosts(){
+    axios.get(API_URL)
+        .then((response) => {
+            setPosts(response.data)
+            console.log(response.data)
+            /* setLoading(false) */
+        })
+        .catch(error => console.log(error))
+}
+useEffect(() => {
+    getPosts();
+}, []);
 
-    function getPosts(){
-        axios.get(API_URL)
-            .then(response => setPosts(response.data))
-            .catch(error => console.log(error))
-    }
+  return (
+    <div>
+    
+        {!posts && "Falsy"}
+        {posts && (
+            posts.map(post=>{
+                return(
+                    <div>
+                        <p>{post.content}</p>
+                        <p>{post.place}</p>
+                        <p>{post.post_image}</p>
+                    </div>
+                )
+            })
+        )}
 
-    function getArtposts(){
-        axios.get(API_URL)
-            .then(response => setArtposts(response.data))
-            .catch(error => console.log(error))
-    }
-
-    const PostsWithArtposts = [posts, artPosts]
-
-    useEffect(() => {
-        getArtposts()
-    },[])
-
-    useEffect(() => {
-        getPosts()
-    },[])
-
-return(
-   <div>
-    {posts.map((post,i) => {
-        <div key={i}>
-            <h1>{content}</h1>
-        </div>
-    })}
-   </div> 
-)
-  
-
+    </div>
+  )
 }
 
 export default HomePage

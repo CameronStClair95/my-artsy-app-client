@@ -80,8 +80,10 @@ function NewArtpost() {
 
         <label>
         Image
-            <input type="text" name='art_image' value={art_image} onChange={handleArt_image}/>
+            <input type="file" name='art_image' value={art_image} onChange={handleArt_image}/>
         </label>
+
+        {/* <input type="file" id="myFile" name="filename"></input> */}
 
     <button type="submit"> Submit</button>
     </form>
