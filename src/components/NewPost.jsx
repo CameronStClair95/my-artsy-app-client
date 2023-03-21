@@ -9,6 +9,8 @@ function NewPost() {
     const [post_image, setPost_image] = useState("")
     const [errorMessage, setErrorMessage] = useState(undefined);
 
+    const API_URL = "http://localhost:5005"
+
 
     const navigate = useNavigate()
 
@@ -19,7 +21,7 @@ function NewPost() {
     const handlePostSubmit = (e) => {
         e.preventDefault()
         const requestBody = {content, place, post_image}
-        axios.post(/* put the right link here */ requestBody)
+        axios.post(`${API_URL}/api/new-post/post`, requestBody)
             .then(response => navigate("/home"))
             .catch((error) => {
                 const errorDescription = error.response.data.errorMessage

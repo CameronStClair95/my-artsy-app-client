@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import axios from "axios"
 
+const API_URL = "http://localhost:5005"
+
+
 function NewArtpost() {
 
     const [artist, SetArtist] = useState("")
@@ -29,7 +32,7 @@ function NewArtpost() {
     const handleArtpostSubmit = (e) => {
         e.preventDefault()
         const requestBody = {artist, title, description, medium, year, dimensionHeight, dimensionWidth, art_image}
-        axios.post(/* put the right link here */ requestBody)
+        axios.post(`${API_URL}/api/new-post/artpost`, [requestBody])
             .then(response => navigate("/home"))
             .catch((error) => {
                 const errorDescription = error.response.data.errorMessage

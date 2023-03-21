@@ -30,11 +30,11 @@ function LoginPage(props) {
             localStorage.setItem("authToken", response.data.authToken)
             authenticateUser()
             navigate("/")
+        })
         .catch((error) => {
-            const errorDescription = error.response.data.message
-            setErrorMessage(errorDescription)
-        })
-        })
+          const errorDescription = error.response.data.message
+          setErrorMessage(errorDescription)
+      })
 
   };
   
