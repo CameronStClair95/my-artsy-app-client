@@ -53,18 +53,21 @@ function HomePage() {
 
    const [posts,setPosts] = useState([1])
 
-   function getPosts(){
+   function getAllPosts(){
     axios.get(API_URL)
         .then((response) => {
             setPosts(response.data)
             console.log(response.data)
-            /* setLoading(false) */
+            
         })
         .catch(error => console.log(error))
 }
+
+
+
 useEffect(() => {
-    getPosts();
-}, []);
+    getAllPosts();
+}, []); 
 
   return (
     <div>
