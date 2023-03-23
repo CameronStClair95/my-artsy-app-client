@@ -12,8 +12,8 @@ function NewArtpost() {
     const [description, setDescription] = useState("")
     const [medium, setMedium] = useState("")
     const [year, setYear] = useState("")
-    const [dimensionHeight, setDimensionHeight] = useState("")
-    const [dimensionWidth, setDimensionWidth] = useState("")
+    const [dimensions, setDimensions] = useState("")
+    // const [dimensionWidth, setDimensionWidth] = useState("")
     const [art_image, setArt_image] = useState("")
     const [errorMessage, setErrorMessage] = useState(undefined);
 
@@ -25,13 +25,13 @@ function NewArtpost() {
     const handleDescription = (e) => setDescription(e.target.value)
     const handleMedium = (e) => setMedium(e.target.value)
     const handleYear = (e) => setYear(e.target.value)
-    const handleDimensionHeight = (e) => setDimensionHeight(e.target.value)
-    const handleDimensionWidth = (e) => setDimensionWidth(e.target.value)
+    const handleDimensions = (e) => setDimensions(e.target.value)
+    // const handleDimensionWidth = (e) => setDimensionWidth(e.target.value)
     const handleArt_image = (e) => setArt_image(e.target.value)
 
     const handleArtpostSubmit = (e) => {
         e.preventDefault()
-        const requestBody = {artist, title, description, medium, year, dimensionHeight, dimensionWidth, art_image}
+        const requestBody = {artist, title, description, medium, year, dimensions, art_image}
         axios.post(`${API_URL}/api/new-post/artpost`, [requestBody])
             .then(response => navigate("/home"))
             .catch((error) => {
@@ -39,6 +39,35 @@ function NewArtpost() {
                 setErrorMessage(errorDescription)
             })
     }
+
+    const uploadImage = (file) => {
+        return axios.post("http://localhost:5005/upload", file)
+          .then(res => res.data)
+          .catch(err => {
+            console.log(err)
+          });
+      };
+
+      const handleFileUpload = (e) => {
+        // console.log("The file to be uploaded is: ", e.target.files[0]);
+     
+        const uploadData = new FormData();
+     
+        // imageUrl => this name has to be the same as in the model since we pass
+        // req.body to .create() method when creating a new movie in '/api/movies' POST route
+        uploadData.append("imageUrl", e.target.files[0]);
+     
+        
+          uploadImage(uploadData)
+          .then(response => {
+            // console.log("response is: ", response);
+            // response carries "fileUrl" which we can use to update the state
+            setArt_image(response.fileUrl);
+          })
+          .catch(err => console.log("Error while uploading the file: ", err));
+      };
+
+
 
   return (
     <div>
@@ -73,14 +102,14 @@ function NewArtpost() {
 
         <label>
         Dimension
-            <input type="number" placeholder='Height' name="dimensionHeight" value={dimensionHeight} onChange={handleDimensionHeight}/>
-            X
-            <input type="number" placeholder='Width' name="dimensionWidth" value={dimensionWidth} onChange={handleDimensionWidth}/>
+            <input type="number" placeholder='Height' name="dimensions" value={dimensions} onChange={handleDimensions}/>
+            
+            {/* <input type="number" placeholder='Width' name="dimensionWidth" value={dimensionWidth} onChange={handleDimensionWidth}/> */}
         </label>
 
         <label>
         Image
-            <input type="file" name='art_image' value={art_image} onChange={handleArt_image}/>
+            <input type="file" name='art_image' onChange={ (e) => handleFileUpload(e)}/>
         </label>
 
         {/* <input type="file" id="myFile" name="filename"></input> */}
