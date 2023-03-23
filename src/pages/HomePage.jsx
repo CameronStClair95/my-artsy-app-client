@@ -51,13 +51,13 @@ const API_URL = "http://localhost:5005/api/home"
 
 function HomePage() {
 
-   const [posts,setPosts] = useState([1])
-
+   const [posts, setPosts] = useState([1])
+ 
    function getAllPosts(){
     axios.get(API_URL)
         .then((response) => {
             setPosts(response.data)
-            console.log(response.data)
+            
             
         })
         .catch(error => console.log(error))
@@ -71,20 +71,11 @@ useEffect(() => {
 
   return (
     <div>
-    
-        {!posts && "Falsy"}
-        {posts && (
-            posts.map(post=>{
-                return(
-                    <div>
-                        <p>{post.content}</p>
-                        <p>{post.place}</p>
-                        <p>{post.post_image}</p>
-                    </div>
-                )
-            })
-        )}
 
+   {/* Artpost Card */}
+
+   {/* Post Card */}
+    
     </div>
   )
 }
