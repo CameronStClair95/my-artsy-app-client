@@ -41,7 +41,7 @@ function NewArtpost() {
             })
     }
 
-    /* const uploadImage = (file) => {
+    const uploadImage = (file) => {
         return axios.post("http://localhost:5005/api/new-post/upload", file)
           .then(res => res.data)
           .catch(err => {
@@ -64,7 +64,7 @@ function NewArtpost() {
             console.log(response.fileUrl)
           })
           .catch(err => console.log("Error while uploading the file: ", err));
-      }; */
+      };
 
   return (
     <div>
@@ -107,9 +107,9 @@ function NewArtpost() {
         <label>
         Image
             {/* file upload with no cloudinary */}
-            <input type="file" name='art_image' value={art_image} onChange={handleArt_image}/>
+            {/* <input type="file" name='art_image' value={art_image} onChange={handleArt_image}/> */}
             {/* file upload with cloudinary */}
-            {/* <input type="file" name='art_image'  onChange={ (e) => handleFileUpload(e)}/> */}
+            <input type="file" name='art_image'  onChange={ (e) => handleFileUpload(e)}/>
         </label>
 
     <button type="submit"> Submit</button>

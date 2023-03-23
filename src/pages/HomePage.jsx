@@ -52,11 +52,14 @@ const API_URL = "http://localhost:5005/api/home"
 function HomePage() {
 
    const [posts, setPosts] = useState([1])
+   const [artPosts,setArtPosts] = useState([])
  
    function getAllPosts(){
     axios.get(API_URL)
         .then((response) => {
-            setPosts(response.data)
+            console.log(response.data)
+            setPosts(response.data.posts)
+            setArtPosts(response.data.artPosts)
             
             
         })
@@ -72,9 +75,28 @@ useEffect(() => {
   return (
     <div>
 
-   {/* Artpost Card */}
-
+    
    {/* Post Card */}
+    {posts.map(post=>{
+        return(
+            <div>
+                {post.content}
+            </div>
+        )
+    })}
+    
+   {/* Artpost Card */}
+   {artPosts.map(artpost => {
+    return (
+        <div>
+            {artpost.title}
+            <img src={artpost.art_image}/>
+            {/* <img src={artpost.image}/> */}
+
+        </div>
+        
+    )
+   })}
     
     </div>
   )
