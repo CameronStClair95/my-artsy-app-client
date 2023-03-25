@@ -39,6 +39,7 @@ function AuthProviderWrapper(props){
     function logOutUser(){
         removeToken()
         authenticateUser()
+        alert('Log Out Success')
     }
 
     useEffect(() => {

@@ -12,6 +12,8 @@ import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import NewPost from './pages/NewPostPage';
 import NewArtpost from './components/NewArtpost';
+import IsAnon from './components/auth/IsAnon';
+import IsPrivate from './components/auth/IsPrivate';
 
 
 
@@ -33,8 +35,8 @@ function App() {
 
     <Routes>
       {/* Authorization routes */}
-      <Route path="/signup" element={<SignupPage/>}/>
-      <Route path="/login" element={<LoginPage/>}/>
+      <Route path="/signup" element={<IsAnon><SignupPage/></IsAnon>} />
+      <Route path="/login" element={<IsAnon><LoginPage/></IsAnon>} />
 
       <Route path="/" element={<LandingPage/>}/> {/* index page */}
       <Route path="/home" element={<HomePage/>}/> {/* index page */}
@@ -42,8 +44,8 @@ function App() {
       <Route path=":userId/posts" /> {/* chat page */}
       <Route path=":userId/favorites" /> {/* chat page */}
 
-      <Route path="new-post/post" element={<NewPost/>}/>
-      <Route path="new-post/artpost" element={<NewArtpost/>}/>
+      <Route path="/new-post" element={<IsPrivate><NewPost /></IsPrivate>} />
+      <Route path="new-post/artpost" element={<IsPrivate><NewArtpost/></IsPrivate>}/>
 
       {/* route for the error page with message */}
       <Route path="*" element={<ErrorPage/>}/>
