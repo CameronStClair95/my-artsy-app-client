@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Carousel } from "react-bootstrap";
+import { Carousel, Card } from "react-bootstrap";
 import "../App.css";
 
-const API_URL = "http://localhost:5005/api/home"
+const API_URL = "http://localhost:5005/api/home";
 
 function HomePage() {
+  const [posts, setPosts] = useState([]);
+  const [artPosts, setArtPosts] = useState([]);
+  const [newsArtPosts, setNewsArtPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-   const [posts, setPosts] = useState([]);
-   const [artPosts, setArtPosts] = useState([]);
-   const [isLoading, setIsLoading] = useState(true);
+  function getAllPosts() {
+    axios
+      .get(API_URL)
+      .then((response) => {
+        console.log(response.data);
+        setPosts(response.data.posts);
+        setArtPosts(response.data.artPosts);
+        setNewsArtPosts(response.data.newsArtPost);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  }
 
-   function getAllPosts() {
-    axios.get(API_URL)
-        .then((response) => {
-            console.log(response.data)
-            setPosts(response.data.posts)
-            setArtPosts(response.data.artPosts)
-            setIsLoading(false);
-        })
-        .catch(error => {
-            console.log(error)
-            setIsLoading(false);
-        });
-
-        axios.get("")
-}
-
-useEffect(() => {
+  useEffect(() => {
     getAllPosts();
-}, []); 
+  }, []);
 
   return (
     <div className="HomePage">
@@ -94,7 +94,7 @@ useEffect(() => {
           </Carousel>
         </div> */}
     </div>
-  )
+  );
 }
 
 export default HomePage;
