@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {Link, useNavigate } from 'react-router-dom';
 import axios from "axios"
+import { AuthContext } from '../context/Auth.context';
 
 
 
@@ -8,6 +9,8 @@ const API_URL = "http://localhost:5005"
 
 
 function NewArtpost() {
+
+    const {user} = useContext(AuthContext)
 
     const [postForm, setPostForm] = useState(true)
 
@@ -37,7 +40,7 @@ function NewArtpost() {
 
     const handleArtpostSubmit = (e) => {
         e.preventDefault()
-        const requestBody = {artist, title, description, medium, year, dimensions, art_image}
+        const requestBody = {artist, title, description, medium, year, dimensions, art_image, author:user._id}
         axios.post(`${API_URL}/api/new-post/artpost`, requestBody)
             .then(response => navigate("/home"))
             

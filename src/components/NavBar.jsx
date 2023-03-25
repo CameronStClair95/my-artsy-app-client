@@ -18,28 +18,26 @@ function NavBar() {
     <div className={navbarCSS.navbar}>
       <img src={reactLogo} alt="React Logo" />
 
-      <h3 className={navbarCSS.h3}>Macartsy</h3>
+      <Link to="/home"><h3 className={navbarCSS.h3}>Macartsy</h3></Link>
 
       <div className={navbarCSS.buttons}>
-        <Link to="/about">
-          <button className="btn btn-primary">About Page</button>
-        </Link>
+        
         {isLoggedIn ? (
           <>
-        <Link to="/home">
-          <button>Home</button>
-        </Link>
-            <Link to="/new-post">
+        
+            <Link to="/new-post/post">
               <button>Create new Post</button>
             </Link>
+            <Link to="/user"><button>User</button></Link>
             <Link to="/">
               <button className="btn btn-primary" onClick={handleLogOut}>Log Out</button>
-          
-
             </Link>
             </>
         ) : (
           <>
+          <Link to="/about">
+          <button className="btn btn-primary">About Page</button>
+        </Link>
             <Link to="/signup">
               <button>Sign Up</button>
             </Link>

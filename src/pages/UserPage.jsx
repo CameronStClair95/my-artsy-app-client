@@ -49,8 +49,8 @@ function UserPage(props) {
 <div className='userPage-grid'>
     <div className='userPage-info'> {/* div for user information and options to do */}
         <img src="https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"/>
-        <p>username</p>
-        <p>user's fullname</p>
+        <p>{user?.username}</p>
+        <p>{user?.fullname}</p>
         <p>{user?.email}</p>
         <p>change name?</p>
         <p>favorite posts</p>
@@ -58,8 +58,10 @@ function UserPage(props) {
     </div>
 
     <div className='userPage-posts'> {/* div for displaying posts created by user */}
+    <h1>Posts</h1>
         {posts.map((post) => {
             return(
+         post.author === user._id &&   
                 <div key={post._id}>
                     <h2>{post.content}</h2>
                     <h5>{post.place}</h5>
@@ -71,8 +73,10 @@ function UserPage(props) {
     </div>
 
     <div className='userPage-artposts'> {/* div for displaying artposts created by user */}
-        {artPosts.map((artpost) => {
+       <h1>Artposts</h1>
+       {artPosts.map((artpost) => {
             return(
+                artpost.author === user._id &&
                 <div key={artpost._id}>
 
                     <h2>{artpost.title}</h2>

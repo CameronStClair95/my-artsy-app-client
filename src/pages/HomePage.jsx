@@ -8,7 +8,7 @@ const API_URL = "http://localhost:5005/api/home";
 function HomePage() {
   const [posts, setPosts] = useState([]);
   const [artPosts, setArtPosts] = useState([]);
-  const [newsArtPosts, setNewsArtPosts] = useState([]);
+  const [newsPosts, setNewsPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   function getAllPosts() {
@@ -18,7 +18,7 @@ function HomePage() {
         console.log(response.data);
         setPosts(response.data.posts);
         setArtPosts(response.data.artPosts);
-        setNewsArtPosts(response.data.newsArtPost);
+        setNewsPosts(response.data.newsPosts);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -41,7 +41,14 @@ function HomePage() {
             
 
     <div className='home-news'>
-      <h1>here goes the news</h1>
+      
+      {newsPosts.map(news => {
+        return(
+          <div key={news._id}>
+            <h6>{news.title}</h6>
+          </div>
+        )
+      })}
     </div>
 
     <div className='posts-artposts'>
@@ -51,6 +58,8 @@ function HomePage() {
             return (
                 <div key={post._id}>
                     <h4>{post.content}</h4>
+                    <img src={post.post_image}/>
+                    <p>{post.createdAt}</p>
                 </div>
             )
         })}

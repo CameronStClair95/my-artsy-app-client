@@ -48,7 +48,7 @@ function App() {
       <Route path="/:userId/posts" /> {/* chat page */}
       <Route path="/:userId/favorites" /> {/* chat page */}
 
-      <Route path="/new-post" element={<IsPrivate><NewPost /></IsPrivate>} />
+      <Route path="/new-post/post" element={<IsPrivate><NewPost /></IsPrivate>} />
       <Route path="new-post/artpost" element={<IsPrivate><NewArtpost/></IsPrivate>}/>
 
       {/* route for the error page with message */}

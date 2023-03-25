@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {Link, useNavigate } from 'react-router-dom';
 import axios from "axios"
+import { AuthContext } from '../context/Auth.context';
 
 const API_URL = "http://localhost:5005"
 
@@ -11,9 +12,12 @@ function NewPost() {
     const [content, setContent] = useState("")
     const [place, setPlace] = useState("")
     const [post_image, setPost_image] = useState("")
+    
     const [errorMessage, setErrorMessage] = useState(undefined);
 
     const navigate = useNavigate()
+
+    const {user} = useContext(AuthContext)
 
     function togglePostForms(){
         setPostForm()
@@ -25,7 +29,7 @@ function NewPost() {
 
     const handlePostSubmit = (e) => {
         e.preventDefault()
-        const requestBody = {content, place, post_image}
+        const requestBody = {content, place, post_image, author:user._id}
         axios.post(`${API_URL}/api/new-post/post`, requestBody)
             .then(response => navigate("/home"))
 
