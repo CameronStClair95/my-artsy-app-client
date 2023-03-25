@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate } from 'react-router-dom';
+import {Link, useNavigate } from 'react-router-dom';
 import axios from "axios"
+
+
 
 const API_URL = "http://localhost:5005"
 
 
 function NewArtpost() {
+
+    const [postForm, setPostForm] = useState(true)
 
     const [artist, SetArtist] = useState("")
     const [title, setTitle] = useState("")
@@ -13,12 +17,14 @@ function NewArtpost() {
     const [medium, setMedium] = useState("")
     const [year, setYear] = useState("")
     const [dimensions, setDimensions] = useState("")
-    /* const [dimensionWidth, setDimensionWidth] = useState("") */
     const [art_image, setArt_image] = useState("")
     const [errorMessage, setErrorMessage] = useState(undefined);
 
-
     const navigate = useNavigate()
+
+    function togglePostForms(){
+        setPostForm()
+      }
 
     const handleArtist = (e) => SetArtist(e.target.value)
     const handleTitle = (e) => setTitle(e.target.value)
@@ -40,13 +46,11 @@ function NewArtpost() {
                 setErrorMessage("this is an error you have", errorDescription)
             })
     }
-
     const uploadImage = (file) => {
-        return axios.post("http://localhost:5005/api/new-post/upload", file)
+        return axios.post(`${API_URL}/api/new-post/upload`, file)
           .then(res => res.data)
-          .catch(err => {
-            console.log(err)
-          });
+
+          .catch(error => console.log("error while uploading image: ", error))
       };
 
       const handleFileUpload = (e) => {
@@ -61,7 +65,7 @@ function NewArtpost() {
             // console.log("response is: ", response);
             // response carries "fileUrl" which we can use to update the state
             setArt_image(response.fileUrl);
-            console.log(response.fileUrl)
+            console.log("this is the link for the image", response.fileUrl)
           })
           .catch(err => console.log("Error while uploading the file: ", err));
       };
@@ -69,6 +73,8 @@ function NewArtpost() {
   return (
     <div>
     <h1>Art Post submit form</h1>
+    <Link to="/home"><button>Go Back</button></Link>
+    {postForm && <Link to="/new-post/post"><button>Create Post</button></Link>}
 
     <form onSubmit={handleArtpostSubmit}>
 
@@ -100,16 +106,15 @@ function NewArtpost() {
         <label>
         Dimension
             <input type="number" name="dimensions" value={dimensions} onChange={handleDimensions}/>
-        
-            {/* <input type="number" placeholder='Width' name="dimensionWidth" value={dimensionWidth} onChange={handleDimensionWidth}/> */}
         </label>
 
         <label>
         Image
-            {/* file upload with no cloudinary */}
-            {/* <input type="file" name='art_image' value={art_image} onChange={handleArt_image}/> */}
             {/* file upload with cloudinary */}
             <input type="file" name='art_image'  onChange={ (e) => handleFileUpload(e)}/>
+
+            {/* file upload with no cloudinary */}
+            {/* <input type="file" name='art_image' value={art_image} onChange={handleArt_image}/> */}
         </label>
 
     <button type="submit"> Submit</button>

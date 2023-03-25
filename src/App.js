@@ -10,8 +10,9 @@ import SignupPage from './pages/SignupPage';
 import LandingPage from './pages/LandingPage';
 import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
-import NewPost from './pages/NewPostPage';
+import NewPost from './components/NewPost';
 import NewArtpost from './components/NewArtpost';
+import UserPage from './pages/UserPage';
 
 
 
@@ -38,9 +39,9 @@ function App() {
 
       <Route path="/" element={<LandingPage/>}/> {/* index page */}
       <Route path="/home" element={<HomePage/>}/> {/* index page */}
-      <Route path=":userId" /> {/* chat page */}
-      <Route path=":userId/posts" /> {/* chat page */}
-      <Route path=":userId/favorites" /> {/* chat page */}
+      <Route path="/user" element={<UserPage/>}/> {/* chat page */}
+      <Route path="/:userId/posts" /> {/* chat page */}
+      <Route path="/:userId/favorites" /> {/* chat page */}
 
       <Route path="new-post/post" element={<NewPost/>}/>
       <Route path="new-post/artpost" element={<NewArtpost/>}/>

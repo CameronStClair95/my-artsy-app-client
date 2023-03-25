@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {Link, useNavigate } from 'react-router-dom';
 import axios from "axios"
 
+const API_URL = "http://localhost:5005"
+
 function NewPost() {
+
+    const [postForm, setPostForm] = useState(true)
 
     const [content, setContent] = useState("")
     const [place, setPlace] = useState("")
     const [post_image, setPost_image] = useState("")
     const [errorMessage, setErrorMessage] = useState(undefined);
 
-    const API_URL = "http://localhost:5005"
-
-
     const navigate = useNavigate()
+
+    function togglePostForms(){
+        setPostForm()
+      }
 
     const handleContent = (e) => setContent(e.target.value)
     const handlePlace = (e) => setPlace(e.target.value)
@@ -23,16 +28,40 @@ function NewPost() {
         const requestBody = {content, place, post_image}
         axios.post(`${API_URL}/api/new-post/post`, requestBody)
             .then(response => navigate("/home"))
+
             .catch((error) => {
                 const errorDescription = error.response.data.errorMessage
                 setErrorMessage(errorDescription) 
             })
     }
 
+    const uploadImage = (file) => {
+        return axios.post(`${API_URL}/api/new-post/upload`, file)
+        .then(res => res.data)
+
+        .catch(error => console.log("error while uploading image", error))
+    }
+
+    const handleFileUpload = (e) => {
+        const uploadData = new FormData()
+
+        uploadData.append("imageUrl", e.target.files[0])
+
+        uploadImage(uploadData)
+        .then((response) => {
+            setPost_image(response.fileUrl)
+            console.log("this is the link for the image", response.fileUrl)
+        })
+
+        .catch(err => console.log("Error while uploading the file: ", err));
+    }
+
 
   return (
     <div>
         <h1>"Post" post submit form</h1>
+        <Link to="/home"><button>Go Back</button></Link>
+        {postForm && <Link to="/new-post/artpost"><button>Create Artpost</button></Link>}
 
         <form onSubmit={handlePostSubmit}>
 
@@ -48,7 +77,7 @@ function NewPost() {
 
             <label>
             Show it
-                <input type="text" name="post_image" value={post_image} onChange={handlePost_image}/>
+                <input type="file" name="post_image"  onChange={(e) => handleFileUpload(e)}/>
             </label>
 
         <button type="submit">Submit</button>

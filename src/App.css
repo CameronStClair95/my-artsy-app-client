@@ -45,5 +45,66 @@
     text-align: left;
   }
   
-  
-  
+.userPage-grid {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+}
+
+.userPage-posts {
+  border: 2px solid blue;
+  height: fit-content;
+  padding: 10px
+}
+
+.userPage-artposts {
+  border: 2px solid darkblue;
+  width: 60ch;
+  padding: 10px
+}
+
+.userPage-info {
+  border: 2px solid lightblue;
+  height: fit-content;
+  padding: 10px
+}
+
+.home-news{
+  border: 2px solid red;
+  margin: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.posts-artposts {
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  border: 2px solid black;
+}
+
+.home-posts{
+border: 2px solid green;
+height: fit-content;
+width: 400px;
+padding: 15px;
+}
+
+.home-artposts{
+border: 2px solid yellowgreen;
+width: 400px;
+padding: 15px;
+}
+
+h4{
+  padding-bottom: 10px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 25vh;
+}
+
+/* 400px */

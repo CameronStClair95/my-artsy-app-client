@@ -23,6 +23,8 @@ function HomePage() {
             console.log(error)
             setIsLoading(false);
         });
+
+        axios.get("")
 }
 
 useEffect(() => {
@@ -31,21 +33,48 @@ useEffect(() => {
 
   return (
     <div className="HomePage">
+
     {isLoading ? (
-        <p>Loading...</p>
-    ) : (
-        <>
-        {/* Post Card */}
+            <h2 className='loading'>Loading...</h2>
+        ) : (
+            <>
+            
+
+    <div className='home-news'>
+      <h1>here goes the news</h1>
+    </div>
+
+    <div className='posts-artposts'>
+
+      <div className='home-posts'>
         {posts.map(post => {
             return (
                 <div key={post._id}>
-                    {post.content}
+                    <h4>{post.content}</h4>
                 </div>
             )
         })}
+      </div>
+
+      <div className='home-artposts'>
+        {artPosts.map(artpost => {
+          return(
+            <div key={artpost._id}>
+              <h4>{artpost.title}</h4>
+              <img src={artpost.art_image}/>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+
+    </>
+        )}
+        {/* Post Card */}
+        
         
         {/* Artpost Carousel */}
-        <div className="artpost-carousel">
+        {/* <div className="artpost-carousel">
           <Carousel>
             {artPosts.map(artpost => {
               return (
@@ -63,9 +92,7 @@ useEffect(() => {
               )
             })}
           </Carousel>
-        </div>
-        </>
-    )}
+        </div> */}
     </div>
   )
 }
