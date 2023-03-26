@@ -1,0 +1,21 @@
+<Carousel>
+            <Carousel.Item>
+              {/* <img
+                className="d-block w-100"
+                src={news.News_image}
+                alt="news image"
+              /> */}
+              <Carousel.Caption>
+                <h3>{news.title}</h3>
+                <p>{news.description}</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
+
+
+
+          {/* <div key={post._id}>
+            <h4>{post.content}</h4>
+            <img src={post.post_image}/>
+            <p>{post.createdAt}</p>
+        </div> */}

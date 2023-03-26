@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Carousel, Card } from "react-bootstrap";
 import "../App.css";
+import NewsCard from "../components/NewsCard";
+import PostCard from "../components/PostCard";
+import { Link } from "react-router-dom";
 
 const API_URL = "http://localhost:5005/api/home";
 
@@ -38,17 +41,21 @@ function HomePage() {
             <h2 className='loading'>Loading...</h2>
         ) : (
             <>
-            
-
     <div className='home-news'>
-      
+
+          <Carousel>
       {newsPosts.map(news => {
         return(
-          <div key={news._id}>
-            <h6>{news.title}</h6>
-          </div>
+            <Carousel.Item>
+                <img className="d-block" src={news.image} alt="news image"/>
+                <Carousel.Caption>
+                  <h3>{news.title}</h3>
+                  <Link to={news.source} target="_blank"><p>read more</p></Link>
+                </Carousel.Caption>
+            </Carousel.Item>
         )
       })}
+          </Carousel>
     </div>
 
     <div className='posts-artposts'>
@@ -56,11 +63,8 @@ function HomePage() {
       <div className='home-posts'>
         {posts.map(post => {
             return (
-                <div key={post._id}>
-                    <h4>{post.content}</h4>
-                    <img src={post.post_image}/>
-                    <p>{post.createdAt}</p>
-                </div>
+              <PostCard key={post._id} {...post}/>
+                
             )
         })}
       </div>

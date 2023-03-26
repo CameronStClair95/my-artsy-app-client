@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios"
+import { Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 const API_URL = "http://localhost:5005"
 
 const AuthContext = React.createContext()
+
 
 function AuthProviderWrapper(props){
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,7 +42,8 @@ function AuthProviderWrapper(props){
     function logOutUser(){
         removeToken()
         authenticateUser()
-        alert('Log Out Success')
+        
+        alert("You just Logged Out, my friend.")
     }
 
     useEffect(() => {

@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom';
 import reactLogo from "../images/logo192.png"
 import { AuthContext } from "../context/Auth.context"; 
 
+import { Dropdown } from "react-bootstrap";
+
 
 function NavBar() {
   const { isLoggedIn, logOutUser} = useContext(AuthContext); // Get properties from AuthContext
@@ -24,14 +26,23 @@ function NavBar() {
         
         {isLoggedIn ? (
           <>
-        
-            <Link to="/new-post/post">
-              <button>Create new Post</button>
-            </Link>
-            <Link to="/user"><button>User</button></Link>
-            <Link to="/">
-              <button className="btn btn-primary" onClick={handleLogOut}>Log Out</button>
-            </Link>
+          <div className={navbarCSS.right_buttons}>
+
+          <Link to="/new-post/post"><button>New Post</button></Link>
+
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              More
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item><Link to="/user">User</Link></Dropdown.Item>
+              <Dropdown.Item>Something else</Dropdown.Item>
+              <Dropdown.Item><Link to="/" onClick={handleLogOut}>Log Out</Link></Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          </div>
             </>
         ) : (
           <>
@@ -46,10 +57,7 @@ function NavBar() {
               </Link>
           </>
         )}
-        {/* <select>
-          <option><button>change the theme</button></option>
-          <option><Link to={"/UserId"}><button>Log Out</button></Link></option>
-        </select> */}
+        
       </div>
     </div>
   )

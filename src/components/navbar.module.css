@@ -23,3 +23,8 @@ img {
     align-items: space-between;
     justify-content: space-between;
 }
+
+.right_buttons {
+    display: flex;
+    flex-direction: row;
+}
