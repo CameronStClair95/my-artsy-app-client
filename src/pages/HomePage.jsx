@@ -75,6 +75,7 @@ function HomePage() {
             <div key={artpost._id}>
               <h4>{artpost.title}</h4>
               <img src={artpost.art_image}/>
+              <p>{artpost.author}</p>
             </div>
           )
         })}
