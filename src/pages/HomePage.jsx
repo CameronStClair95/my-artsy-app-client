@@ -63,7 +63,7 @@ function HomePage() {
       <div className='home-posts'>
         {posts.map(post => {
             return (
-              <PostCard key={post._id} {...post}/>
+              <PostCard key={post._id} {...post} postId={post._id} />
                 
             )
         })}
