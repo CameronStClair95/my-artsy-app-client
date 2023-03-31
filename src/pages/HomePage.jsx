@@ -36,77 +36,58 @@ function HomePage() {
 
   return (
     <div className="HomePage">
+      {isLoading ? (
+        <h2 className="loading">Loading...</h2>
+      ) : (
+        <>
+          <div className="carousel-container">
+            <Carousel>
+              {newsPosts.map((news, index) => {
+                return (
+                  <Carousel.Item
+                    key={news._id}
+                    className={index === 0 ? "active" : ""}
+                  >
+                    <img
+                      className="d-block w-100 carousel-image-custom"
+                      src={news.image}
+                      alt="news image"
+                    />
+                    <Carousel.Caption className="d-none d-md-block">
+                      <h3>{news.title}</h3>
+                      <Link to={news.source} target="_blank">
+                        <button type="button" className="btn btn-outline-light">
+                          Read More
+                        </button>
+                      </Link>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                );
+              })}
+            </Carousel>
+          </div>
 
-    {isLoading ? (
-            <h2 className='loading'>Loading...</h2>
-        ) : (
-            <>
-    <div className='home-news'>
-
-          <Carousel>
-      {newsPosts.map(news => {
-        return(
-            <Carousel.Item>
-                <img className="d-block" src={news.image} alt="news image"/>
-                <Carousel.Caption>
-                  <h3>{news.title}</h3>
-                  <Link to={news.source} target="_blank"><p>read more</p></Link>
-                </Carousel.Caption>
-            </Carousel.Item>
-        )
-      })}
-          </Carousel>
-    </div>
-
-    <div className='posts-artposts'>
-
-      <div className='home-posts'>
-        {posts.map(post => {
-            return (
-              <PostCard key={post._id} {...post} postId={post._id} />
-                
-            )
-        })}
-      </div>
-
-      <div className='home-artposts'>
-        {artPosts.map(artpost => {
-          return(
-            <div key={artpost._id}>
-              <h4>{artpost.title}</h4>
-              <img src={artpost.art_image}/>
-              <p>{artpost.author}</p>
+          <div className="posts-artposts">
+            <div className="home-posts">
+              {posts.map((post) => {
+                return <PostCard key={post._id} {...post} postId={post._id} />;
+              })}
             </div>
-          )
-        })}
-      </div>
-    </div>
 
-    </>
-        )}
-        {/* Post Card */}
-        
-        
-        {/* Artpost Carousel */}
-        {/* <div className="artpost-carousel">
-          <Carousel>
-            {artPosts.map(artpost => {
-              return (
-                <Carousel.Item key={artpost._id}>
-                  <img
-                    className="d-block w-100"
-                    src={artpost.art_image}
-                    alt="Art"
-                  />
-                  <Carousel.Caption>
-                    <h3>{artpost.title}</h3>
-                    <p>{artpost.description}</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              )
-            })}
-          </Carousel>
-        </div> */}
+            <div className="home-artposts">
+              {artPosts.map((artpost) => {
+                return (
+                  <div key={artpost._id}>
+                    <h4>{artpost.title}</h4>
+                    <img src={artpost.art_image} />
+                    <p>{artpost.author}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -14,7 +14,7 @@ function UpdatePostDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/api/new-post/posts/${postId}`)
+      .get(`http://localhost:5005/api/posts/${postId}`)
       .then((response) => {
         const post = response.data.post;
         setContent(post.content);
@@ -34,7 +34,7 @@ function UpdatePostDetails() {
     const requestBody = { content, place, post_image };
 
     axios
-      .put(`${API_URL}/api/new-post/posts/${postId}`, requestBody)
+      .put(`${API_URL}/api/posts/${postId}/update`, requestBody)
       .then((response) => {
         console.log(response.data);
         navigate(`/post/${postId}`);
@@ -48,7 +48,7 @@ function UpdatePostDetails() {
       <form onSubmit={handleFormSubmit}>
         <label>
           Content:
-          <input type="text" value={content} onChange={handleContentChange} />
+          <input type="text" placeholder={content} value={content} onChange={handleContentChange} />
         </label>
         <label>
           Place:
@@ -57,7 +57,7 @@ function UpdatePostDetails() {
         <label>
           Post Image:
           <input
-            type="text"
+            type="file"
             value={post_image}
             onChange={handlePostImageChange}
           />

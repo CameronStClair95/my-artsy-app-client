@@ -16,6 +16,8 @@ import UserPage from './pages/UserPage';
 import IsAnon from './components/auth/IsAnon';
 import IsPrivate from './components/auth/IsPrivate';
 import PostDetailsPage from './pages/PostDetailsPage';
+import UpdatePostDetails from './pages/UpdatePostDetails';
+
 
 
 /* 
@@ -48,7 +50,7 @@ function App() {
       <Route path="/new-post/post" element={<IsPrivate><NewPost /></IsPrivate>} />
       <Route path="new-post/artpost" element={<IsPrivate><NewArtpost/></IsPrivate>}/>
       <Route path="/post/:postId" element={<PostDetailsPage />} />
-
+      <Route path="/post/:postId/update" element={<UpdatePostDetails/>} />
 
       {/* route for the error page with message */}
       <Route path="*" element={<ErrorPage/>}/>

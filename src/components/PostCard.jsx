@@ -1,11 +1,24 @@
 import React from "react";
+import axios from "axios";
 import { Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function PostCard({ content, place, post_image, postId }) {
+  const API_URL = "http://localhost:5005";
+  const navigate = useNavigate();
+
   const handleDelete = () => {
     console.log(`Deleting post with id ${postId}`);
-    // add code here to make a DELETE request to delete the post from the server
+
+    axios
+      .delete(`${API_URL}/api/posts/${postId}`)
+      .then((response) => {
+        console.log("Post deleted successfully:", response.data);
+        navigate("/home"); // Navigate to the home page after successful deletion
+      })
+      .catch((error) => {
+        console.log("Error deleting post:", error);
+      });
   };
 
   return (
@@ -18,7 +31,7 @@ function PostCard({ content, place, post_image, postId }) {
           <Link to={`/post/${postId}`}>
             <Button variant="primary">Post Details</Button>
           </Link>
-          <Link to={`/api/new-post/posts/${postId}`}>
+          <Link to={`/post/${postId}/update`}>
             <Button variant="warning" className="mx-2">
               Update Post
             </Button>
