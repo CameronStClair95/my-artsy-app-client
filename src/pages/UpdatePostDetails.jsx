@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -7,6 +7,7 @@ const API_URL = "http://localhost:5005";
 function UpdatePostDetails() {
   const { postId } = useParams();
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   const [content, setContent] = useState("");
   const [place, setPlace] = useState("");
@@ -26,15 +27,26 @@ function UpdatePostDetails() {
 
   const handleContentChange = (e) => setContent(e.target.value);
   const handlePlaceChange = (e) => setPlace(e.target.value);
-  const handlePostImageChange = (e) => setPost_image(e.target.value);
-
+  const handlePostImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setPost_image(e.target.files[0]);
+    }
+  };
+  
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    const requestBody = { content, place, post_image };
-
+  
+    const formData = new FormData();
+    formData.append("content", content);
+    formData.append("place", place);
+    formData.append("post_image", post_image);
+  
     axios
-      .put(`${API_URL}/api/posts/${postId}/update`, requestBody)
+      .put(`${API_URL}/api/posts/${postId}/update`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         console.log(response.data);
         navigate(`/post/${postId}`);
@@ -56,11 +68,8 @@ function UpdatePostDetails() {
         </label>
         <label>
           Post Image:
-          <input
-            type="file"
-            value={post_image}
-            onChange={handlePostImageChange}
-          />
+          <input type="file" ref={fileInputRef} onChange={handlePostImageChange} />
+
         </label>
         <button type="submit">Update Post</button>
       </form>

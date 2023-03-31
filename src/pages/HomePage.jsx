@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Carousel, Card } from "react-bootstrap";
+import { Carousel, Card, Spinner } from "react-bootstrap";
 import "../App.css";
-import NewsCard from "../components/NewsCard";
+// import NewsCard from "../components/NewsCard";
 import PostCard from "../components/PostCard";
+import ArtPostCard from '../components/ArtpostCard';
 import { Link } from "react-router-dom";
 
 const API_URL = "http://localhost:5005/api/home";
@@ -37,7 +38,11 @@ function HomePage() {
   return (
     <div className="HomePage">
       {isLoading ? (
-        <h2 className="loading">Loading...</h2>
+        <div className="loading">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
       ) : (
         <>
           <div className="carousel-container">
@@ -76,14 +81,7 @@ function HomePage() {
 
             <div className="home-artposts">
               {artPosts.map((artpost) => {
-                return (
-                  <div key={artpost._id}>
-                    <h4>{artpost.title}</h4>
-                    <img src={artpost.art_image} />
-                    <p>{artpost.author}</p>
-                  </div>
-                );
-              })}
+return <ArtPostCard key={artpost._id} artpostId={artpost._id} />;              })}
             </div>
           </div>
         </>

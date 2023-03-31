@@ -119,6 +119,6 @@ h4{
 }
 
 .carousel-image-custom {
-  height: 500px; /* Adjust this value to the desired height */
-  object-fit: scale-down;
+  height: 550px; /* Adjust this value to the desired height */
+  object-fit: fill;
 }
