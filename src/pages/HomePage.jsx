@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Carousel, Card } from "react-bootstrap";
+import { Carousel, Card, Spinner } from "react-bootstrap";
 import "../App.css";
-import NewsCard from "../components/NewsCard";
+// import NewsCard from "../components/NewsCard";
 import PostCard from "../components/PostCard";
+import ArtPostCard from "../components/ArtpostCard";
 import { Link } from "react-router-dom";
 
 const API_URL = "http://localhost:5005/api/home";
@@ -36,77 +37,65 @@ function HomePage() {
 
   return (
     <div className="HomePage">
+      {isLoading ? (
+        <div className="loading">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <>
+          <div className="carousel-container">
+            <Carousel>
+              {newsPosts.map((news, index) => {
+                return (
+                  <Carousel.Item
+                    key={news._id}
+                    className={index === 0 ? "active" : ""}
+                  >
+                    <img
+                      className="d-block w-100 carousel-image-custom"
+                      src={news.image}
+                      alt="news image"
+                    />
+                    <Carousel.Caption className="d-none d-md-block">
+                      <h3>{news.title}</h3>
+                      <Link to={news.source} target="_blank">
+                        <button type="button" className="btn btn-outline-light">
+                          Read More
+                        </button>
+                      </Link>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                );
+              })}
+            </Carousel>
+          </div>
 
-    {isLoading ? (
-            <h2 className='loading'>Loading...</h2>
-        ) : (
-            <>
-    <div className='home-news'>
-
-          <Carousel>
-      {newsPosts.map(news => {
-        return(
-            <Carousel.Item>
-                <img className="d-block" src={news.image} alt="news image"/>
-                <Carousel.Caption>
-                  <h3>{news.title}</h3>
-                  <Link to={news.source} target="_blank"><p>read more</p></Link>
-                </Carousel.Caption>
-            </Carousel.Item>
-        )
-      })}
-          </Carousel>
-    </div>
-
-    <div className='posts-artposts'>
-
-      <div className='home-posts'>
-        {posts.map(post => {
-            return (
-              <PostCard key={post._id} {...post}/>
-                
-            )
-        })}
-      </div>
-
-      <div className='home-artposts'>
-        {artPosts.map(artpost => {
-          return(
-            <div key={artpost._id}>
-              <h4>{artpost.title}</h4>
-              <img src={artpost.art_image}/>
-              <p>{artpost.author}</p>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-
-    </>
-        )}
-        {/* Post Card */}
-        
-        
-        {/* Artpost Carousel */}
-        {/* <div className="artpost-carousel">
-          <Carousel>
-            {artPosts.map(artpost => {
-              return (
-                <Carousel.Item key={artpost._id}>
-                  <img
-                    className="d-block w-100"
-                    src={artpost.art_image}
-                    alt="Art"
+          <div className="posts-artposts">
+            <div className="home-posts">
+              {posts.map((post) => {
+                return (
+                  <PostCard
+                    key={post._id}
+                    {...post}
+                    postId={post._id}
+                    getAllPosts={getAllPosts}
                   />
-                  <Carousel.Caption>
-                    <h3>{artpost.title}</h3>
-                    <p>{artpost.description}</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              )
-            })}
-          </Carousel>
-        </div> */}
+                );
+              })}
+            </div>
+
+            <div className="home-artposts">
+              {artPosts.map((artpost) => {
+                return (
+                  <ArtPostCard key={artpost._id} artpostId={artpost._id} />
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

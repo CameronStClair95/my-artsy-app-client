@@ -30,7 +30,7 @@ function NewPost() {
     const handlePostSubmit = (e) => {
         e.preventDefault()
         const requestBody = {content, place, post_image, author:user._id}
-        axios.post(`${API_URL}/api/new-post/post`, requestBody)
+        axios.post(`${API_URL}/api/posts`, requestBody)
             .then(response => navigate("/home"))
 
             .catch((error) => {
@@ -40,7 +40,7 @@ function NewPost() {
     }
 
     const uploadImage = (file) => {
-        return axios.post(`${API_URL}/api/new-post/upload`, file)
+        return axios.post(`${API_URL}/api/posts/upload`, file)
         .then(res => res.data)
 
         .catch(error => console.log("error while uploading image", error))
