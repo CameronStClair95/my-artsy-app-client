@@ -32,13 +32,14 @@ function SignupPage(props) {
       .then((response) => navigate("/login"))
       .catch((error) => {
         console.log("The error is", error);
-        const errorDescription = error.response.data.errorMessage;
-        setErrorMessage(errorDescription);
+       /*  const errorDescription = error.response.data.errorMessage;
+        setErrorMessage(errorDescription); */
       });
   };
 
   return (
     <div className="SignupPage">
+      <Link to="/">Go back</Link>
       <h1>Sign Up</h1>
       <Form onSubmit={handleSignupSubmit}>
         <Form.Group controlId="formFullName">

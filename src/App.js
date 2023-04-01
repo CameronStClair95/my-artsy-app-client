@@ -15,11 +15,8 @@ import NewArtpost from './components/NewArtpost';
 import UserPage from './pages/UserPage';
 import IsAnon from './components/auth/IsAnon';
 import IsPrivate from './components/auth/IsPrivate';
-
-
-
-
-
+import ConfirmationPage from './pages/ConfirmationPage';
+import UpdateUserPage from './pages/UpdateUserPage';
 
 /* 
 to use ThemeContext in each component:
@@ -43,10 +40,13 @@ function App() {
       <Route path="/login" element={<IsAnon><LoginPage/></IsAnon>} />
 
       <Route path="/" element={<LandingPage/>}/> {/* index page */}
-      <Route path="/home" element={<HomePage/>}/> {/* index page */}
-      <Route path="/user" element={<UserPage/>}/> {/* chat page */}
-      <Route path="/:userId/posts" /> {/* chat page */}
-      <Route path="/:userId/favorites" /> {/* chat page */}
+      <Route path="/home" element={<IsPrivate><HomePage/></IsPrivate>}/> {/* index page */}
+
+      <Route path="/user/:userId" element={<IsPrivate><UserPage/></IsPrivate>}/> {/* chat page */}
+      <Route path="/user/:userId/confirm-delete" element={<IsPrivate><ConfirmationPage/></IsPrivate>}/> 
+      {/* <Route path="/user/:userId/update" element={<IsPrivate><UpdateUserPage/></IsPrivate>}/>  */}
+      <Route path="/:userId/posts" /> {/* put inside of the isPrivate*/ }
+      <Route path="/:userId/favorites" /> {/* chat page with isPrivate */}
 
       <Route path="/new-post/post" element={<IsPrivate><NewPost /></IsPrivate>} />
       <Route path="new-post/artpost" element={<IsPrivate><NewArtpost/></IsPrivate>}/>

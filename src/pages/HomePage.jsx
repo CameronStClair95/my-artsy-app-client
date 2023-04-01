@@ -5,6 +5,7 @@ import "../App.css";
 import NewsCard from "../components/NewsCard";
 import PostCard from "../components/PostCard";
 import { Link } from "react-router-dom";
+import ArtpostCard from "../components/ArtpostCard";
 
 const API_URL = "http://localhost:5005/api/home";
 
@@ -46,7 +47,7 @@ function HomePage() {
           <Carousel>
       {newsPosts.map(news => {
         return(
-            <Carousel.Item>
+            <Carousel.Item key={news._id}>
                 <img className="d-block" src={news.image} alt="news image"/>
                 <Carousel.Caption>
                   <h3>{news.title}</h3>
@@ -61,6 +62,8 @@ function HomePage() {
     <div className='posts-artposts'>
 
       <div className='home-posts'>
+      <h3>Posts</h3>
+      <h4>form here</h4>
         {posts.map(post => {
             return (
               <PostCard key={post._id} {...post}/>
@@ -70,13 +73,12 @@ function HomePage() {
       </div>
 
       <div className='home-artposts'>
+      <h3>Artposts</h3>
         {artPosts.map(artpost => {
           return(
-            <div key={artpost._id}>
-              <h4>{artpost.title}</h4>
-              <img src={artpost.art_image}/>
-              <p>{artpost.author}</p>
-            </div>
+
+            <ArtpostCard key={artpost._id} {...artpost}/>
+            
           )
         })}
       </div>

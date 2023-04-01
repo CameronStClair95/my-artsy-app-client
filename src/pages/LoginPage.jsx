@@ -43,6 +43,7 @@ function LoginPage(props) {
 
   return (
     <div className="login-page">
+      <Link to="/">Go back</Link>
       <h1>Login</h1>
 
       <Form onSubmit={handleLoginSubmit}>
