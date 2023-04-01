@@ -45,7 +45,7 @@ function App() {
       <Route path="/home" element={<IsPrivate><HomePage/></IsPrivate>}/> {/* index page */}
 
       <Route path="/user/:userId" element={<IsPrivate><UserPage/></IsPrivate>}/> {/* chat page */}
-      <Route path="/user/:userId/confirm-delete" element={<IsPrivate><ConfirmationPage/></IsPrivate>}/> 
+      {/* <Route path="/user/:userId/confirm-delete" element={<IsPrivate><ConfirmationPage/></IsPrivate>}/>  */}
       {/* <Route path="/user/:userId/update" element={<IsPrivate><UpdateUserPage/></IsPrivate>}/>  */}
       <Route path="/:userId/posts" /> {/* put inside of the isPrivate*/ }
       <Route path="/:userId/favorites" /> {/* chat page with isPrivate */}
