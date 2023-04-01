@@ -98,34 +98,18 @@ function UserPage(props) {
                     
 
                     {userId === user?._id && (
-                        <div>
-
+                        <>
                         <Button variant="info">favorite posts</Button>
-                        
-                        </div>
-
-
-                    )
-
-                        
-                    }
-                    <br></br>
-                    <br></br>
-                    {userId === user?._id &&
                         <Button onClick={() => setFormDelete(true)}>go to modal</Button>
-                    }
-
-                    
-
-                    {userId === user?._id && 
                         <Button variant="warning" onClick={() => setFormUpdate(!formUpdate)}>
                             {formUpdate ? "Hide Form" : "Edit Account"}
-                        </Button>}
-
-                    {userId === user?._id && 
+                        </Button>
                         <Button variant="danger" onClick={() => setFormDelete(!formDelete)}>
                             Delete Account
-                        </Button>}
+                        </Button>
+                        </>
+                    )}
+                         
                 </div>
             <div>
 
