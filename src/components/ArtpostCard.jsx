@@ -37,6 +37,7 @@ function ArtPostCard({ artpostId }) {
   }
 
   const { artist, title, description, medium, year, dimensions, art_image, author } = artpost;
+  const artpostId = artpost._id; // Get the artpostId from the artpost object
 
   return (
       <div className="artpost_card">

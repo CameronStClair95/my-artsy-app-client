@@ -17,8 +17,7 @@ import IsAnon from './components/auth/IsAnon';
 import IsPrivate from './components/auth/IsPrivate';
 import PostDetailsPage from './pages/PostDetailsPage';
 import UpdatePostDetails from './pages/UpdatePostDetails';
-
-
+import ArtPostDetails from './pages/ArtDetailsPage';
 
 /* 
 to use ThemeContext in each component:
@@ -54,6 +53,8 @@ function App() {
       <Route path="new-post/artpost" element={<IsPrivate><NewArtpost/></IsPrivate>}/>
       <Route path="/post/:postId" element={<PostDetailsPage />} />
       <Route path="/post/:postId/update" element={<UpdatePostDetails/>} />
+      <Route path="/artposts/:artpostId" element={<ArtPostDetails />} />
+
 
       {/* route for the error page with message */}
       <Route path="*" element={<ErrorPage/>}/>
