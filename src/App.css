@@ -97,7 +97,9 @@ padding: 15px;
 
 .home-artposts{
 border: 2px solid yellowgreen;
-width: 400px;
+width: fit-content;
+max-width: 600px;
+
 padding: 15px;
 }
 
@@ -121,4 +123,28 @@ h4{
 .carousel-image-custom {
   height: 550px; /* Adjust this value to the desired height */
   object-fit: fill;
+}
+.art-image {
+  width: 200px;
+  max-width: 400px;
+  height: auto;
+  max-height: 400px;
+  background-origin: transparent;
+}
+
+.artpost_card_link {
+  text-decoration: none;
+  color: black;
+}
+
+.artpost_card_link:hover {
+  color: lightsalmon;
+  
+}
+
+.artpost_card {
+  border: 2px solid pink;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0 ;
 }

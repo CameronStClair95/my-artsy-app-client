@@ -6,6 +6,7 @@ import "../App.css";
 import PostCard from "../components/PostCard";
 import ArtPostCard from "../components/ArtpostCard";
 import { Link } from "react-router-dom";
+import ArtpostCard from "../components/ArtpostCard";
 
 const API_URL = "http://localhost:5005/api/home";
 

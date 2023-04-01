@@ -1,15 +1,18 @@
 import navbarCSS from "./navbar.module.css"
 import React, { useState, useEffect, useContext } from 'react';
-import {Link} from 'react-router-dom';
-import reactLogo from "../images/logo192.png"
+import {Link, useParams} from 'react-router-dom';
+import pageLogo from "../images/logo192.png"
 import { AuthContext } from "../context/Auth.context"; 
 
 import { Dropdown } from "react-bootstrap";
 
 
+
 function NavBar() {
-  const { isLoggedIn, logOutUser} = useContext(AuthContext); // Get properties from AuthContext
+  const { isLoggedIn, logOutUser, user} = useContext(AuthContext); // Get properties from AuthContext
   const [showAlert, setShowAlert] = useState(false);
+
+  const {userId} = useParams()
 
   const handleLogOut = () => {
     logOutUser()
@@ -18,9 +21,9 @@ function NavBar() {
 
   return (
     <div className={navbarCSS.navbar}>
-      <img src={reactLogo} alt="React Logo" />
+      <img src={pageLogo} className={navbarCSS.logotype} alt="React Logo"/>
 
-      <Link to="/home"><h3 className={navbarCSS.h3}>Macartsy</h3></Link>
+      <Link to="/home"><h3 className={navbarCSS.title}>Macartsy</h3></Link>
 
       <div className={navbarCSS.buttons}>
         
@@ -36,7 +39,7 @@ function NavBar() {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item><Link to="/user">User</Link></Dropdown.Item>
+              <Dropdown.Item><Link to={`/user/${user._id}`}>My Profile</Link></Dropdown.Item>
               <Dropdown.Item>Something else</Dropdown.Item>
               <Dropdown.Item><Link to="/" onClick={handleLogOut}>Log Out</Link></Dropdown.Item>
             </Dropdown.Menu>
@@ -46,15 +49,9 @@ function NavBar() {
             </>
         ) : (
           <>
-          <Link to="/about">
-          <button className="btn btn-primary">About Page</button>
-        </Link>
-            <Link to="/signup">
-              <button>Sign Up</button>
-            </Link>
-            <Link to={"/login"}>
-              <button>Login</button>
-              </Link>
+            <Link to="/about"><button className="btn btn-primary">About Page</button></Link>
+            <Link to="/signup"><button>Sign Up</button></Link>
+            <Link to={"/login"}><button>Login</button></Link>
           </>
         )}
         
