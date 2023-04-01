@@ -16,11 +16,12 @@ function HomePage() {
   const [newsPosts, setNewsPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  
+
   function getAllPosts() {
     axios
       .get(API_URL)
       .then((response) => {
-        console.log(response.data);
         setPosts(response.data.posts);
         setArtPosts(response.data.artPosts);
         setNewsPosts(response.data.newsPosts);
@@ -90,7 +91,7 @@ function HomePage() {
             <div className="home-artposts">
               {artPosts.map((artpost) => {
                 return (
-                  <ArtPostCard key={artpost._id} artpostId={artpost._id} />
+                  <ArtPostCard key={artpost._id} artpostId={artpost._id} getPosts={getAllPosts} />
                 );
               })}
             </div>

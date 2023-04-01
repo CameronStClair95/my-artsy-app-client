@@ -27,8 +27,7 @@ function SignupPage(props) {
       return;
     }
     const requestBody = { fullname, username, email, password };
-    axios
-      .post(`${API_URL}/auth/signup`, requestBody)
+    axios.post(`${API_URL}/auth/signup`, requestBody)
       .then((response) => navigate("/login"))
       .catch((error) => {
         console.log("The error is", error);

@@ -1,22 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/Auth.context';
+
+import EmptyLike from "../images/like-empty.png"
+import FullLike from "../images/like-full.png"
 
 function ArtPostCard({ artpostId }) {
   const [artpost, setArtpost] = useState(null);
+  
   const API_URL = 'http://localhost:5005';
-  /* console.log(artpostId); */
+  
+  const {user} = useContext(AuthContext)
 
   useEffect(() => {
+    console.log(user)
     axios
       .get(`${API_URL}/api/posts/artposts/${artpostId}`)
       .then((response) => {
         setArtpost(response.data);
       })
-      .catch((error) => {
-        console.log('Error fetching artpost:', error);
-      });
+      .catch(error => {console.log('Error fetching artpost:', error)});
   }, [artpostId]);
+
+  
+
+  function handleLike(){
+    console.log('handle like')
+    axios.post(`${API_URL}/api/posts/like/${artpostId}/art`, user)
+    .then(response => setArtpost(response.data))
+    .catch(error => console.log(error))
+  }
 
   if (!artpost) {
     return <div>Loading...</div>;
@@ -25,9 +39,8 @@ function ArtPostCard({ artpostId }) {
   const { artist, title, description, medium, year, dimensions, art_image, author } = artpost;
 
   return (
-    <Link className='artpost_card_link'>
-
       <div className="artpost_card">
+    <Link className='artpost_card_link'>
         <div>
           <img className="art-image" src={art_image} alt={`${title} by ${artist}`} />
         </div>
@@ -37,13 +50,16 @@ function ArtPostCard({ artpostId }) {
             {artist}, {year}
           </h5>
           <h6>{medium}</h6>
-          {author && <p>added by {author}</p>}
-        
+          {author && <p>added by <b>{user?.username}</b></p>}
         </div>
-      </div>
     </Link>
+          <img 
+            style={{width:"50px", height:"50px"}}
+            onClick={handleLike}
+            src={!artpost.likedBy.includes(user._id) ? EmptyLike : FullLike}
+          />
+      </div>
   );
 }
 
 export default ArtPostCard;
-

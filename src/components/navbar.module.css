@@ -1,6 +1,7 @@
 .title {
     margin: 0;
     color: white;
+    align-self: center;
 }
 
 .title, .buttons {
@@ -20,7 +21,7 @@
     background-color: blue;
     height: 56px;
     display: flex;
-    align-items: space-between;
+    
     justify-content: space-between;
 }
 

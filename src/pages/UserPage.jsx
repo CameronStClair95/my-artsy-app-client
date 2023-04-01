@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios"
 
 
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, Navigate, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/Auth.context'
 import { Button, Form, Modal } from 'react-bootstrap'
 import DeleteConfirmation from '../components/DeleteConfirmation'
+import ArtPostCard from '../components/ArtpostCard'
 
 const API_URL = "http://localhost:5005"
 
@@ -13,7 +14,7 @@ const API_URL = "http://localhost:5005"
 function UserPage(props) {
     const {userId} = useParams()
     // to check the logged in account
-    const {user, authenticateUser, removeToken} = useContext(AuthContext)
+    const {user, authenticateUser, removeToken, logOutUser} = useContext(AuthContext)
     
     //for updating the profile information
     const [fullname, setFullName] = useState("");
@@ -29,6 +30,8 @@ function UserPage(props) {
     const handleName = (e) => setFullName(e.target.value);
     const handleUsername = (e) => setUsername(e.target.value);
     const handlePassword = (e) => setPassword(e.target.value);
+
+    const navigate = useNavigate()
 
     
     
@@ -70,13 +73,15 @@ function UserPage(props) {
                 localStorage.setItem("authToken", response.data.authToken);
                 authenticateUser();
             })
-        .then(() => {
-            getUserInfo()
-        })
+        .then(() => getUserInfo())
         .then(() => setFormUpdate(false))
-                
-            
-            .catch(error => console.log(error))
+        .catch(error => console.log(error))
+    }
+
+    function handleDelete(){
+        axios.delete(`${API_URL}/api/user/${userId}/delete`)
+        .then(response => navigate("/login"))
+        .then(()=> logOutUser())
     }
     
     useEffect(() => {
@@ -100,13 +105,15 @@ function UserPage(props) {
                     {userId === user?._id && (
                         <>
                         <Button variant="info">favorite posts</Button>
-                        <Button onClick={() => setFormDelete(true)}>go to modal</Button>
+                        {/* <Button onClick={() => setFormDelete(true)}>go to modal</Button> */}
                         <Button variant="warning" onClick={() => setFormUpdate(!formUpdate)}>
                             {formUpdate ? "Hide Form" : "Edit Account"}
                         </Button>
                         <Button variant="danger" onClick={() => setFormDelete(!formDelete)}>
                             Delete Account
                         </Button>
+
+                        <Button onClick={handleDelete}>Delete Forever</Button>
                         </>
                     )}
                          
@@ -131,9 +138,7 @@ function UserPage(props) {
                 }
             </div>
 
-                {/* <div>
-                    {formDelete && <DeleteConfirmation/>}
-                </div> */}
+               
             </div>
 
             <div className='userPage-posts'> 
@@ -157,15 +162,8 @@ function UserPage(props) {
             {artPosts.map((artpost) => {
                     return(
                         artpost.author === userInfo?._id &&
-                        <div key={artpost._id}>
-
-                            <h2>{artpost.title}</h2>
-                            <h5>{artpost.description}</h5>
-                            <img src={artpost.art_image}/>
-                            <p>{artpost.medium}</p>
-                            <p>{artpost.year}</p>
-
-                        </div>
+                        <ArtPostCard key={artpost._id} artpostId={artpost._id}/>
+                        
                     )
                 })}
             </div>

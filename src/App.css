@@ -132,14 +132,13 @@ h4{
   background-origin: transparent;
 }
 
-.artpost_card_link {
+.artpost_card_link, .post_card_link {
   text-decoration: none;
   color: black;
 }
 
-.artpost_card_link:hover {
-  color: lightsalmon;
-  
+.artpost_card_link:hover, .post_card_link:hover {
+  color: lightsalmon
 }
 
 .artpost_card {
