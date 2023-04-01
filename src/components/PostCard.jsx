@@ -3,7 +3,7 @@ import axios from "axios";
 import { Button, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
-function PostCard({ content, place, post_image, postId }) {
+function PostCard({ content, place, post_image, postId, getAllPosts }) {
   const API_URL = "http://localhost:5005";
   const navigate = useNavigate();
 
@@ -14,6 +14,7 @@ function PostCard({ content, place, post_image, postId }) {
       .delete(`${API_URL}/api/posts/${postId}`)
       .then((response) => {
         console.log("Post deleted successfully:", response.data);
+        getAllPosts()
         navigate("/home"); // Navigate to the home page after successful deletion
       })
       .catch((error) => {

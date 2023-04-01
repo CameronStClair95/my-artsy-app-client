@@ -4,7 +4,7 @@ import { Carousel, Card, Spinner } from "react-bootstrap";
 import "../App.css";
 // import NewsCard from "../components/NewsCard";
 import PostCard from "../components/PostCard";
-import ArtPostCard from '../components/ArtpostCard';
+import ArtPostCard from "../components/ArtpostCard";
 import { Link } from "react-router-dom";
 
 const API_URL = "http://localhost:5005/api/home";
@@ -75,13 +75,23 @@ function HomePage() {
           <div className="posts-artposts">
             <div className="home-posts">
               {posts.map((post) => {
-                return <PostCard key={post._id} {...post} postId={post._id} />;
+                return (
+                  <PostCard
+                    key={post._id}
+                    {...post}
+                    postId={post._id}
+                    getAllPosts={getAllPosts}
+                  />
+                );
               })}
             </div>
 
             <div className="home-artposts">
               {artPosts.map((artpost) => {
-return <ArtPostCard key={artpost._id} artpostId={artpost._id} />;              })}
+                return (
+                  <ArtPostCard key={artpost._id} artpostId={artpost._id} />
+                );
+              })}
             </div>
           </div>
         </>
