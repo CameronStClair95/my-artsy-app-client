@@ -6,7 +6,7 @@ import { AuthContext } from '../context/Auth.context';
 import EmptyLike from "../images/like-empty.png"
 import FullLike from "../images/like-full.png"
 
-function ArtPostCard({ artpostId }) {
+function ArtPostCard({artpostId}) {
   const [artpost, setArtpost] = useState(null);
   
   const API_URL = 'http://localhost:5005';
@@ -14,12 +14,8 @@ function ArtPostCard({ artpostId }) {
   const {user} = useContext(AuthContext)
 
   useEffect(() => {
-    console.log(user)
-    axios
-      .get(`${API_URL}/api/posts/artposts/${artpostId}`)
-      .then((response) => {
-        setArtpost(response.data);
-      })
+    axios.get(`${API_URL}/api/posts/artposts/${artpostId}`)
+      .then(response => setArtpost(response.data))
       .catch(error => {console.log('Error fetching artpost:', error)});
   }, [artpostId]);
 
@@ -37,7 +33,7 @@ function ArtPostCard({ artpostId }) {
   }
 
   const { artist, title, description, medium, year, dimensions, art_image, author } = artpost;
-  const artpostId = artpost._id; // Get the artpostId from the artpost object
+  /* const artpostId = artpost._id; // Get the artpostId from the artpost object */
 
   return (
       <div className="artpost_card">

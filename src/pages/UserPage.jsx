@@ -96,8 +96,8 @@ function UserPage(props) {
                 <div>
 
                 {/*  <img src="https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"/> */}
-                    <p>@{userInfo?.username}</p>
                     <p>{userInfo?.fullname}</p>
+                    <p>@{userInfo?.username}</p>
                     <p>{userInfo?.email}</p>
                     
                     

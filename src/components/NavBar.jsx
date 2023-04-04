@@ -8,6 +8,7 @@ import { Dropdown } from "react-bootstrap";
 
 
 
+
 function NavBar() {
   const { isLoggedIn, logOutUser, user} = useContext(AuthContext); // Get properties from AuthContext
   const [showAlert, setShowAlert] = useState(false);
