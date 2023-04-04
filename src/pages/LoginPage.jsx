@@ -6,7 +6,7 @@ import { AuthContext } from "../context/Auth.context";
 import { Form, Button, Alert } from "react-bootstrap";
 import "../App.css";
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
 
 function LoginPage(props) {
   const [email, setEmail] = useState("");

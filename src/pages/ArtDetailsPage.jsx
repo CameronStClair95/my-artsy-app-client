@@ -5,8 +5,8 @@ import axios from "axios";
 function ArtPostDetails() {
   const { artpostId } = useParams();
   console.log("ArtPostDetails artpostId:", artpostId);
-  const API_URL = "http://localhost:5005";
-  const [artpost, setArtPost] = useState(null);
+  const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
+const [artpost, setArtPost] = useState(null);
 
   useEffect(() => {
     axios
