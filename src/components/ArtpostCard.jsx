@@ -9,8 +9,7 @@ import FullLike from "../images/like-full.png"
 function ArtPostCard({artpostId}) {
   const [artpost, setArtpost] = useState(null);
   
-  const API_URL = 'http://localhost:5005';
-  
+  const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;  
   const {user} = useContext(AuthContext)
 
   useEffect(() => {
@@ -37,7 +36,7 @@ function ArtPostCard({artpostId}) {
 
   return (
       <div className="artpost_card">
-    <Link className='artpost_card_link'>
+    <Link to={`/artposts/${artpostId}`} className='artpost_card_link'>
         <div>
           <img className="art-image" src={art_image} alt={`${title} by ${artist}`} />
         </div>

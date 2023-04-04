@@ -10,7 +10,7 @@ import FullLike from "../images/like-full.png"
 function PostCard({ content, place, post_image, postId, getAllPosts, likedBy, author }) {
   const [post, setPost] = useState(null)
 
-  const API_URL = "http://localhost:5005";
+  const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
   const {user} = useContext(AuthContext)
   const navigate = useNavigate();
   const {pathname} = useLocation()
