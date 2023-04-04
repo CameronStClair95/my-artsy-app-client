@@ -1,17 +1,26 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+/* import React, { useState, useParams } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import NewArtpost from '../components/NewArtpost'
 import NewPost from '../components/NewPost'
 
 function NewPostPage() {
 
+  const [postForm, setPostForm] = useState(true)
+
+  
+
+  function togglePostForms(){
+    setPostForm()
+  }
+
   return (
     <div >
-  <NewPost/>
 
-{/*   <NewArtpost/> */}
+  
+  
+
     </div>
   )
 }
 
-export default NewPostPage
+export default NewPostPage */
