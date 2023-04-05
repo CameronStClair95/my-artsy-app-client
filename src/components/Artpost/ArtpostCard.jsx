@@ -8,8 +8,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
+/* trying to fix this */
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
-
 
 function ArtPostCard({ artist, title, description, medium, year, art_image, author, artpostId  }) {
   const [artpost, setArtpost] = useState(null);
