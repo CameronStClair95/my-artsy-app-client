@@ -75,12 +75,7 @@ function ArtPostCard({ artist, title, description, medium, year, art_image, auth
         ) : (
           <FavoriteIcon />
         )}
-
-        {/* {artpost?.likedBy.includes(user._id) ? (
-          <FavoriteIcon /> ) : (
-          <FavoriteBorderIcon />
-          )
-        } */}
+        {/* checked */}
       </button>
     </div>
   );

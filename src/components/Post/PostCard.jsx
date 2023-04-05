@@ -94,6 +94,7 @@ function PostCard({content, place, post_image, postId, getAllPosts, likedBy, aut
         ) : (
           <FavoriteIcon />
         )}
+        {/* checked */}
       </button>
       
     </div>
