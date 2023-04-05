@@ -1,176 +1,220 @@
-import React, { useState, useEffect, useContext } from 'react'
-import axios from "axios"
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/Auth.context";
+import { Button, Form, Modal } from "react-bootstrap";
 
-import { useParams, Link, Navigate, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/Auth.context'
-import { Button, Form, Modal } from 'react-bootstrap'
-import DeleteConfirmation from '../components/DeleteConfirmation'
-import ArtPostCard from '../components/ArtpostCard'
+import ArtPostCard from "../components/Artpost/ArtpostCard";
 
-const API_URL = "http://localhost:5005"
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
+import ReadMoreIcon from "@mui/icons-material/ReadMore";
+import PostCard from "../components/Post/PostCard";
 
+const API_URL = "http://localhost:5005";
 
 function UserPage(props) {
-    const {userId} = useParams()
-    // to check the logged in account
-    const {user, authenticateUser, removeToken, logOutUser} = useContext(AuthContext)
-    
-    //for updating the profile information
-    const [fullname, setFullName] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+  const { userId } = useParams();
+  // to check the logged in account
+  const { user, authenticateUser, removeToken, logOutUser } =
+    useContext(AuthContext);
 
-    const [userInfo, setUserInfo] = useState()
-    const [posts, setPosts] = useState([]);
-    const [artPosts, setArtPosts] = useState([]);
-    const [formUpdate, setFormUpdate] = useState(false)
-    const [formDelete, setFormDelete] = useState(false)
+  //for updating the profile information
+  const [fullname, setFullName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const handleName = (e) => setFullName(e.target.value);
-    const handleUsername = (e) => setUsername(e.target.value);
-    const handlePassword = (e) => setPassword(e.target.value);
+  const { postId } = useParams();
+  const [content, setContent] = useState("");
+  const [post, setPost] = useState(null);
+  const [post_image, setPost_image] = useState("");
+  const [place, setPlace] = useState("");
 
-    const navigate = useNavigate()
+  const [userInfo, setUserInfo] = useState();
+  const [posts, setPosts] = useState([]);
+  const [artPosts, setArtPosts] = useState([]);
+  const [formUpdate, setFormUpdate] = useState(false);
+  const [formDelete, setFormDelete] = useState(false);
 
-    
-    
-    function getUserInfo(){
-        axios.get(`${API_URL}/api/user/${userId}`)
-        .then((response) => {
-            //for catching user info to display
-            setUserInfo(response.data)
-            //for the updating the user information
-            setFullName(response.data.fullname)
-            setUsername(response.data.username)
-            console.log("user info: ", response.data)
-        })
-        .catch(error => {
-            console.log(error)
-        });
-    }
-    axios.delete("/delete")
+  const handleName = (e) => setFullName(e.target.value);
+  const handleUsername = (e) => setUsername(e.target.value);
+  const handlePassword = (e) => setPassword(e.target.value);
 
-    function getAllPosts() {
-        axios.get(`${API_URL}/api/home`)
-            .then((response) => {
-                setPosts(response.data.posts)
-                setArtPosts(response.data.artPosts)
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    }
+  const navigate = useNavigate();
 
-    function handleUpdateSubmit(e){
-        e.preventDefault()
-        const requestBody = {fullname, username}
-        axios.put(`${API_URL}/api/user/${userId}`, requestBody)
-        .then((response) => {
-            console.log(response.data)
-                removeToken()   
-                console.log("new token is ", response.data.authToken)
-                localStorage.setItem("authToken", response.data.authToken);
-                authenticateUser();
-            })
-        .then(() => getUserInfo())
-        .then(() => setFormUpdate(false))
-        .catch(error => console.log(error))
-    }
+  function getUserInfo() {
+    axios
+      .get(`${API_URL}/api/user/${userId}`)
+      .then((response) => {
+        //for catching user info to display
+        setUserInfo(response.data);
+        //for the updating the user information
+        setFullName(response.data.fullname);
+        setUsername(response.data.username);
+        console.log("user info: ", response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-    function handleDelete(){
-        axios.delete(`${API_URL}/api/user/${userId}/delete`)
-        .then(response => navigate("/login"))
-        .then(()=> logOutUser())
-    }
-    
-    useEffect(() => {
-        getAllPosts();
-        getUserInfo()
-    }, []); 
+  function getAllPosts() {
+    axios
+      .get(`${API_URL}/api/home`)
+      .then((response) => {
+        setPosts(response.data.posts);
+        setArtPosts(response.data.artPosts);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function handleUpdateSubmit(e) {
+    e.preventDefault();
+    const requestBody = { fullname, username };
+    axios
+      .put(`${API_URL}/api/user/${userId}`, requestBody)
+      .then((response) => {
+        console.log(response.data);
+        removeToken();
+        console.log("new token is ", response.data.authToken);
+        localStorage.setItem("authToken", response.data.authToken);
+        authenticateUser();
+      })
+      .then(() => getUserInfo())
+      .then(() => setFormUpdate(false))
+      .catch((error) => console.log(error));
+  }
+
+  function handleDelete() {
+    axios
+      .delete(`${API_URL}/api/user/${userId}/delete`)
+      .then((response) => navigate("/login"))
+      .then(() => logOutUser());
+  }
+
+  useEffect(() => {
+    getAllPosts();
+    getUserInfo();
+  }, []);
 
   return (
     <div>
-        <div className='userPage-grid'>
-            <div className='userPage-info'> 
-                <div>
+      <div className="userPage-grid">
+        <div className="userPage-info">
+          <div>
+            {/*  <img src="https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"/> */}
+            <p>{userInfo?.fullname}</p>
+            <p>@{userInfo?.username}</p>
+            <p>{userInfo?.email}</p>
 
-                {/*  <img src="https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"/> */}
-                    <p>{userInfo?.fullname}</p>
-                    <p>@{userInfo?.username}</p>
-                    <p>{userInfo?.email}</p>
-                    
-                    
+            {userId === user?._id && (
+              <>
+                <Button variant="info">
+                  Favorite <FavoriteIcon />
+                </Button>
 
-                    {userId === user?._id && (
-                        <>
-                        <Button variant="info">favorite posts</Button>
-                        {/* <Button onClick={() => setFormDelete(true)}>go to modal</Button> */}
-                        <Button variant="warning" onClick={() => setFormUpdate(!formUpdate)}>
-                            {formUpdate ? "Hide Form" : "Edit Account"}
-                        </Button>
-                        <Button variant="danger" onClick={() => setFormDelete(!formDelete)}>
-                            Delete Account
-                        </Button>
+                <Button
+                  variant="warning"
+                  onClick={() => setFormUpdate(!formUpdate)}
+                >
+                  {formUpdate ? "Hide Form" : `Edit Account`}
+                </Button>
 
-                        <Button onClick={handleDelete}>Delete Forever</Button>
-                        </>
-                    )}
-                         
-                </div>
-            <div>
+                <Button variant="danger" onClick={handleDelete}>
+                  Delete <DeleteOutlineIcon />
+                </Button>
+              </>
+            )}
+          </div>
 
-            {formUpdate && 
-                <Form onSubmit={handleUpdateSubmit}>
-                <Button onClick={() => setFormUpdate(false)}>Go Back</Button>
-                    <Form.Group controlId="formUsername">
-                        <Form.Label>Username:</Form.Label>
-                        <Form.Control type="text"  value={username} onChange={handleUsername}/>
-                    </Form.Group>
+          <div>
+            {formUpdate && (
+              <Form
+                onSubmit={handleUpdateSubmit}
+                style={{ backgroundColor: "white" }}
+              >
+                <p
+                  onClick={() => setFormUpdate(false)}
+                  style={{
+                    backgroundColor: "#0c6dfd",
+                    color: "white",
+                    cursor: "pointer",
+                  }}
+                >
+                  Go Back
+                </p>
 
-                    <Form.Group controlId="formFullname">
-                        <Form.Label>Fullname:</Form.Label>
-                        <Form.Control type="text"  value={fullname} onChange={handleName}/>
-                    </Form.Group>
+                <Form.Group controlId="formUsername">
+                  <Form.Label>
+                    <b>Username:</b>
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={username}
+                    onChange={handleUsername}
+                  />
+                </Form.Group>
 
-                    <Button variant="primary" type="submit">Update</Button>
-                </Form>
-                }
-            </div>
+                <Form.Group controlId="formFullname">
+                  <Form.Label>
+                    <b>Fullname:</b>
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={fullname}
+                    onChange={handleName}
+                  />
+                </Form.Group>
 
-               
-            </div>
+                <Button variant="primary" type="submit">
+                  Update
+                </Button>
+              </Form>
+            )}
+          </div>
+        </div>
 
-            <div className='userPage-posts'> 
-            <h1>Posts</h1>
-                {posts.map((post) => {
-                    return(
-                post.author === userInfo?._id &&   
-                        <div key={post._id}>
+        <div className="userPage-posts">
+          <h1>Posts</h1>
+          {posts.map((post) => {
+            return (
+              post.author._id === userInfo?._id && (
+                <PostCard key={post._id} {...post} postId={post._id} />
+              )
+            );
+          })}
+        </div>
+
+        <div className="userPage-artposts">
+          <h1>Artposts</h1>
+          {artPosts.map((artpost) => {
+            return (
+              artpost.author &&
+              artpost?.author._id === userInfo?._id && (
+                <ArtPostCard key={artpost._id} {...artpost} artpostId={artpost._id} />
+              )
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default UserPage;
+
+/* 
+<div key={post._id}>
                             <h2>{post.content}</h2>
                             <h5>{post.place}</h5>
                             <img src={post.post_image}/>
                             <p>@{user.username}</p>
                             
                         </div>
-                    )
-                })}
-            </div>
-
-            <div className='userPage-artposts'> 
-            <h1>Artposts</h1>
-            {artPosts.map((artpost) => {
-                    return(
-                        artpost.author === userInfo?._id &&
-                        <ArtPostCard key={artpost._id} artpostId={artpost._id}/>
-                        
-                    )
-                })}
-            </div>
-        </div>
-
-    </div>
-  )
-}
-
-export default UserPage
+*/

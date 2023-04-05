@@ -124,13 +124,7 @@ h4{
   height: 550px; /* Adjust this value to the desired height */
   object-fit: fill;
 }
-.art-image {
-  width: 200px;
-  max-width: 400px;
-  height: auto;
-  max-height: 400px;
-  background-origin: transparent;
-}
+
 
 .artpost_card_link, .post_card_link {
   text-decoration: none;
