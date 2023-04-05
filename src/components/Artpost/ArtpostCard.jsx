@@ -10,6 +10,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 
+
 function ArtPostCard({ artist, title, description, medium, year, art_image, author, artpostId  }) {
   const [artpost, setArtpost] = useState(null);
 
