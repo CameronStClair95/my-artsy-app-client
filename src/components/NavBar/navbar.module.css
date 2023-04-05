@@ -1,0 +1,31 @@
+.title {
+    margin: 0;
+    color: white;
+    align-self: center;
+}
+
+.title, .buttons {
+    padding: 15px;
+}
+
+.buttons button{
+    margin: 0 2.5px;
+}
+
+.logotype img {
+    width: 50px;
+    height: 50px;
+}
+
+.navbar {
+    background-color: blue;
+    height: 56px;
+    display: flex;
+    
+    justify-content: space-between;
+}
+
+.right_buttons {
+    display: flex;
+    flex-direction: row;
+}
