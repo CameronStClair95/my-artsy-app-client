@@ -21,7 +21,7 @@ function HomePage() {
 
   function getAllPosts() {
     axios
-      .get(API_URL)
+    .get(`${API_URL}/api/home`)
       .then((response) => {
         setPosts(response.data.posts);
         setArtPosts(response.data.artPosts);

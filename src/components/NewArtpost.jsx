@@ -40,7 +40,7 @@ function NewArtpost() {
     const handleArtpostSubmit = (e) => {
         e.preventDefault()
         const requestBody = {artist, title, description, medium, year, dimensions, art_image, author:user._id}
-        axios.post(`${API_URL}/api/new-post/artpost`, requestBody)
+        axios.post(`${API_URL}/api/posts/artpost`, requestBody)
             .then(response => navigate("/home"))
             
             .catch((error) => {
@@ -48,26 +48,26 @@ function NewArtpost() {
                 setErrorMessage("this is an error you have", errorDescription)
             })
     }
+    
     const uploadImage = (file) => {
-        return axios.post(`${API_URL}/api/new-post/upload`, file)
-          .then(res => res.data)
+        return axios.post(`${API_URL}/api/posts/upload`, file)
+          .then(response => response.data)
 
           .catch(error => console.log("error while uploading image: ", error))
       };
 
       const handleFileUpload = (e) => {
-        // console.log("The file to be uploaded is: ", e.target.files[0]);
         const uploadData = new FormData();
-        // imageUrl => this name has to be the same as in the model since we pass
-        // req.body to .create() method when creating a new movie in '/api/movies' POST route
         uploadData.append("imageUrl", e.target.files[0]);
-
-          uploadImage(uploadData)
+      
+        uploadImage(uploadData)
           .then((response) => {
-            // console.log("response is: ", response);
-            // response carries "fileUrl" which we can use to update the state
-            setArt_image(response.fileUrl);
-            console.log("this is the link for the image", response.fileUrl)
+            if (response) {
+              setArt_image(response.fileUrl);
+              console.log("this is the link for the image", response.fileUrl)
+            } else {
+              console.log("Error: response is undefined")
+            }
           })
           .catch(err => console.log("Error while uploading the file: ", err));
       };

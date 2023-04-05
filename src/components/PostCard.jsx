@@ -17,7 +17,10 @@ function PostCard({ content, place, post_image, postId, getAllPosts, likedBy, au
 
   useEffect(() => {
     axios.get(`${API_URL}/api/posts/posts/${postId}`)
-      .then(response => setPost(response.data))
+      .then(response => {
+        const updatedPost = { ...response.data }; 
+        setPost(updatedPost);
+      })
       .catch(error => console.log(error))
   }, [postId])
 
