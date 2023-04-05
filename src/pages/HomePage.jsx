@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Carousel, Card, Spinner } from "react-bootstrap";
-import "../App.css";
-// import NewsCard from "../components/NewsCard";
-import PostCard from "../components/PostCard";
-import ArtPostCard from "../components/ArtpostCard";
 import { Link } from "react-router-dom";
-import ArtpostCard from "../components/ArtpostCard";
+import "../App.css";
+
+import PostCard from "../components/Post/PostCard";
+import ArtPostCard from "../components/Artpost/ArtpostCard";
 
 const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005/api/home' ;
 // const API_URL = "http://localhost:5005/api/home";
@@ -17,11 +16,9 @@ function HomePage() {
   const [newsPosts, setNewsPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  
-
   function getAllPosts() {
     axios
-      .get(API_URL)
+    .get(`${API_URL}/api/home`)
       .then((response) => {
         setPosts(response.data.posts);
         setArtPosts(response.data.artPosts);
@@ -92,7 +89,12 @@ function HomePage() {
             <div className="home-artposts">
               {artPosts.map((artpost) => {
                 return (
-                  <ArtPostCard key={artpost._id} artpostId={artpost._id} getPosts={getAllPosts} />
+                  <ArtPostCard
+                    key={artpost._id}
+                    {...artpost}
+                    artpostId={artpost._id}
+                    getPosts={getAllPosts}
+                  />
                 );
               })}
             </div>
