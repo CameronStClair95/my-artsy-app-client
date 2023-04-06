@@ -147,3 +147,30 @@ h4{
   flex-direction: row;
   margin: 10px 0 ;
 }
+
+.landing-page {
+  background-image: url('https://source.unsplash.com/random/1600x900?art');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.display-4,
+.lead,
+.button {
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+  width: 100%;
+}
+
+.footer-title {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}

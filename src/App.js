@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 
 //components
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 
 //pages
 import LoginPage from './pages/LoginPage';
@@ -58,7 +59,9 @@ function App() {
 
       {/* route for the error page with message */}
       <Route path="*" element={<ErrorPage/>}/>
+      
     </Routes>
+    <Footer/>
       
     </div>
   );

@@ -1,0 +1,22 @@
+.button-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  
+  .button-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1000ms, transform 1000ms;
+  }
+  
+  .button-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .button-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 1000ms, transform 1000ms;
+  }
+  
