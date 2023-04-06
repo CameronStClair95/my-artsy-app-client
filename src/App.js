@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 
 //components
-import NavBar from "./components/NavBar/NavBar";
+
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
+
 
 //pages
 import LoginPage from "./pages/Auth/LoginPage";
@@ -35,6 +38,7 @@ function App() {
     <div className="App">
       <NavBar />
 
+
       <Routes>
         {/* Authorization routes */}
         <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>}/>
@@ -57,6 +61,8 @@ function App() {
         {/* error page */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+      {/* //<Footer/> */}
+
     </div>
   );
 }

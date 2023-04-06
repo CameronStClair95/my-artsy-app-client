@@ -5,16 +5,20 @@ import { Link } from "react-router-dom";
 import HomePageCSS from "./HomePage.module.css"
 import "../App.css";
 
+
 import PostCard from "../components/Post/PostCard";
 import ArtPostCard from "../components/Artpost/ArtpostCard";
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
+
+
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
   const [artPosts, setArtPosts] = useState([]);
   const [newsPosts, setNewsPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
 
   function getAllPosts(){
     axios.get(`${API_URL}/api/home`)
@@ -29,6 +33,7 @@ function HomePage() {
       console.log(error);
       setIsLoading(false);
     });
+
   }
 
   useEffect(() => {

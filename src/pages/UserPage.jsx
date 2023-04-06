@@ -8,6 +8,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 
 import ArtPostCard from "../components/Artpost/ArtpostCard";
 
+
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -15,7 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import PostCard from "../components/Post/PostCard";
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
 
 function UserPage(props) {
   const { userId } = useParams();
@@ -213,13 +214,3 @@ function UserPage(props) {
 }
 
 export default UserPage;
-
-/* 
-<div key={post._id}>
-                            <h2>{post.content}</h2>
-                            <h5>{post.place}</h5>
-                            <img src={post.post_image}/>
-                            <p>@{user.username}</p>
-                            
-                        </div>
-*/

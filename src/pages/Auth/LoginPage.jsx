@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/Auth.context";
 import { Form, Button, Alert } from "react-bootstrap";
 import "../../App.css"
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
 
 function LoginPage(props) {
   const [email, setEmail] = useState("");
@@ -36,8 +36,6 @@ function LoginPage(props) {
         navigate("/home");
       })
       .catch((error) => { console.error("error is ", error)
-        /* const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription); */
       });
   };
 

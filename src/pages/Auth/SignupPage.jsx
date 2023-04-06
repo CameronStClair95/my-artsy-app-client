@@ -4,7 +4,7 @@ import axios from "axios";
 import { Form, Button, Alert } from "react-bootstrap";
 import "../../App.css"
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
 
 function SignupPage(props) {
   const [fullname, setFullName] = useState("");
