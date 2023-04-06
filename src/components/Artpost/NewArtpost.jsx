@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../context/Auth.context";
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
 
 function NewArtpost() {
   const { user } = useContext(AuthContext);
@@ -15,7 +15,6 @@ function NewArtpost() {
   const [description, setDescription] = useState("");
   const [medium, setMedium] = useState("");
   const [year, setYear] = useState("");
-
   const [art_image, setArt_image] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
 
@@ -24,42 +23,27 @@ function NewArtpost() {
   function togglePostForms() {
     setPostForm();
   }
-
+/* created staging 2 */
   const handleArtist = (e) => SetArtist(e.target.value);
   const handleTitle = (e) => setTitle(e.target.value);
   const handleDescription = (e) => setDescription(e.target.value);
   const handleMedium = (e) => setMedium(e.target.value);
   const handleYear = (e) => setYear(e.target.value);
-
-  /* const handleDimensionWidth = (e) => setDimensionWidth(e.target.value) */
   const handleArt_image = (e) => setArt_image(e.target.value);
 
   const handleArtpostSubmit = (e) => {
     e.preventDefault();
-    const requestBody = {
-      artist,
-      title,
-      description,
-      medium,
-      year,
-      art_image,
-      author: user._id,
-    };
-    axios
-      .post(`${API_URL}/api/posts/artpost`, requestBody)
-      .then((response) => navigate("/home"))
-
-      .catch((error) => {
-        const errorDescription = error.response.data.errorMessage;
-        setErrorMessage("this is an error you have", errorDescription);
-      });
+    const requestBody = {artist, title, description, medium, year, art_image, author: user._id};
+    axios.post(`${API_URL}/api/posts/artpost`, requestBody)
+      .then(() => navigate("/home"))
+      .catch((error) => console.error(error)
+      );
   };
   const uploadImage = (file) => {
-    return axios
-      .post(`${API_URL}/api/posts/upload`, file)
+    return axios.post(`${API_URL}/api/posts/upload`, file)
       .then((res) => res.data)
 
-      .catch((error) => console.log("error while uploading image: ", error));
+      .catch((error) => console.error("error while uploading image: ", error));
   };
 
   const handleFileUpload = (e) => {
@@ -82,9 +66,7 @@ function NewArtpost() {
   return (
     <div>
       <h1>Art Post submit form</h1>
-      <Link to="/home">
-        <button>Go Back</button>
-      </Link>
+      <Link to="/home"><button>Go Back</button></Link>
       {postForm && (
         <Link to="/posts/post">
           <button>Create Post</button>
@@ -94,42 +76,22 @@ function NewArtpost() {
       <form onSubmit={handleArtpostSubmit}>
         <label>
           Artist:
-          <input
-            type="text"
-            name="artist"
-            value={artist}
-            onChange={handleArtist}
-          />
+          <input type="text" name="artist" value={artist} onChange={handleArtist}/>
         </label>
 
         <label>
           Title:
-          <input
-            type="text"
-            name="title"
-            value={title}
-            onChange={handleTitle}
-          />
+          <input type="text" name="title" value={title} onChange={handleTitle}/>
         </label>
 
         <label>
           Description:
-          <input
-            type="text"
-            name="description"
-            value={description}
-            onChange={handleDescription}
-          />
+          <input type="text" name="description" value={description} onChange={handleDescription}/>
         </label>
 
         <label>
           Medium
-          <input
-            type="text"
-            name="medium"
-            value={medium}
-            onChange={handleMedium}
-          />
+          <input type="text" name="medium" value={medium} onChange={handleMedium}/>
         </label>
 
         <label>
@@ -140,11 +102,8 @@ function NewArtpost() {
         <label>
           Image
           {/* file upload with cloudinary */}
-          <input
-            type="file"
-            name="art_image"
-            onChange={(e) => handleFileUpload(e)}
-          />
+          <input type="file" name="art_image" onChange={(e) => handleFileUpload(e)}/>
+
           {/* file upload with no cloudinary */}
           {/* <input type="file" name='art_image' value={art_image} onChange={handleArt_image}/> */}
         </label>

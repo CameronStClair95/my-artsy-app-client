@@ -37,62 +37,22 @@ function App() {
 
       <Routes>
         {/* Authorization routes */}
-        <Route
-          path="/signup"
-          element={
-            <IsAnon>
-              <SignupPage />
-            </IsAnon>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <IsAnon>
-              <LoginPage />
-            </IsAnon>
-          }
-        />
+        <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>}/>
+        <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>}/>
+
         <Route path="/" element={<LandingPage />} /> {/* index page */}
-        <Route
-          path="/home"
-          element={
-            <IsPrivate>
-              <HomePage />
-            </IsPrivate>
-          }
-        />{" "}
-        {/* index page */}
-        <Route
-          path="/user/:userId"
-          element={
-            <IsPrivate>
-              <UserPage />
-            </IsPrivate>
-          }
-        />{" "}
-        {/* chat page */}
+        <Route path="/home" element={<IsPrivate><HomePage /></IsPrivate>}/>
+        
+        <Route path="/user/:userId" element={<IsPrivate><UserPage /></IsPrivate>}/>
+
+        <Route path="/posts/post" element={<IsPrivate><NewPost /></IsPrivate>}/>
+        <Route path="posts/artpost" element={<IsPrivate><NewArtpost /></IsPrivate>}/>
+        <Route path="/post/:postId" element={<PostDetailsPage />} />
+        <Route path="/artposts/:artpostId" element={<ArtPostDetails />} />
+
         <Route path="/:userId/posts" /> {/* put inside of the isPrivate*/}
         <Route path="/:userId/favorites" /> {/* chat page with isPrivate */}
-        <Route
-          path="/posts/post"
-          element={
-            <IsPrivate>
-              <NewPost />
-            </IsPrivate>
-          }
-        />
-        <Route
-          path="posts/artpost"
-          element={
-            <IsPrivate>
-              <NewArtpost />
-            </IsPrivate>
-          }
-        />
-        <Route path="/post/:postId" element={<PostDetailsPage />} />
         <Route path="/post/:postId/update" element={<UpdatePostDetails />} />
-        <Route path="/artposts/:artpostId" element={<ArtPostDetails />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>

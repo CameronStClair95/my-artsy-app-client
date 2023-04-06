@@ -12,15 +12,15 @@ import ReadMoreIcon from "@mui/icons-material/ReadMore";
 
 function ArtPostCard({ artist, title, description, medium, year, art_image, author, artpostId  }) {
   const [artpost, setArtpost] = useState(null);
-
   const API_URL = "http://localhost:5005";
-
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/api/posts/artposts/${artpostId}`)
-      .then((response) => setArtpost(response.data))
+    axios.get(`${API_URL}/api/posts/artposts/${artpostId}`)
+      .then((response) => {
+        /* console.log(response.data) */
+        setArtpost(response.data)
+      })
       .catch((error) => {
         console.log("Error fetching artpost:", error);
       });

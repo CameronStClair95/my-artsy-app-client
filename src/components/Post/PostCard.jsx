@@ -12,19 +12,21 @@ import EditIcon from "@mui/icons-material/Edit";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 
 function PostCard({content, place, post_image, postId, getAllPosts, likedBy, author}) {
-
   const [post, setPost] = useState(null);
-  const [userInfo, setUserInfo] = useState();
-
   const API_URL = "http://localhost:5005";
   const { user } = useContext(AuthContext);
+
+  /* const [userInfo, setUserInfo] = useState(); */
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/posts/${postId}`)
-      .then((response) => {setPost(response.data.post)
+    axios.get(`${API_URL}/api/posts/post/${postId}`)
+      .then((response) => {
+        const updatedPost = {...response.data}
         console.log(response.data)
+        setPost(updatedPost)
       })
       .catch((error) => console.log(error));
   }, [postId]);

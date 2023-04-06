@@ -7,7 +7,7 @@ import "../App.css";
 import PostCard from "../components/Post/PostCard";
 import ArtPostCard from "../components/Artpost/ArtpostCard";
 
-const API_URL = "http://localhost:5005/api/home";
+const API_URL = "http://localhost:5005";
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -15,23 +15,23 @@ function HomePage() {
   const [newsPosts, setNewsPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  function getAllPosts() {
-    axios
-      .get(API_URL)
-      .then((response) => {
-        setPosts(response.data.posts);
-        setArtPosts(response.data.artPosts);
-        setNewsPosts(response.data.newsPosts);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-      });
+  function getAllPosts(){
+    axios.get(`${API_URL}/api/home`)
+    .then((response) => {
+      console.log(response.data)
+      setPosts(response.data.posts);
+      setArtPosts(response.data.artPosts);
+      setNewsPosts(response.data.newsPosts);
+      setIsLoading(false); 
+    })
+    .catch((error) => {
+      console.log(error);
+      setIsLoading(false);
+    });
   }
 
   useEffect(() => {
-    getAllPosts();
+    getAllPosts()
   }, []);
 
   return (
