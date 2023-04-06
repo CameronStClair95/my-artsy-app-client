@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import UserPageCSS from "./UserPage.module.css"
 
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Auth.context";
@@ -105,10 +106,10 @@ function UserPage(props) {
 
   return (
     <div>
-      <div className="userPage-grid">
-        <div className="userPage-info">
+      <div className={UserPageCSS.grid}>
+        <div className={UserPageCSS.user_info}>
           <div>
-            {/*  <img src="https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"/> */}
+             <img className={UserPageCSS.user_image}  src="https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"/>
             <p>{userInfo?.fullname}</p>
             <p>@{userInfo?.username}</p>
             <p>{userInfo?.email}</p>
@@ -180,8 +181,9 @@ function UserPage(props) {
           </div>
         </div>
 
-        <div className="userPage-posts">
+        <div>
           <h1>Posts</h1>
+        <div className={UserPageCSS.user_posts}>
           {posts.map((post) => {
             return (
               post.author._id === userInfo?._id && (
@@ -190,9 +192,11 @@ function UserPage(props) {
             );
           })}
         </div>
+        </div>
 
-        <div className="userPage-artposts">
+          <div>
           <h1>Artposts</h1>
+        <div className={UserPageCSS.user_artposts}>
           {artPosts.map((artpost) => {
             return (
               artpost.author &&
@@ -202,6 +206,7 @@ function UserPage(props) {
             );
           })}
         </div>
+          </div>
       </div>
     </div>
   );

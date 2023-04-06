@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../context/Auth.context";
 import { Button, Form, Modal } from "react-bootstrap";
+import ArtPostCard from "../../components/Artpost/ArtpostCard";
 
 function ArtPostDetails() {
   const { artpostId } = useParams();
@@ -18,6 +19,7 @@ function ArtPostDetails() {
   const [year, setYear] = useState("");
   const [dimensions, setDimensions] = useState("");
   const [art_image, setArtImage] = useState("");
+  const [author, setAuthor] = useState("")
 
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -56,15 +58,13 @@ function ArtPostDetails() {
         <div>
           <h2>Art Details:</h2>
           <div>
-            <img src={artpost.art_image} alt={artpost.title} />
-            <h3>Title: {artpost.title}</h3>
-            <h4>Artist: {artpost.artist}</h4>
-            {artpost.description && <p>Description: {artpost.description}</p>}
-            {artpost.medium && <p>Medium: {artpost.medium}</p>}
-            {artpost.year && <p>Year: {artpost.year}</p>}
+          <ArtPostCard key={artpost._id}  author={artpost.author} artpostId={artpost._id} 
+          title={artpost.title} artist={artpost.artist} year={(artpost.year)}
+          art_image={artpost.art_image} medium={artpost.medium}
+          description={artpost.description}/>
           </div>
 
-          {user?._id === artpost.author && (
+          {/* {user?._id === artpost.author && (
             <>
             <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
                 {showUpdateForm ? "Hide Form" : "Edit Art Post"}
@@ -74,7 +74,7 @@ function ArtPostDetails() {
                 Delete
               </Button>
             </>
-          )}
+          )} */}
 
           {showUpdateForm && (
             <Form onSubmit={handleUpdateSubmit}>

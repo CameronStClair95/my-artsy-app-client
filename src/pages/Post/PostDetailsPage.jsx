@@ -12,9 +12,9 @@ function PostDetailsPage() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/api/posts/${postId}`)
+      .get(`http://localhost:5005/api/posts/posts/${postId}`)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.post);
         setPost(response.data.post);
         setContent(response.data.post.content);
         setPlace(response.data.post.place);
@@ -28,13 +28,7 @@ function PostDetailsPage() {
       {post ? (
         <div>
           <div>
-            <PostCard
-              key={post._id}
-              content={content}
-              place={place}
-              post_image={post_image}
-              postId={post._id}
-            />
+            <PostCard key={post._id} content={content} place={place} post_image={post_image} author={post.author} postId={post._id}/>
           </div>
         </div>
       ) : (

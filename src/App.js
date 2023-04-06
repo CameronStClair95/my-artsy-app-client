@@ -39,20 +39,22 @@ function App() {
         {/* Authorization routes */}
         <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>}/>
         <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>}/>
-
+        {/* home and landing page  */}
         <Route path="/" element={<LandingPage />} /> {/* index page */}
         <Route path="/home" element={<IsPrivate><HomePage /></IsPrivate>}/>
-        
+        {/* user page */}
         <Route path="/user/:userId" element={<IsPrivate><UserPage /></IsPrivate>}/>
-
+        {/* create new posts */}
         <Route path="/posts/post" element={<IsPrivate><NewPost /></IsPrivate>}/>
         <Route path="posts/artpost" element={<IsPrivate><NewArtpost /></IsPrivate>}/>
-        <Route path="/post/:postId" element={<PostDetailsPage />} />
-        <Route path="/artposts/:artpostId" element={<ArtPostDetails />} />
-
+        {/* post details */}
+        <Route path="/posts/posts/:postId" element={<IsPrivate><PostDetailsPage /></IsPrivate>} />
+        <Route path="/posts/artposts/:artpostId" element={<IsPrivate><ArtPostDetails /></IsPrivate>} />
+        {/* undefined for now  */}
         <Route path="/:userId/posts" /> {/* put inside of the isPrivate*/}
         <Route path="/:userId/favorites" /> {/* chat page with isPrivate */}
         <Route path="/post/:postId/update" element={<UpdatePostDetails />} />
+        {/* error page */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>

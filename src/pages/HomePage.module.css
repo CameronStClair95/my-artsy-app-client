@@ -1,0 +1,27 @@
+.all_posts {
+    display: flex;
+    flex-direction: row;
+    margin: 15px;
+    gap: 25px;
+}
+
+.home_posts{
+    border: 2px solid green;
+    height: fit-content;
+    width: 400px;
+    margin: 0 50px;
+    padding: 10px;
+}
+
+.home_artposts{
+    display: flex;
+    flex-wrap: wrap; 
+    flex-grow: 1;
+    
+    
+    border: 2px solid yellowgreen;
+    width: fit-content;
+    width: 400px;
+    gap: 25px   ;
+    padding: 10px;
+}

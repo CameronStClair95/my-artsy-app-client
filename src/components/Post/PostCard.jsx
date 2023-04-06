@@ -16,46 +16,41 @@ function PostCard({content, place, post_image, postId, getAllPosts, likedBy, aut
   const API_URL = "http://localhost:5005";
   const { user } = useContext(AuthContext);
 
-  /* const [userInfo, setUserInfo] = useState(); */
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/posts/post/${postId}`)
+    axios.get(`${API_URL}/api/posts/posts/${postId}`)
       .then((response) => {
-        const updatedPost = {...response.data}
-        console.log(response.data)
-        setPost(updatedPost)
+        
+        setPost(response.data)
+        /* console.log("author is", author._id)
+        console.log(response.data.post.author._id, "post author id")
+        console.log(user._id, "user id") */
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error("an error trying to set info", error));
   }, [postId]);
 
   function handleLike() {
-    console.log("handle like");
+    /* console.log("handle like"); */
     axios.post(`${API_URL}/api/posts/like/${postId}/post`, user)
       .then((response) => {
         setPost(response.data)
-        console.log(response.data)
+        /* console.log(response.data) */
       })
-      .catch((error) => console.log(error));
-  }
-
-  if (!post) {
-    <div>Loading...</div>;
+      .catch((error) => console.error(error));
   }
 
   const handleDelete = () => {
     console.log(`Deleting post with id ${postId}`);
-    axios
-      .delete(`${API_URL}/api/posts/${postId}`)
+    axios.delete(`${API_URL}/api/posts/${postId}`)
       .then((response) => {
         console.log("Post deleted successfully:", response.data);
         /* getAllPosts(); */
         navigate("/home"); // Navigate to the home page after successful deletion
       })
       .catch((error) => {
-        console.log("Error deleting post:", error);
+        console.error("Error deleting post:", error);
       });
   };
 
@@ -68,30 +63,26 @@ function PostCard({content, place, post_image, postId, getAllPosts, likedBy, aut
 
       <div className={PostCSS.post_content}>
         <h5>{content}</h5>
-        <p>{place}</p>
+        <p>📌 {place}</p>
       </div>
 
       {pathname === "/home" ? (
-        <Link to={`/post/${postId}`} className="post_card_link">
-          <Button>
-            <ReadMoreIcon /> More{" "}
-          </Button>
+        <Link to={`/posts/posts/${postId}`} className="post_card_link">
+          <Button><ReadMoreIcon/> More</Button>
         </Link>
       ) : (
         <>
-          <Button> Update <EditIcon/></Button>
-          
-          <Button variant="danger" onClick={handleDelete}>
-            Delete <DeleteOutlineIcon />
-          </Button>
+        { user?._id === author?._id && 
+          <>
+          <Button>Update<EditIcon/></Button>
+          <Button variant="danger" onClick={handleDelete}>Delete <DeleteOutlineIcon/></Button>
+          </>
+        }
         </>
       )}
 
-      <button
-        onClick={handleLike}
-        style={{ background: "transparent", border: "none" }}
-      >
-        {!post?.likedBy.includes(user._id) ? (
+      <button onClick={handleLike} style={{ background: "transparent", border: "none" }} >
+        {!post?.likedBy?.includes(user._id) ? (
           <FavoriteBorderIcon />
         ) : (
           <FavoriteIcon />
@@ -103,12 +94,3 @@ function PostCard({content, place, post_image, postId, getAllPosts, likedBy, aut
 }
 
 export default PostCard;
-
-/* 
-{author === user?._id && 
-          <>
-          <Button>Update<EditIcon/></Button>
-          <Button onClick={handleDelete}>Delete <DeleteOutlineIcon/></Button>
-          </>
-        }
-*/

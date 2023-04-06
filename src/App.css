@@ -51,21 +51,9 @@
   margin-top: 2rem;
 }
 
-.userPage-posts {
-  border: 2px solid blue;
-  height: fit-content;
-  padding: 10px
-}
-
 .userPage-artposts {
   border: 2px solid darkblue;
   width: 60ch;
-  padding: 10px
-}
-
-.userPage-info {
-  border: 2px solid lightblue;
-  height: fit-content;
   padding: 10px
 }
 

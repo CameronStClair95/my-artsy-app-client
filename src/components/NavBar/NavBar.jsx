@@ -6,7 +6,7 @@ import pageLogo from "../../images/logo192.png";
 /* .../images/logo192.png */
 import { AuthContext } from "../../context/Auth.context";
 
-import { Dropdown } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 
 function NavBar() {
   const { isLoggedIn, logOutUser, user } = useContext(AuthContext); // Get properties from AuthContext
@@ -21,8 +21,8 @@ function NavBar() {
 
   return (
     <div className={navbarCSS.navbar}>
+    
       <img src={pageLogo} className={navbarCSS.logotype} alt="React Logo" />
-
       <Link to="/home">
         <h3 className={navbarCSS.title}>Macartsy</h3>
       </Link>
@@ -32,11 +32,12 @@ function NavBar() {
           <>
             <div className={navbarCSS.right_buttons}>
               <Link to="/posts/post">
-                <button>New Post</button>
+              <Button variant="info">New Post</Button>
+                
               </Link>
 
               <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <Dropdown.Toggle variant="info" id="dropdown-basic">
                   More
                 </Dropdown.Toggle>
 

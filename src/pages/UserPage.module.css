@@ -1,0 +1,35 @@
+.grid {
+    display: flex;
+    flex-direction: row;
+    margin: 15px;
+    gap: 25px;
+}
+
+.user_info {
+    width: 400px;
+    border: 2px solid black;
+    height: fit-content;
+    padding: 10px;   
+}
+
+.user_info img {
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+.user_posts {
+    border: 2px solid blue;
+    height: fit-content;
+    padding: 10px
+}
+
+.user_artposts {
+    display: flex;
+    flex-wrap: wrap; 
+    flex-grow: 1;
+    
+    border: 2px solid darkblue;
+    width: fit-content;
+    padding: 10px;
+    gap: 25px;
+}

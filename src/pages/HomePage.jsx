@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Carousel, Card, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import HomePageCSS from "./HomePage.module.css"
 import "../App.css";
 
 import PostCard from "../components/Post/PostCard";
@@ -70,9 +71,10 @@ function HomePage() {
               })}
             </Carousel>
           </div>
+        <div className={HomePageCSS.all_posts}>
 
-          <div className="posts-artposts">
-            <div className="home-posts">
+        
+            <div className={HomePageCSS.home_posts}>
               {posts.map((post) => {
                 return (
                   <PostCard
@@ -85,19 +87,19 @@ function HomePage() {
               })}
             </div>
 
-            <div className="home-artposts">
+            <div className={HomePageCSS.home_artposts}>
               {artPosts.map((artpost) => {
                 return (
                   <ArtPostCard
                     key={artpost._id}
                     {...artpost}
                     artpostId={artpost._id}
-                    getPosts={getAllPosts}
-                  />
+                    getPosts={getAllPosts}/>
                 );
               })}
             </div>
           </div>
+        
         </>
       )}
     </div>
