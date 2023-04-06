@@ -36,7 +36,7 @@ function ArtPostCard({artpostId}) {
 
   return (
       <div className="artpost_card">
-    <Link to={`/artposts/${artpostId}`} className='artpost_card_link'>
+    <Link to={`/posts/artposts/${artpostId}`} className='artpost_card_link'>
         <div>
           <img className="art-image" src={art_image} alt={`${title} by ${artist}`} />
         </div>

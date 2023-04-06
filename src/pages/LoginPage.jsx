@@ -36,8 +36,9 @@ function LoginPage(props) {
         navigate("/home");
       })
       .catch((error) => {
-        const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription);
+        // const errorDescription = error.response.data.message;
+        // setErrorMessage(errorDescription);
+        console.error(error)
       });
   };
 

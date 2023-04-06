@@ -54,14 +54,14 @@ function App() {
       <Route path="new-post/artpost" element={<IsPrivate><NewArtpost/></IsPrivate>}/>
       <Route path="/post/:postId" element={<PostDetailsPage />} />
       <Route path="/post/:postId/update" element={<UpdatePostDetails/>} />
-      <Route path="/artposts/:artpostId" element={<ArtPostDetails />} />
+      <Route path="/posts/artposts/:artpostId" element={<IsPrivate><ArtPostDetails /></IsPrivate>} />
 
 
       {/* route for the error page with message */}
       <Route path="*" element={<ErrorPage/>}/>
       
     </Routes>
-    <Footer/>
+    {/* //<Footer/> */}
       
     </div>
   );

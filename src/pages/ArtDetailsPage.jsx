@@ -19,6 +19,7 @@ function ArtPostDetails() {
   const [year, setYear] = useState("");
   const [dimensions, setDimensions] = useState("");
   const [art_image, setArtImage] = useState("");
+  const [artImageFile, setArtImageFile] = useState(null);
 
   useEffect(() => {
     axios
@@ -30,9 +31,31 @@ function ArtPostDetails() {
       .catch((error) => console.log(error));
   }, [artpostId]);
 
-  const handleUpdateSubmit = (e) => {
+  const uploadImage = (file) => {
+    const formData = new FormData();
+    formData.append("art_image", file);
+  
+    return axios
+      .post(`${API_URL}/api/posts/artposts/upload`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        return response.data.url;
+      })
+      .catch((error) => {
+        console.error("Error uploading image:", error);
+        return null;
+      });
+  };
+
+  const handleUpdateSubmit = async (e) => {
     e.preventDefault();
   
+    let updatedArtImage = art_image;
+    if (artImageFile) {
+      updatedArtImage = await uploadImage(artImageFile);
+    }
+
     axios
       .put(`${API_URL}/api/posts/artposts/${artpostId}`, {
         artist,
@@ -41,10 +64,11 @@ function ArtPostDetails() {
         medium,
         year,
         dimensions,
-        art_image,
+        art_image: updatedArtImage,
       })
       .then((response) => {
         setArtPost(response.data);
+        console.log(response)
         setShowUpdateForm(false);
       })
       .catch((error) => {
@@ -83,7 +107,7 @@ function ArtPostDetails() {
               <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
                 {showUpdateForm ? "Hide Form" : "Edit Art Post"}
               </Button>
-
+  
               <Button
                 variant="danger"
                 onClick={() =>
@@ -104,7 +128,7 @@ function ArtPostDetails() {
                   onChange={(e) => setArtist(e.target.value)}
                 />
               </Form.Group>
-
+  
               <Form.Group controlId="formTitle">
                 <Form.Label>Title:</Form.Label>
                 <Form.Control
@@ -113,7 +137,7 @@ function ArtPostDetails() {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </Form.Group>
-
+  
               <Form.Group controlId="formDescription">
                 <Form.Label>Description:</Form.Label>
                 <Form.Control
@@ -122,75 +146,75 @@ function ArtPostDetails() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </Form.Group>
-
+  
               <Form.Group controlId="formMedium">
-            <Form.Label>Medium:</Form.Label>
-            <Form.Control
-              type="text"
-              value={medium}
-              onChange={(e) => setMedium(e.target.value)}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formYear">
-            <Form.Label>Year:</Form.Label>
-            <Form.Control
-              type="number"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formDimensions">
-            <Form.Label>Dimensions:</Form.Label>
-            <Form.Control
-              type="text"
-              value={dimensions}
-              onChange={(e) => setDimensions(e.target.value)}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formArtImage">
-            <Form.Label>Art Image URL:</Form.Label>
-            <Form.Control
-              type="text"
-              value={art_image}
-              onChange={(e) => setArtImage(e.target.value)}
-            />
-          </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Update
-          </Button>
-        </Form>
+                <Form.Label>Medium:</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={medium}
+                  onChange={(e) => setMedium(e.target.value)}
+                />
+              </Form.Group>
+  
+              <Form.Group controlId="formYear">
+                <Form.Label>Year:</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={year}
+                  onChange={(e) => setYear(e.target.value)}
+                />
+              </Form.Group>
+  
+              <Form.Group controlId="formDimensions">
+                <Form.Label>Dimensions:</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={dimensions}
+                  onChange={(e) => setDimensions(e.target.value)}
+                />
+              </Form.Group>
+  
+              <Form.Group controlId="formArtImage">
+                <Form.Label>Art Image:</Form.Label>
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setArtImageFile(e.target.files[0])}
+                />
+              </Form.Group>
+  
+              <Button variant="primary" type="submit">
+                Update
+              </Button>
+            </Form>
       )}
       <Modal
-        show={showDeleteConfirmation}
-        onHide={() => setShowDeleteConfirmation(false)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Art Post</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete this art post?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => setShowDeleteConfirmation(false)}
-          >
-            Close
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
-  ) : (
-    <p>Loading art details...</p>
-  )}
-</div>
+          show={showDeleteConfirmation}
+          onHide={() => setShowDeleteConfirmation(false)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Art Post</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete this art post?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setShowDeleteConfirmation(false)}
+            >
+              Close
+            </Button>
+            <Button variant="danger" onClick={handleDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    ) : (
+      <p>Loading art details...</p>
+    )}
+  </div>
 );
 }
 
