@@ -47,16 +47,16 @@ function PostCard({ content, place, post_image, postId, getAllPosts, likedBy, au
 
   useEffect(() => {
     axios.get(`${API_URL}/api/posts/posts/${postId}`)
-      .then((response) => {
-        setPost(response.data);
-      })
-      .catch((error) => console.error("An error occurred trying to set info", error));
+      .then((response) => setPost(response.data))
+      .catch((error) => console.error("an error trying to set info", error));
   }, [postId]);
 
   function handleLike() {
+    console.log("handle like");
     axios.post(`${API_URL}/api/posts/like/${postId}/post`, user)
       .then((response) => {
-        setPost(response.data);
+        setPost(response.data)
+        console.log(response.data)
       })
       .catch((error) => console.error(error));
   }

@@ -3,8 +3,8 @@ import { Routes, Route, Link } from "react-router-dom";
 
 //components
 
-import NavBar from './components/NavBar/NavBar';
-// import Footer from './components/Footer';
+import NavBar from "./components/NavBar/NavBar"
+import Footer from './components/Footer';
 
 
 //pages
@@ -37,7 +37,6 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-
 
       <Routes>
         {/* Authorization routes */}

@@ -14,6 +14,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import PostCard from "../components/Post/PostCard";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
@@ -48,8 +49,7 @@ function UserPage(props) {
   const navigate = useNavigate();
 
   function getUserInfo() {
-    axios
-      .get(`${API_URL}/api/user/${userId}`)
+    axios.get(`${API_URL}/api/user/${userId}`)
       .then((response) => {
         //for catching user info to display
         setUserInfo(response.data);
@@ -58,9 +58,7 @@ function UserPage(props) {
         setUsername(response.data.username);
         console.log("user info: ", response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.error("error while fetching user info ", error));
   }
 
   function getAllPosts() {
@@ -69,34 +67,27 @@ function UserPage(props) {
       .then((response) => {
         setPosts(response.data.posts);
         setArtPosts(response.data.artPosts);
-        console.log(response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.error("error while fetching posts info ", error));
   }
 
   function handleUpdateSubmit(e) {
     e.preventDefault();
     const requestBody = { fullname, username };
-    axios
-      .put(`${API_URL}/api/user/${userId}`, requestBody)
+    axios.put(`${API_URL}/api/user/${userId}`, requestBody)
       .then((response) => {
-        console.log(response.data);
         removeToken();
-        console.log("new token is ", response.data.authToken);
         localStorage.setItem("authToken", response.data.authToken);
         authenticateUser();
       })
       .then(() => getUserInfo())
       .then(() => setFormUpdate(false))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error("error while updating user ",error));
   }
 
   function handleDelete() {
-    axios
-      .delete(`${API_URL}/api/user/${userId}/delete`)
-      .then((response) => navigate("/login"))
+    axios.delete(`${API_URL}/api/user/${userId}/delete`)
+      .then(() => navigate("/login"))
       .then(() => logOutUser());
   }
 
@@ -109,11 +100,9 @@ function UserPage(props) {
     <div>
       <div className={UserPageCSS.grid}>
         <div className={UserPageCSS.user_info}>
+        
           <div>
-            <img
-              className={UserPageCSS.user_image}
-              src="https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
-            />
+            <AccountCircleIcon/>
             <p>{userInfo?.fullname}</p>
             <p>@{userInfo?.username}</p>
             <p>{userInfo?.email}</p>
@@ -203,21 +192,17 @@ function UserPage(props) {
 
         <div>
           <h1>Artposts</h1>
-          <div className={UserPageCSS.user_artposts}>
-            {artPosts.map((artpost) => {
-              return (
-                artpost.author &&
-                artpost.author?._id === userInfo?._id && (
-                  <ArtPostCard
-                    key={artpost._id}
-                    {...artpost}
-                    artpostId={artpost._id}
-                  />
-                )
-              );
-            })}
-          </div>
+        <div className={UserPageCSS.user_artposts}>
+          {artPosts.map((artpost) => {
+            return (
+              artpost.author &&
+              artpost.author?._id === userInfo?._id && (
+                <ArtPostCard key={artpost._id} {...artpost} artpostId={artpost._id} />
+              )
+            );
+          })}
         </div>
+          </div>
       </div>
       <Modal
         show={showDeleteConfirmation}

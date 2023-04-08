@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import PostCard from "../../components/Post/PostCard";
+import Comment from "../../components/Comment";
+
+import PostCSS from "../../components/Post/Post.module.css"
 
 function PostDetailsPage() {
   const { postId } = useParams();
@@ -24,13 +27,16 @@ function PostDetailsPage() {
   }, [postId]);
 
   return (
-    <div>
+    <div >
       {post ? (
-        <div>
+        <div className={PostCSS.post_details_div}>
           <div>
             <PostCard key={post._id} content={content} place={place} post_image={post_image} author={post.author} postId={post._id}/>
           </div>
+          
+          <Comment/>
         </div>
+
       ) : (
         <p>Loading post...</p>
       )}

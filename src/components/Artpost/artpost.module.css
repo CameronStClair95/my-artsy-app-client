@@ -33,4 +33,12 @@
 .art_image {
     object-fit: cover;
     background-origin: transparent;
-  }
+}
+
+.artpost_details_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    margin-top: 30px;
+}

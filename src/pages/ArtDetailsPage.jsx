@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ArtpostCSS from "../components/Artpost/artpost.module.css"
 import { Button, Form, Modal } from "react-bootstrap";
 import { AuthContext } from "../context/Auth.context";
+import Comment from "../components/Comment"
 
 function ArtPostDetails() {
   const { artpostId } = useParams();
@@ -111,18 +113,25 @@ uploadImage(uploadData)
   };
 
   return (
-    <div>
+    <div className={ArtpostCSS.artpost_details_div}>
       {artpost ? (
         <div>
           <h2>Art Details:</h2>
-          <div>
-            <img src={artpost.art_image} alt={artpost.title} />
-            <h3>Title: {artpost.title}</h3>
-            <h4>Artist: {artpost.artist}</h4>
-            {artpost.description && <p>Description: {artpost.description}</p>}
-            {artpost.medium && <p>Medium: {artpost.medium}</p>}
-            {artpost.year && <p>Year: {artpost.year}</p>}
-          </div>
+          <div className={ArtpostCSS.artpost_card}>
+
+            <div className={ArtpostCSS.art_image_div}>
+              <img className={ArtpostCSS.art_image} 
+                  src={artpost.art_image} alt={artpost.title} />
+            </div>
+
+            <div className={ArtpostCSS.artpost_content}>
+              <h3>{artpost.title}</h3>
+              <h5>{artpost.artist}, {artpost.year}</h5>
+              {artpost.medium && <h6>Medium: {artpost.medium}</h6>}
+              {artpost.description && <p>Description: {artpost.description}</p>}
+            </div>
+            
+           
           {user?._id === artpost.author && (
             <>
               <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
@@ -139,6 +148,11 @@ uploadImage(uploadData)
               </Button>
             </>
           )}
+          </div>
+
+          <div>
+      <Comment/>
+            </div>
           {showUpdateForm && (
             <Form onSubmit={handleUpdateSubmit}>
               <Form.Group controlId="formArtist">
