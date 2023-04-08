@@ -3,8 +3,8 @@ import { Routes, Route, Link } from "react-router-dom";
 
 //components
 
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
+import NavBar from './components/NavBar/NavBar';
+// import Footer from './components/Footer';
 
 
 //pages
@@ -20,7 +20,7 @@ import IsAnon from "./components/auth/IsAnon";
 import IsPrivate from "./components/auth/IsPrivate";
 import PostDetailsPage from "./pages/Post/PostDetailsPage";
 import UpdatePostDetails from "./pages/Post/UpdatePostDetails";
-import ArtPostDetails from "./pages/ArtPost/ArtDetailsPage";
+import ArtPostDetails from "./pages/ArtDetailsPage"
 
 /* 
 to use ThemeContext in each component:
@@ -53,8 +53,7 @@ function App() {
         <Route path="posts/artpost" element={<IsPrivate><NewArtpost /></IsPrivate>}/>
         {/* post details */}
         <Route path="/posts/posts/:postId" element={<IsPrivate><PostDetailsPage /></IsPrivate>} />
-        <Route path="/posts/artposts/:artpostId" element={<IsPrivate><ArtPostDetails /></IsPrivate>} />
-        {/* undefined for now  */}
+        <Route path="/posts/artposts/:artpostId" element={<IsPrivate><ArtPostDetails /></IsPrivate>} />        {/* undefined for now  */}
         <Route path="/:userId/posts" /> {/* put inside of the isPrivate*/}
         <Route path="/:userId/favorites" /> {/* chat page with isPrivate */}
         <Route path="/post/:postId/update" element={<UpdatePostDetails />} />

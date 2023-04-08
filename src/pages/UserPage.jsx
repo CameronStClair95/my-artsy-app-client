@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import UserPageCSS from "./UserPage.module.css"
+import UserPageCSS from "./UserPage.module.css";
 
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Auth.context";
 import { Button, Form, Modal } from "react-bootstrap";
 
 import ArtPostCard from "../components/Artpost/ArtpostCard";
-
 
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -16,7 +15,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import PostCard from "../components/Post/PostCard";
 
-const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
 function UserPage(props) {
   const { userId } = useParams();
@@ -40,6 +39,7 @@ function UserPage(props) {
   const [artPosts, setArtPosts] = useState([]);
   const [formUpdate, setFormUpdate] = useState(false);
   const [formDelete, setFormDelete] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   const handleName = (e) => setFullName(e.target.value);
   const handleUsername = (e) => setUsername(e.target.value);
@@ -110,7 +110,10 @@ function UserPage(props) {
       <div className={UserPageCSS.grid}>
         <div className={UserPageCSS.user_info}>
           <div>
-             <img className={UserPageCSS.user_image}  src="https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"/>
+            <img
+              className={UserPageCSS.user_image}
+              src="https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
+            />
             <p>{userInfo?.fullname}</p>
             <p>@{userInfo?.username}</p>
             <p>{userInfo?.email}</p>
@@ -128,7 +131,10 @@ function UserPage(props) {
                   {formUpdate ? "Hide Form" : `Edit Account`}
                 </Button>
 
-                <Button variant="danger" onClick={handleDelete}>
+                <Button
+                  variant="danger"
+                  onClick={() => setShowDeleteConfirmation(true)}
+                >
                   Delete <DeleteOutlineIcon />
                 </Button>
               </>
@@ -184,31 +190,57 @@ function UserPage(props) {
 
         <div>
           <h1>Posts</h1>
-        <div className={UserPageCSS.user_posts}>
-          {posts.map((post) => {
-            return (
-              post.author._id === userInfo?._id && (
-                <PostCard key={post._id} {...post} postId={post._id} />
-              )
-            );
-          })}
-        </div>
+          <div className={UserPageCSS.user_posts}>
+            {posts.map((post) => {
+              return (
+                post.author?._id === userInfo?._id && (
+                  <PostCard key={post._id} {...post} postId={post._id} />
+                )
+              );
+            })}
+          </div>
         </div>
 
-          <div>
+        <div>
           <h1>Artposts</h1>
-        <div className={UserPageCSS.user_artposts}>
-          {artPosts.map((artpost) => {
-            return (
-              artpost.author &&
-              artpost?.author._id === userInfo?._id && (
-                <ArtPostCard key={artpost._id} {...artpost} artpostId={artpost._id} />
-              )
-            );
-          })}
-        </div>
+          <div className={UserPageCSS.user_artposts}>
+            {artPosts.map((artpost) => {
+              return (
+                artpost.author &&
+                artpost.author?._id === userInfo?._id && (
+                  <ArtPostCard
+                    key={artpost._id}
+                    {...artpost}
+                    artpostId={artpost._id}
+                  />
+                )
+              );
+            })}
           </div>
+        </div>
       </div>
+      <Modal
+        show={showDeleteConfirmation}
+        onHide={() => setShowDeleteConfirmation(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Account</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this account?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowDeleteConfirmation(false)}
+          >
+            Close
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

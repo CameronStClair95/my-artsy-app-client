@@ -6,6 +6,7 @@ import { AuthContext } from "../context/Auth.context";
 
 function ArtPostDetails() {
   const { artpostId } = useParams();
+
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
@@ -17,9 +18,9 @@ function ArtPostDetails() {
   const [description, setDescription] = useState("");
   const [medium, setMedium] = useState("");
   const [year, setYear] = useState("");
-  const [dimensions, setDimensions] = useState("");
   const [art_image, setArtImage] = useState("");
   const [artImageFile, setArtImageFile] = useState(null);
+  console.log("ArtPostDetails artpostId:", artpostId);
 
   useEffect(() => {
     axios
@@ -27,34 +28,56 @@ function ArtPostDetails() {
       .then((response) => {
         console.log(response.data);
         setArtPost(response.data);
+        setArtist(response.data.artist);
+        setTitle(response.data.title);
+        setDescription(response.data.description);
+        setMedium(response.data.medium);
+        setYear(response.data.year);
+        setArtImage(response.data.art_image);
       })
       .catch((error) => console.log(error));
   }, [artpostId]);
 
+  // const uploadImage3 = (file) => {
+  //   const formData = new FormData();
+  //   formData.append("art_image", file);
+
+  //   return axios
+  //     .post(`${API_URL}/api/posts/upload`, formData, {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data.url)
+  //       return response.data.url;
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error uploading image:", error);
+  //       return null;
+  //     });
+  // };
+
   const uploadImage = (file) => {
-    const formData = new FormData();
-    formData.append("art_image", file);
-  
     return axios
-      .post(`${API_URL}/api/posts/artposts/upload`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((response) => {
-        return response.data.url;
-      })
-      .catch((error) => {
-        console.error("Error uploading image:", error);
-        return null;
-      });
+      .post(`${API_URL}/api/posts/upload`, file)
+      .then((res) => res.data)
   };
+
+  const uploadImage2 = (e) => {
+    const uploadData = new FormData();
+
+  uploadData.append("imageUrl", e.target.files[0]);
+uploadImage(uploadData)
+.then((response) => {setArtImageFile(response.fileUrl); console.log(response.fileUrl)})
+  .catch(err => console.log("Error while uploading the file: ", err));
+  }
 
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
-  
-    let updatedArtImage = art_image;
-    if (artImageFile) {
-      updatedArtImage = await uploadImage(artImageFile);
-    }
+
+    let imageURL = art_image;
+    // if (artImageFile) {
+    //   imageURL = await uploadImage(artImageFile);
+    // }
 
     axios
       .put(`${API_URL}/api/posts/artposts/${artpostId}`, {
@@ -63,12 +86,11 @@ function ArtPostDetails() {
         description,
         medium,
         year,
-        dimensions,
-        art_image: updatedArtImage,
+        art_image: artImageFile,
       })
       .then((response) => {
         setArtPost(response.data);
-        console.log(response)
+        console.log(response);
         setShowUpdateForm(false);
       })
       .catch((error) => {
@@ -100,14 +122,13 @@ function ArtPostDetails() {
             {artpost.description && <p>Description: {artpost.description}</p>}
             {artpost.medium && <p>Medium: {artpost.medium}</p>}
             {artpost.year && <p>Year: {artpost.year}</p>}
-            {artpost.dimensions && <p>Dimensions: {artpost.dimensions}</p>}
           </div>
           {user?._id === artpost.author && (
             <>
               <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
                 {showUpdateForm ? "Hide Form" : "Edit Art Post"}
               </Button>
-  
+
               <Button
                 variant="danger"
                 onClick={() =>
@@ -128,7 +149,7 @@ function ArtPostDetails() {
                   onChange={(e) => setArtist(e.target.value)}
                 />
               </Form.Group>
-  
+
               <Form.Group controlId="formTitle">
                 <Form.Label>Title:</Form.Label>
                 <Form.Control
@@ -137,7 +158,7 @@ function ArtPostDetails() {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </Form.Group>
-  
+
               <Form.Group controlId="formDescription">
                 <Form.Label>Description:</Form.Label>
                 <Form.Control
@@ -146,7 +167,7 @@ function ArtPostDetails() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </Form.Group>
-  
+
               <Form.Group controlId="formMedium">
                 <Form.Label>Medium:</Form.Label>
                 <Form.Control
@@ -155,7 +176,7 @@ function ArtPostDetails() {
                   onChange={(e) => setMedium(e.target.value)}
                 />
               </Form.Group>
-  
+
               <Form.Group controlId="formYear">
                 <Form.Label>Year:</Form.Label>
                 <Form.Control
@@ -164,58 +185,47 @@ function ArtPostDetails() {
                   onChange={(e) => setYear(e.target.value)}
                 />
               </Form.Group>
-  
-              <Form.Group controlId="formDimensions">
-                <Form.Label>Dimensions:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={dimensions}
-                  onChange={(e) => setDimensions(e.target.value)}
-                />
-              </Form.Group>
-  
+
               <Form.Group controlId="formArtImage">
                 <Form.Label>Art Image:</Form.Label>
                 <Form.Control
                   type="file"
-                  accept="image/*"
-                  onChange={(e) => setArtImageFile(e.target.files[0])}
+                  onChange={(e) => uploadImage2(e)}
                 />
               </Form.Group>
-  
+
               <Button variant="primary" type="submit">
                 Update
               </Button>
             </Form>
+          )}
+          <Modal
+            show={showDeleteConfirmation}
+            onHide={() => setShowDeleteConfirmation(false)}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Delete Art Post</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Are you sure you want to delete this art post?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => setShowDeleteConfirmation(false)}
+              >
+                Close
+              </Button>
+              <Button variant="danger" onClick={handleDelete}>
+                Delete
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      ) : (
+        <p>Loading art details...</p>
       )}
-      <Modal
-          show={showDeleteConfirmation}
-          onHide={() => setShowDeleteConfirmation(false)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Delete Art Post</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Are you sure you want to delete this art post?
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => setShowDeleteConfirmation(false)}
-            >
-              Close
-            </Button>
-            <Button variant="danger" onClick={handleDelete}>
-              Delete
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-    ) : (
-      <p>Loading art details...</p>
-    )}
-  </div>
-);
+    </div>
+  );
 }
-
 export default ArtPostDetails;
