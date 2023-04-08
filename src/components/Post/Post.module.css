@@ -1,15 +1,14 @@
 .post_card {
     display: flex;
-   flex-direction: column;
-   align-items: center;
-   border: 1px solid black;
-   border-radius: 15px;
-   margin: 10px 0;
-   padding: 10px 0;
-   background-color: whitesmoke;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin: 10px 0;
+    padding: 10px 0;
+    width: 400px;
+    background-color: whitesmoke;
 }
-
-
 
 .post_image {
     width: 300px;
@@ -18,4 +17,12 @@
 
 .post_content {
     text-align: center;
+}
+
+.post_details_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    margin-top: 30px;
 }

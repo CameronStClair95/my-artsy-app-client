@@ -59,6 +59,7 @@ function NewArtpost() {
         // response carries "fileUrl" which we can use to update the state
         setArt_image(response.fileUrl);
         console.log("this is the link for the image", response.fileUrl);
+        alert("image uploaded. You can Submit")
       })
       .catch((err) => console.log("Error while uploading the file: ", err));
   };
@@ -75,12 +76,12 @@ function NewArtpost() {
 
       <form onSubmit={handleArtpostSubmit}>
         <label>
-          Artist:
+         * Artist:
           <input type="text" name="artist" value={artist} onChange={handleArtist}/>
         </label>
 
         <label>
-          Title:
+         * Title:
           <input type="text" name="title" value={title} onChange={handleTitle}/>
         </label>
 
@@ -90,17 +91,17 @@ function NewArtpost() {
         </label>
 
         <label>
-          Medium
+         * Medium
           <input type="text" name="medium" value={medium} onChange={handleMedium}/>
         </label>
 
         <label>
-          Year
+         * Year
           <input type="number" name="year" value={year} onChange={handleYear} />
         </label>
 
         <label>
-          Image
+         * Image
           {/* file upload with cloudinary */}
           <input type="file" name="art_image" onChange={(e) => handleFileUpload(e)}/>
 

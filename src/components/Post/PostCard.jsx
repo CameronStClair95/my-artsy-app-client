@@ -21,22 +21,16 @@ function PostCard({content, place, post_image, postId, getAllPosts, likedBy, aut
 
   useEffect(() => {
     axios.get(`${API_URL}/api/posts/posts/${postId}`)
-      .then((response) => {
-        
-        setPost(response.data)
-        /* console.log("author is", author._id)
-        console.log(response.data.post.author._id, "post author id")
-        console.log(user._id, "user id") */
-      })
+      .then((response) => setPost(response.data))
       .catch((error) => console.error("an error trying to set info", error));
   }, [postId]);
 
   function handleLike() {
-    /* console.log("handle like"); */
+    console.log("handle like");
     axios.post(`${API_URL}/api/posts/like/${postId}/post`, user)
       .then((response) => {
         setPost(response.data)
-        /* console.log(response.data) */
+        console.log(response.data)
       })
       .catch((error) => console.error(error));
   }

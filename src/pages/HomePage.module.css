@@ -7,8 +7,9 @@
 
 .home_posts{
     border: 2px solid green;
+    border-radius: 12px;
     height: fit-content;
-    width: 400px;
+    width: fit-content;
     margin: 0 50px;
     padding: 10px;
 }
@@ -20,6 +21,7 @@
     
     
     border: 2px solid yellowgreen;
+    border-radius: 12px;
     width: fit-content;
     width: 400px;
     gap: 25px   ;
