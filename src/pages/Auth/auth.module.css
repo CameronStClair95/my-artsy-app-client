@@ -1,0 +1,28 @@
+.auth_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title_login {
+    margin-top: 50px;
+}
+
+.title_signup {
+    margin-top: 25px;
+}
+
+Form {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #f8f9fa;
+}
+
+.alert {
+    text-align: center;
+}
+
+.submit_button {
+    margin: 25px 0;
+}

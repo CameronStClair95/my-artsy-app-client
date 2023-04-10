@@ -3,10 +3,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import pageLogo from "../../images/logo192.png";
-/* .../images/logo192.png */
+
 import { AuthContext } from "../../context/Auth.context";
 
-import { Button, Dropdown } from "react-bootstrap";
+import { Button, ButtonGroup, Dropdown, Navbar } from "react-bootstrap";
 
 function NavBar() {
   const { isLoggedIn, logOutUser, user } = useContext(AuthContext); // Get properties from AuthContext
@@ -23,8 +23,8 @@ function NavBar() {
     <div className={navbarCSS.navbar}>
     
       <img src={pageLogo} className={navbarCSS.logotype} alt="React Logo" />
-      <Link to="/home">
-        <h3 className={navbarCSS.title}>Macartsy</h3>
+      <Link className={navbarCSS.title_link} to="/home">
+        <h3 className={navbarCSS.title}><span>Macartsy</span></h3>
       </Link>
 
       <div className={navbarCSS.buttons}>
@@ -32,12 +32,11 @@ function NavBar() {
           <>
             <div className={navbarCSS.right_buttons}>
               <Link to="/posts/post">
-              <Button variant="info">New Post</Button>
-                
+              <Button size="sm" variant="info">New Post</Button>
               </Link>
 
               <Dropdown>
-                <Dropdown.Toggle variant="info" id="dropdown-basic">
+                <Dropdown.Toggle variant="info" size="sm" id="dropdown-basic">
                   More
                 </Dropdown.Toggle>
 
@@ -45,11 +44,9 @@ function NavBar() {
                   <Dropdown.Item>
                     <Link to={`/user/${user._id}`}>My Profile</Link>
                   </Dropdown.Item>
-                  <Dropdown.Item>Something else</Dropdown.Item>
+      
                   <Dropdown.Item>
-                    <Link to="/" onClick={handleLogOut}>
-                      Log Out
-                    </Link>
+                    <Link to="/" onClick={handleLogOut}>Log Out</Link>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -57,15 +54,11 @@ function NavBar() {
           </>
         ) : (
           <>
-            <Link to="/about">
-              <button className="btn btn-primary">About Page</button>
-            </Link>
-            <Link to="/signup">
-              <button>Sign Up</button>
-            </Link>
-            <Link to={"/login"}>
-              <button>Login</button>
-            </Link>
+            <Link to="/about"><Button size="sm">About Page</Button></Link>
+
+            <Link to="/signup"><Button size="sm">Sign Up</Button></Link>
+
+            <Link to={"/login"}><Button size="sm">Login</Button></Link>
           </>
         )}
       </div>

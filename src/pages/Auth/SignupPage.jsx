@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Alert } from "react-bootstrap";
+import AuthCSS from "./auth.module.css"
 import "../../App.css"
 
 const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
@@ -37,9 +38,10 @@ function SignupPage(props) {
   };
 
   return (
-    <div className="SignupPage">
-      <Link to="/">Go back</Link>
-      <h1>Sign Up</h1>
+    <div className={AuthCSS.auth_page}>
+      
+      <h1 className={AuthCSS.title_signup}>Sign Up</h1>
+
       <Form onSubmit={handleSignupSubmit}>
         <Form.Group controlId="formFullName">
           <Form.Label>Name:</Form.Label>
@@ -77,7 +79,7 @@ function SignupPage(props) {
             onChange={handlePassword}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" className={AuthCSS.submit_button}>
           Sign Up
         </Button>
         {errorMessage && (
@@ -85,12 +87,11 @@ function SignupPage(props) {
             {errorMessage}
           </Alert>
         )}
-        <p className="mt-3 text-center">
-          Already have an account?{" "}
-          <Button variant="outline-primary">
-            <Link to={"/login"}>Log in</Link>
-          </Button>
-        </p>
+
+        <div className={AuthCSS.alert}>
+              <h6 variant="light">Already have an account?</h6>
+              <Link to={"/login"}><p>Login</p></Link>
+            </div>
       </Form>
     </div>
   );

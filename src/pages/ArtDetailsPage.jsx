@@ -6,6 +6,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { AuthContext } from "../context/Auth.context";
 import Comment from "../components/Comment"
 
+
 function ArtPostDetails() {
   const { artpostId } = useParams();
 
@@ -81,42 +82,30 @@ uploadImage(uploadData)
     //   imageURL = await uploadImage(artImageFile);
     // }
 
-    axios
-      .put(`${API_URL}/api/posts/artposts/${artpostId}`, {
-        artist,
-        title,
-        description,
-        medium,
-        year,
-        art_image: artImageFile,
-      })
+    axios.put(`${API_URL}/api/posts/artposts/${artpostId}`, {artist, title, description, medium, year,art_image: artImageFile,})
       .then((response) => {
         setArtPost(response.data);
         console.log(response);
         setShowUpdateForm(false);
       })
-      .catch((error) => {
-        console.error("Error updating artpost:", error);
+      .catch((error) => { console.error("Error updating artpost:", error);
       });
   };
 
   const handleDelete = () => {
-    axios
-      .delete(`${API_URL}/api/posts/artposts/${artpostId}`)
-      .then(() => {
-        navigate("/home");
-      })
-      .catch((error) => {
-        console.error("Error deleting artpost:", error);
-      });
+    axios.delete(`${API_URL}/api/posts/artposts/${artpostId}`)
+      .then(() => {navigate("/home");})
+      .catch((error) => {console.error("Error deleting artpost:", error)});
     setShowDeleteConfirmation(false);
   };
 
   return (
+    <div>
     <div className={ArtpostCSS.artpost_details_div}>
       {artpost ? (
+        <div className={ArtpostCSS.post_and_comment}>
         <div>
-          <h2>Art Details:</h2>
+          {/* <h2>Art Details:</h2> */}
           <div className={ArtpostCSS.artpost_card}>
 
             <div className={ArtpostCSS.art_image_div}>
@@ -135,7 +124,7 @@ uploadImage(uploadData)
           {user?._id === artpost.author && (
             <>
               <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
-                {showUpdateForm ? "Hide Form" : "Edit Art Post"}
+                {showUpdateForm ? "Hide Form" : "Edit Post"}
               </Button>
 
               <Button
@@ -150,9 +139,6 @@ uploadImage(uploadData)
           )}
           </div>
 
-          <div>
-      <Comment/>
-            </div>
           {showUpdateForm && (
             <Form onSubmit={handleUpdateSubmit}>
               <Form.Group controlId="formArtist">
@@ -208,10 +194,9 @@ uploadImage(uploadData)
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit">
-                Update
-              </Button>
-            </Form>
+              <Button variant="primary" type="submit">Update</Button>
+              <Button variant="secondary" onClick={() => setShowUpdateForm(false)}>Close</Button>
+              </Form>
           )}
           <Modal
             show={showDeleteConfirmation}
@@ -235,10 +220,16 @@ uploadImage(uploadData)
               </Button>
             </Modal.Footer>
           </Modal>
+          </div>
+          <div>
+            <Comment/>
+          </div>
         </div>
       ) : (
         <p>Loading art details...</p>
       )}
+    </div>
+   
     </div>
   );
 }

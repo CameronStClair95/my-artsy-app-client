@@ -11,8 +11,9 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 
-function PostCard({ content, place, post_image, postId, getAllPosts, likedBy, author }) {
+function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
   const [post, setPost] = useState(null);
+  const [likedBy, setLikedBy] = useState(null)
   const API_URL = "http://localhost:5005";
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -45,21 +46,34 @@ function PostCard({ content, place, post_image, postId, getAllPosts, likedBy, au
     });
   };
 
-  useEffect(() => {
+  
+
+  function getPosts(){
     axios.get(`${API_URL}/api/posts/posts/${postId}`)
-      .then((response) => setPost(response.data))
+      .then((response) => {
+        /* console.log(response.data.post) */
+        setPost(response.data)
+        setLikedBy(response.data.post.likedBy)
+        /* console.log("liked by is", response.data.post.likedBy) */
+      })
+        /* console.log("liked by ", likedBy) */
       .catch((error) => console.error("an error trying to set info", error));
-  }, [postId]);
+  }
 
   function handleLike() {
     console.log("handle like");
     axios.post(`${API_URL}/api/posts/like/${postId}/post`, user)
       .then((response) => {
+        console.log("this is the response for the post like ", response.data)
         setPost(response.data)
-        console.log(response.data)
+        getPosts()
       })
       .catch((error) => console.error(error));
   }
+
+  useEffect(() => {
+    getPosts()
+  }, [postId]);
 
   const handleDelete = () => {
     console.log(`Deleting post with id ${postId}`);
@@ -106,7 +120,9 @@ function PostCard({ content, place, post_image, postId, getAllPosts, likedBy, au
       )}
 
       <button onClick={handleLike} style={{ background: "transparent", border: "none" }} >
-        {!post?.likedBy?.includes(user._id) ? (
+        { 
+          
+           !likedBy?.includes(user._id) ? (
           <FavoriteBorderIcon />
         ) : (
           <FavoriteIcon />
@@ -183,3 +199,4 @@ function PostCard({ content, place, post_image, postId, getAllPosts, likedBy, au
 }
 
 export default PostCard;
+

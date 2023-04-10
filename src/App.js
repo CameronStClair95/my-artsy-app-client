@@ -4,7 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 //components
 
 import NavBar from "./components/NavBar/NavBar"
-import Footer from './components/Footer';
+import Footer from "./components/Footer/Footer"
 
 
 //pages
@@ -22,16 +22,6 @@ import PostDetailsPage from "./pages/Post/PostDetailsPage";
 import UpdatePostDetails from "./pages/Post/UpdatePostDetails";
 import ArtPostDetails from "./pages/ArtDetailsPage"
 
-/* 
-to use ThemeContext in each component:
-1. import {ThemeContext}
-2. const {theme, toggleTheme} = useContext(ThemeContext)
-3. in example of the toggle theme (dark - light) -> className={"class " + theme}
-4. to toggle theme -> 
-    <button className='theme-btn' onClick={toggleTheme}>
-        {theme === "dark" ? "light theme" : "dark theme"}
-      </button>
-*/
 
 function App() {
   return (
@@ -59,8 +49,8 @@ function App() {
         {/* error page */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-      {/* //<Footer/> */}
 
+      <Footer/>
     </div>
   );
 }

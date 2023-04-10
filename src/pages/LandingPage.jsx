@@ -19,8 +19,8 @@ function LandingPage() {
   return (
     <Container fluid className="landing-page d-flex align-items-center justify-content-center">
       <div className="text-center p-4">
-        <h1 className="display-4">Welcome to Macartsy</h1>
-        <p className="lead">
+        <h1 className="display-4 landing_text_shadow">Welcome to Macartsy</h1>
+        <p className="lead landing_text_shadow">
           A vibrant community for art enthusiasts and connoisseurs. Our
           platform is dedicated to celebrating the world of art, showcasing
           exhibitions, sharing favorite masterpieces, and engaging in
@@ -30,7 +30,7 @@ function LandingPage() {
         </p>
         <p>
           <CSSTransition in={!animate} classNames="button" timeout={1000} unmountOnExit>
-            <Button onClick={handleButtonClick} variant="outline-light" size="lg">
+            <Button onClick={handleButtonClick} variant="outline-light" size="lg" >
               Join Macartsy Today
             </Button>
           </CSSTransition>

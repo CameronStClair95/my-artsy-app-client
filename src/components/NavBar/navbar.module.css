@@ -4,6 +4,15 @@
     align-self: center;
 }
 
+.title:hover {
+    color: wheat;
+    font-size: 2rem;
+}
+
+.title_link {
+    text-decoration: none;
+}
+
 .title, .buttons {
     padding: 15px;
 }
@@ -18,7 +27,7 @@
 }
 
 .navbar {
-    background-color: blue;
+    background-color: #116efd;
     height: 56px;
     display: flex;
     

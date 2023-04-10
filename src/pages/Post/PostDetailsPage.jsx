@@ -14,8 +14,7 @@ function PostDetailsPage() {
   const [post_image, setPost_image] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5005/api/posts/posts/${postId}`)
+    axios.get(`http://localhost:5005/api/posts/posts/${postId}`)
       .then((response) => {
         console.log(response.data.post);
         setPost(response.data.post);

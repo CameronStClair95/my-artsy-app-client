@@ -133,17 +133,16 @@ function ArtPostDetails() {
           </Form.Group>
 
           <Form.Group controlId="formArtImage">
-            <Form.Label>Art Image URL:</Form.Label>
+            <Form.Label>Image:</Form.Label>
             <Form.Control
-              type="text"
+              type="file"
               value={art_image}
               onChange={(e) => setArtImage(e.target.value)}
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Update
-          </Button>
+          <Button variant="primary" type="submit">Update</Button>
+          {/* <Button>Close </Button> */}
         </Form>
       )}	      
       <Modal
@@ -168,14 +167,7 @@ function ArtPostDetails() {
           </Button>
         </Modal.Footer>
       </Modal>
-
-
-
-
-
-
-
-
+      
         </div>
       ) : (
         <p>Loading art details...</p>

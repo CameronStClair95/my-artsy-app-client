@@ -26,9 +26,7 @@ function ArtPostCard({ artist, title, description, medium, year, art_image, auth
         console.log("artpost author", artpost.author)
         console.log("author ID", author) */
       })
-      .catch((error) => {
-        console.log("Error fetching artpost:", error);
-      });
+      .catch((error) => {console.log("Error fetching artpost:", error)});
   }, [artpostId]);
 
   function handleLike() {
@@ -76,15 +74,12 @@ function ArtPostCard({ artist, title, description, medium, year, art_image, auth
         </div>
 
         {pathname === "/home" ? (
-        <Link to={`/posts/artposts/${artpostId}`} 
-              className="post_card_link">
-          <Button>
-            <ReadMoreIcon/> More
-          </Button>
+        <Link to={`/posts/artposts/${artpostId}`} className="post_card_link">
+          <Button><ReadMoreIcon/> More </Button>
         </Link>
       ) : (
         <>
-        {user?._id === author ?
+        {user?._id === author?._id ?
         <>
           <Button> Update <EditIcon/></Button>
           

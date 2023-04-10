@@ -99,20 +99,20 @@ function UserPage(props) {
   return (
     <div>
       <div className={UserPageCSS.grid}>
-        <div className={UserPageCSS.user_info}>
+        <div className={UserPageCSS.user}>
         
-          <div>
+          <div className={UserPageCSS}>
             <AccountCircleIcon/>
             <p>{userInfo?.fullname}</p>
             <p>@{userInfo?.username}</p>
             <p>{userInfo?.email}</p>
 
             {userId === user?._id && (
-              <>
-                <Button variant="info">
+              <div className={UserPageCSS.button_group}>
+                {/* <Button variant="info">
                   Favorite <FavoriteIcon />
-                </Button>
-
+                </Button>*/}
+                
                 <Button
                   variant="warning"
                   onClick={() => setFormUpdate(!formUpdate)}
@@ -126,7 +126,7 @@ function UserPage(props) {
                 >
                   Delete <DeleteOutlineIcon />
                 </Button>
-              </>
+              </div>
             )}
           </div>
 

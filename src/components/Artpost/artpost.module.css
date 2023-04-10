@@ -7,13 +7,9 @@
    margin: 10px 0;
    padding: 10px 0;
    width: 400px;
-   
    min-height: 500px;
-   
    background-color: whitesmoke;
 }
-
-
 
 .artpost_card img {
     display: block;
@@ -41,4 +37,10 @@
     align-items: center;
     justify-items: center;
     margin-top: 30px;
+}
+
+.post_and_comment {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
 }

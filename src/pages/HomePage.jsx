@@ -56,13 +56,13 @@ function HomePage() {
                 return (
                   <Carousel.Item
                     key={news._id}
-                    className={index === 0 ? "active" : ""}
-                  >
+                    className={index === 0 ? "active" : ""}>
+
                     <img
                       className="d-block w-100 carousel-image-custom"
                       src={news.image}
-                      alt="news image"
-                    />
+                      alt="news image"/>
+                      
                     <Carousel.Caption className="d-none d-md-block">
                       <h3>{news.title}</h3>
                       <Link to={news.source} target="_blank">
