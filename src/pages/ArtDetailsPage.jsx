@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import ArtpostCSS from "../components/Artpost/artpost.module.css"
-import { Button, Form, Modal } from "react-bootstrap";
+import ArtpostCSS from "../components/Artpost/artpost.module.css";
+import { Button, Form, Modal, Alert } from "react-bootstrap";
 import { AuthContext } from "../context/Auth.context";
-import Comment from "../components/Comment"
+// import Comment from "../components/Comment";
 
 function ArtPostDetails() {
   const { artpostId } = useParams();
@@ -22,6 +22,7 @@ function ArtPostDetails() {
   const [year, setYear] = useState("");
   const [art_image, setArtImage] = useState("");
   const [artImageFile, setArtImageFile] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   console.log("ArtPostDetails artpostId:", artpostId);
 
   useEffect(() => {
@@ -61,17 +62,25 @@ function ArtPostDetails() {
   const uploadImage = (file) => {
     return axios
       .post(`${API_URL}/api/posts/upload`, file)
-      .then((res) => res.data)
+      .then((res) => res.data);
   };
 
   const uploadImage2 = (e) => {
+    setShowAlert(true);
     const uploadData = new FormData();
 
-  uploadData.append("imageUrl", e.target.files[0]);
-uploadImage(uploadData)
-.then((response) => {setArtImageFile(response.fileUrl); console.log(response.fileUrl)})
-  .catch(err => console.log("Error while uploading the file: ", err));
-  }
+    uploadData.append("imageUrl", e.target.files[0]);
+    uploadImage(uploadData)
+      .then((response) => {
+        setArtImageFile(response.fileUrl);
+        console.log(response.fileUrl);
+        setShowAlert(false);
+      })
+      .catch((err) => {
+        console.log("Error while uploading the file: ", err);
+        setShowAlert(false);
+      });
+  };
 
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
@@ -82,14 +91,14 @@ uploadImage(uploadData)
     // }
 
     axios
-      .put(`${API_URL}/api/posts/artposts/${artpostId}`, {
-        artist,
-        title,
-        description,
-        medium,
-        year,
-        art_image: artImageFile,
-      })
+  .put(`${API_URL}/api/posts/artposts/${artpostId}`, {
+    artist,
+    title,
+    description,
+    medium,
+    year,
+    art_image: artImageFile || art_image,
+  })
       .then((response) => {
         setArtPost(response.data);
         console.log(response);
@@ -118,41 +127,44 @@ uploadImage(uploadData)
         <div>
           <h2>Art Details:</h2>
           <div className={ArtpostCSS.artpost_card}>
-
             <div className={ArtpostCSS.art_image_div}>
-              <img className={ArtpostCSS.art_image} 
-                  src={artpost.art_image} alt={artpost.title} />
+              <img
+                className={ArtpostCSS.art_image}
+                src={artpost.art_image}
+                alt={artpost.title}
+              />
             </div>
 
             <div className={ArtpostCSS.artpost_content}>
               <h3>{artpost.title}</h3>
-              <h5>{artpost.artist}, {artpost.year}</h5>
+              <h5>
+                {artpost.artist}, {artpost.year}
+              </h5>
               {artpost.medium && <h6>Medium: {artpost.medium}</h6>}
               {artpost.description && <p>Description: {artpost.description}</p>}
             </div>
-            
-           
-          {user?._id === artpost.author && (
-            <>
-              <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
-                {showUpdateForm ? "Hide Form" : "Edit Art Post"}
-              </Button>
 
-              <Button
-                variant="danger"
-                onClick={() =>
-                  setShowDeleteConfirmation(!showDeleteConfirmation)
-                }
-              >
-                Delete
-              </Button>
-            </>
-          )}
+            {user?._id === artpost.author && (
+              <>
+                <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
+                  {showUpdateForm ? "Hide Form" : "Edit Art Post"}
+                </Button>
+
+                <Button
+                  variant="danger"
+                  onClick={() =>
+                    setShowDeleteConfirmation(!showDeleteConfirmation)
+                  }
+                >
+                  Delete
+                </Button>
+              </>
+            )}
           </div>
 
           <div>
-      <Comment/>
-            </div>
+            {/* <Comment /> */}
+          </div>
           {showUpdateForm && (
             <Form onSubmit={handleUpdateSubmit}>
               <Form.Group controlId="formArtist">
@@ -200,12 +212,15 @@ uploadImage(uploadData)
                 />
               </Form.Group>
 
+              {showAlert && (
+                <Alert variant="info">
+                  Please wait while the image is being uploaded...
+                </Alert>
+              )}
+
               <Form.Group controlId="formArtImage">
                 <Form.Label>Art Image:</Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={(e) => uploadImage2(e)}
-                />
+                <Form.Control type="file" onChange={(e) => uploadImage2(e)} />
               </Form.Group>
 
               <Button variant="primary" type="submit">
