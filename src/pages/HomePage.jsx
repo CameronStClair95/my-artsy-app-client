@@ -80,6 +80,7 @@ function HomePage() {
 
         
             <div className={HomePageCSS.home_posts}>
+            <h4>Home Feed</h4>
               {posts.map((post) => {
                 return (
                   <PostCard
@@ -92,7 +93,10 @@ function HomePage() {
               })}
             </div>
 
+
+           
             <div className={HomePageCSS.home_artposts}>
+              <h3 className={HomePageCSS.art_feed_title}>Art Feed</h3>
               {artPosts.map((artpost) => {
                 return (
                   <ArtPostCard
@@ -103,6 +107,8 @@ function HomePage() {
                 );
               })}
             </div>
+            
+
           </div>
         
         </>

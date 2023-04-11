@@ -144,9 +144,7 @@ function ArtPostDetails() {
                   onClick={() =>
                     setShowDeleteConfirmation(!showDeleteConfirmation)
                   }
-                >
-                  Delete
-                </Button>
+                >Delete</Button>
               </>
             )}
           </div>
@@ -239,9 +237,11 @@ function ArtPostDetails() {
             </Modal.Footer>
           </Modal>
           </div>
+
           <div>
             <Comment/>
           </div>
+          
         </div>
       ) : (
         <p>Loading art details...</p>

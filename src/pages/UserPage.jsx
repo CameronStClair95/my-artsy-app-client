@@ -100,7 +100,7 @@ function UserPage(props) {
     <div>
       <div className={UserPageCSS.grid}>
         <div className={UserPageCSS.user}>
-        
+          <h1>Profile</h1>
           <div className={UserPageCSS}>
             <AccountCircleIcon/>
             <p>{userInfo?.fullname}</p>
@@ -109,9 +109,6 @@ function UserPage(props) {
 
             {userId === user?._id && (
               <div className={UserPageCSS.button_group}>
-                {/* <Button variant="info">
-                  Favorite <FavoriteIcon />
-                </Button>*/}
                 
                 <Button
                   variant="warning"
@@ -136,16 +133,6 @@ function UserPage(props) {
                 onSubmit={handleUpdateSubmit}
                 style={{ backgroundColor: "white" }}
               >
-                <p
-                  onClick={() => setFormUpdate(false)}
-                  style={{
-                    backgroundColor: "#0c6dfd",
-                    color: "white",
-                    cursor: "pointer",
-                  }}
-                >
-                  Go Back
-                </p>
 
                 <Form.Group controlId="formUsername">
                   <Form.Label>

@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../context/Auth.context";
+import postCSS from "./Post.module.css"
+import { Button, Form } from "react-bootstrap";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
@@ -55,16 +57,47 @@ function NewPost() {
 
   return (
     <div>
-      <h1>"Post" post submit form</h1>
-      <Link to="/home"><button>Go Back</button></Link>
+      
+
+      <Form className={postCSS.newpost_form} onSubmit={handlePostSubmit}>
+      <h2>Tell us about your latest experience! Write us a Post.</h2>
+
+        <Form.Group controlId="formContent">
+          <Form.Label>Comment
+          <Form.Control type="text"  value={content} onChange={handleContent}/>
+          </Form.Label>
+        </Form.Group>
+
+        <Form.Group controlId="formPlace">
+          <Form.Label>Place
+          <Form.Control type="text"  value={place} onChange={handlePlace}/>
+          </Form.Label>
+        </Form.Group>
+
+        <Form.Group controlId="formImage">
+          <Form.Label>Image
+          <Form.Control type="file" onChange={(e) => handleFileUpload(e)}/>
+          </Form.Label>
+        </Form.Group>
+
+        {!post_image ? (
+          <Button type="submit" disabled style={{marginTop:"10px"}}>Submit</Button>
+        ): (
+          <Button type="submit" style={{marginTop:"10px"}}>Submit</Button>
+        )}
+
+        <div className={postCSS.button_group}>
+        <Link to="/home"><Button size="sm" variant="secondary">Go Back</Button></Link>
       
       {postForm && (
-        <Link to="/posts/artpost">
-          <button>Create Artpost</button>
-        </Link>
+        <Link to="/posts/artpost"><Button size="sm" variant="secondary">Create Artpost</Button></Link>
       )}
+      </div>
+      
+      </Form>
+      
 
-      <form onSubmit={handlePostSubmit}>
+     {/*  <form className={postCSS.post_form} onSubmit={handlePostSubmit}>
         <label>
           What?
           <input type="text" name="content" value={content} onChange={handleContent}/>
@@ -80,8 +113,15 @@ function NewPost() {
           <input type="file" name="post_image" onChange={(e) => handleFileUpload(e)}/>
         </label>
 
-        <button type="submit">Submit</button>
-      </form>
+        <Button type="submit" style={{marginTop:"10px"}}>Submit</Button>
+      <div className={postCSS.button_group}>
+        <Link to="/home"><Button size="sm" variant="secondary">Go Back</Button></Link>
+      
+      {postForm && (
+        <Link to="/posts/artpost"><Button size="sm" variant="secondary">Create Artpost</Button></Link>
+      )}
+      </div>
+      </form> */}
     </div>
   );
 }

@@ -21,6 +21,7 @@ import IsPrivate from "./components/auth/IsPrivate";
 import PostDetailsPage from "./pages/Post/PostDetailsPage";
 import UpdatePostDetails from "./pages/Post/UpdatePostDetails";
 import ArtPostDetails from "./pages/ArtDetailsPage"
+import Special from "./pages/special/Special";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/post/:postId/update" element={<UpdatePostDetails />} />
         {/* error page */}
         <Route path="*" element={<ErrorPage />} />
+        <Route path="home/special" element={<IsPrivate><Special/></IsPrivate>}/>
       </Routes>
 
       <Footer/>
