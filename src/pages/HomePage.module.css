@@ -1,29 +1,32 @@
 .all_posts {
     display: flex;
     flex-direction: row;
-    margin: 15px;
+    margin: 30px 15px;
     gap: 25px;
 }
 
 .home_posts{
-    border: 2px solid green;
+    background-color: #f8f9fa;
+    box-shadow: 15px 5px 10px 2px #e1e1e2;
     border-radius: 12px;
     height: fit-content;
     width: fit-content;
-    margin: 0 50px;
-    padding: 10px;
+    margin: 0 40px;
+    padding: 15px;
 }
 
 .home_artposts{
     display: flex;
     flex-wrap: wrap; 
+    justify-content: space-around;
     flex-grow: 1;
     
+    background-color: #f8f9fa;
+    box-shadow: 15px 5px 10px 2px #e1e1e2;    
     
-    border: 2px solid yellowgreen;
     border-radius: 12px;
     width: fit-content;
     width: 400px;
-    gap: 25px   ;
+    gap: 25px;
     padding: 10px;
 }

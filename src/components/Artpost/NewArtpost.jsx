@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../context/Auth.context";
+import artpostCSS from "./artpost.module.css"
+import { Button, Form } from "react-bootstrap";
 
 const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
 
@@ -66,51 +68,70 @@ function NewArtpost() {
 
   return (
     <div>
-      <h1>Art Post submit form</h1>
-      <Link to="/home"><button>Go Back</button></Link>
+      
+        <div>
+
+        
+
+     
+
+      <Form className={artpostCSS.newartpost_form} onSubmit={handleArtpostSubmit}>
+      <h2>Let's create a new Artpost! </h2>
+
+        <Form.Group controlId="formArtist">
+          <Form.Label>Artist
+          <Form.Control type="text" placeholder="Artist's name" value={artist} onChange={handleArtist}/>
+          </Form.Label>
+        </Form.Group>
+
+        <Form.Group controlId="formTitle">
+          <Form.Label>Title
+          <Form.Control type="text" placeholder="Title of the artpiece" value={title} onChange={handleTitle}/>
+          </Form.Label>
+        </Form.Group>
+
+        <Form.Group controlId="formDescription">
+          <Form.Label>Description
+          <Form.Control type="text" placeholder="Artpiece Description" value={description} onChange={handleDescription}/>
+          </Form.Label>
+        </Form.Group>
+
+        <Form.Group controlId="formMedium">
+          <Form.Label>Medium
+          <Form.Control type="text" placeholder="Medium" value={medium} onChange={handleMedium}/>
+          </Form.Label>
+        </Form.Group>
+
+        <Form.Group controlId="formYear">
+          <Form.Label>Year
+          <Form.Control type="number" placeholder="Year" value={year} onChange={handleYear}/>
+          </Form.Label>
+        </Form.Group>
+
+        <Form.Group controlId="formImage">
+          <Form.Label>Image
+          <Form.Control type="file" onChange={(e) => handleFileUpload(e)}/>
+          </Form.Label>
+        </Form.Group>
+
+        {!art_image ? (
+          <Button type="submit" disabled style={{marginTop:"10px"}}>Submit</Button>
+        ): (
+          <Button type="submit" style={{marginTop:"10px"}}>Submit</Button>
+        )}
+
+        <div className={artpostCSS.button_group}>
+        <Link to="/home"><Button size="sm" variant="secondary">Go Back</Button></Link>
       {postForm && (
         <Link to="/posts/post">
-          <button>Create Post</button>
+        <Button size="sm" variant="secondary">Create post</Button>
         </Link>
       )}
+      </div>
 
-      <form onSubmit={handleArtpostSubmit}>
-        <label>
-         * Artist:
-          <input type="text" name="artist" value={artist} onChange={handleArtist}/>
-        </label>
+      </Form>
 
-        <label>
-         * Title:
-          <input type="text" name="title" value={title} onChange={handleTitle}/>
-        </label>
-
-        <label>
-          Description:
-          <input type="text" name="description" value={description} onChange={handleDescription}/>
-        </label>
-
-        <label>
-         * Medium
-          <input type="text" name="medium" value={medium} onChange={handleMedium}/>
-        </label>
-
-        <label>
-         * Year
-          <input type="number" name="year" value={year} onChange={handleYear} />
-        </label>
-
-        <label>
-         * Image
-          {/* file upload with cloudinary */}
-          <input type="file" name="art_image" onChange={(e) => handleFileUpload(e)}/>
-
-          {/* file upload with no cloudinary */}
-          {/* <input type="file" name='art_image' value={art_image} onChange={handleArt_image}/> */}
-        </label>
-
-        <button type="submit"> Submit</button>
-      </form>
+      </div>
     </div>
   );
 }

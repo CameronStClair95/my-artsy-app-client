@@ -32,17 +32,21 @@ function NavBar() {
           <>
             <div className={navbarCSS.right_buttons}>
               <Link to="/posts/post">
-              <Button size="sm" variant="info">New Post</Button>
+              <Button size="sm">New Post</Button>
               </Link>
 
               <Dropdown>
-                <Dropdown.Toggle variant="info" size="sm" id="dropdown-basic">
+                <Dropdown.Toggle size="sm" id="dropdown-basic">
                   More
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
                   <Dropdown.Item>
                     <Link to={`/user/${user._id}`}>My Profile</Link>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item>
+                    <Link to={`/home/special`}>Special Page</Link>
                   </Dropdown.Item>
       
                   <Dropdown.Item>
