@@ -19,7 +19,7 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(content);
   const [updatedPlace, setUpdatedPlace] = useState(place);
   const [updatedPostImage, setUpdatedPostImage] = useState(post_image);
@@ -27,23 +27,33 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
 
   const handleContentChange = (e) => setUpdatedContent(e.target.value);
   const handlePlaceChange = (e) => setUpdatedPlace(e.target.value);
-  const handlePostImageChange = (e) => setUpdatedPostImage(e.target.value);
+  const handlePostImageChange = (e) => {
+    setUpdatedPostImage(e.target.files[0]);
+  };
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    axios.put(`${API_URL}/api/posts/${postId}`, {
-      content: updatedContent,
-      place: updatedPlace,
-      post_image: updatedPostImage
-    })
-    .then((response) => {
-      console.log("Post updated successfully:", response.data);
-      setPost(response.data);
-      setShowUpdateForm(false);
-    })
-    .catch((error) => {
-      console.error("Error updating post:", error);
-    });
+  
+    const formData = new FormData();
+    formData.append("content", updatedContent);
+    formData.append("place", updatedPlace);
+    if (updatedPostImage) {
+      formData.append("post_image", updatedPostImage);
+    }
+  
+    axios
+      .put(`${API_URL}/api/posts//${postId}/update`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log("Post updated successfully:", response.data);
+        setPost(response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating post:", error);
+      });
   };
 
   
@@ -98,27 +108,27 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
       <div>
         <img className={PostCSS.post_image} src={post_image}/>
       </div>
-
+  
       <div className={PostCSS.post_content}>
         <h5>{content}</h5>
         <p>📌 {place}</p>
       </div>
-
+  
       {pathname === "/home" ? (
         <Link to={`/posts/posts/${postId}`} className="post_card_link">
           <Button><ReadMoreIcon/> More</Button>
-          </Link>
+        </Link>
       ) : (
         <>
         { user?._id === author?._id &&
           <>
-          <Button onClick={() => setShowUpdateForm(true)}>Update<EditIcon/></Button>
+          <Button onClick={() => setShowEditForm(!showEditForm)}>Update<EditIcon/></Button>
           <Button variant="danger" onClick={() => setShowDeleteConfirmation(true)}>Delete <DeleteOutlineIcon/></Button>
           </>
         }
         </>
       )}
-
+  
       <button onClick={handleLike} style={{ background: "transparent", border: "none" }} >
         { 
           
@@ -128,15 +138,9 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
           <FavoriteIcon />
         )}
       </button>
-
-      <Modal
-        show={showUpdateForm}
-        onHide={() => setShowUpdateForm(false)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Update Post</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+  
+      {showEditForm && (
+        <div className={PostCSS.update_form}>
           <Form onSubmit={handleUpdate}>
             <Form.Group controlId="formContent">
               <Form.Label>Content:</Form.Label>
@@ -146,7 +150,7 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
                 onChange={handleContentChange}
               />
             </Form.Group>
-
+  
             <Form.Group controlId="formPlace">
               <Form.Label>Place:</Form.Label>
               <Form.Control
@@ -155,23 +159,22 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
                 onChange={handlePlaceChange}
               />
             </Form.Group>
-
+  
             <Form.Group controlId="formPostImage">
-              <Form.Label>Post Image URL:</Form.Label>
-              <Form.Control
-                type="text"
-                value={updatedPostImage}
-                onChange={handlePostImageChange}
-              />
-            </Form.Group>
-
+  <Form.Label>Post Image:</Form.Label>
+  <Form.Control
+    type="file"
+    onChange={handlePostImageChange}
+  />
+</Form.Group>
+  
             <Button variant="primary" type="submit">
               Update
             </Button>
           </Form>
-        </Modal.Body>
-      </Modal>
-
+        </div>
+      )}
+  
       <Modal
         show={showDeleteConfirmation}
         onHide={() => setShowDeleteConfirmation(false)}
@@ -196,6 +199,7 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
       </Modal>
     </div>
   );
+  
 }
 
 export default PostCard;
