@@ -17,7 +17,9 @@ function LandingPage() {
   };
 
   return (
+  
     <Container fluid className="landing-page d-flex align-items-center justify-content-center">
+      <div className="text-center p-4 landing-page-text-container">
       <div className="text-center p-4">
         <h1 className="display-4 landing_text_shadow">Welcome to Macartsy</h1>
         <p className="lead landing_text_shadow">
@@ -36,7 +38,9 @@ function LandingPage() {
           </CSSTransition>
         </p>
       </div>
+      </div>
     </Container>
+    
   );
 }
 

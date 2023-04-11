@@ -4,8 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/Auth.context";
 import { Form, Button, Alert } from "react-bootstrap";
-import AuthCSS from "./auth.module.css";
-/* import "../../App.css" */
+import "./LoginPage.css";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
@@ -42,49 +41,45 @@ function LoginPage(props) {
   };
 
   return (
-    <div className={AuthCSS.auth_page}>
-      <div>
-        <h1 className={AuthCSS.title_login}>Login</h1>
-
-        
-          <Form onSubmit={handleLoginSubmit}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email:</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={handleEmail}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password:</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={handlePassword}
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit" className={AuthCSS.submit_button}>
-              Login
-            </Button>
-
-            {errorMessage && (
-              <Alert variant="danger" className="mt-3">
-                {errorMessage}
-              </Alert>
-            )}
-
-            <div className={AuthCSS.alert}>
-              <h6 variant="light">Don't have an account yet?</h6>
-              <Link to={"/signup"}><p>Sign Up</p></Link>
-            </div>
-
-          </Form>
-        
+    <div className="login-page">
+      <div className="login-form-container">
+        <Form className="login-form" onSubmit={handleLoginSubmit}>
+        <h1>Login</h1>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email:</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={handleEmail}
+            />
+          </Form.Group>
+  
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password:</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={handlePassword}
+            />
+          </Form.Group>
+  
+          <Button variant="primary" type="submit" className="submit_button">
+            Login
+          </Button>
+  
+          {errorMessage && (
+            <Alert variant="danger" className="mt-3">
+              {errorMessage}
+            </Alert>
+          )}
+  
+          <div className="alert">
+            <h6 variant="light">Don't have an account yet?</h6>
+            <Link to={"/signup"}><p>Sign Up</p></Link>
+          </div>
+        </Form>
       </div>
     </div>
   );

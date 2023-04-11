@@ -161,5 +161,10 @@ h4{
 
 .landing_text_shadow {
   text-shadow: 2px 2px black;
+}
 
+.landing-page-text-container {
+  background-color: rgba(0, 0, 0, 0.6); /* Adjust the last value (0.6) for transparency */
+  border-radius: 10px; /* Add rounded corners */
+  padding: 20px; /* Add some padding */
 }

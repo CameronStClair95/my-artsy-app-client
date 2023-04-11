@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Alert } from "react-bootstrap";
 import AuthCSS from "./auth.module.css"
+import styles from "./SignupPage.module.css";
 import "../../App.css"
 
 const API_URL = process.env.REACT_APP_API_URL ||'http://localhost:5005' ;
@@ -38,11 +39,10 @@ function SignupPage(props) {
   };
 
   return (
-    <div className={AuthCSS.auth_page}>
-      
-      <h1 className={AuthCSS.title_signup}>Sign Up</h1>
-
-      <Form onSubmit={handleSignupSubmit}>
+    <div className={styles.signupPage}>
+      <div className={styles.signupFormContainer}>
+        <Form onSubmit={handleSignupSubmit} className={styles.signupForm}>
+        <h1>Sign Up</h1>
         <Form.Group controlId="formFullName">
           <Form.Label>Name:</Form.Label>
           <Form.Control
@@ -79,20 +79,21 @@ function SignupPage(props) {
             onChange={handlePassword}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" className={AuthCSS.submit_button}>
-          Sign Up
-        </Button>
-        {errorMessage && (
-          <Alert variant="danger" className="mt-3">
-            {errorMessage}
-          </Alert>
-        )}
+        <Button variant="primary" type="submit" className={styles.submitButton}>
+            Sign Up
+          </Button>
+          {errorMessage && (
+            <Alert variant="danger" className="mt-3">
+              {errorMessage}
+            </Alert>
+          )}
 
-        <div className={AuthCSS.alert}>
-              <h6 variant="light">Already have an account?</h6>
-              <Link to={"/login"}><p>Login</p></Link>
-            </div>
-      </Form>
+          <div className={styles.alert}>
+            <h6 variant="light">Already have an account?</h6>
+            <Link to={"/login"}><p>Login</p></Link>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }
