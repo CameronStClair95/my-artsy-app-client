@@ -56,7 +56,6 @@ function UserPage(props) {
         //for the updating the user information
         setFullName(response.data.fullname);
         setUsername(response.data.username);
-        console.log("user info: ", response.data);
       })
       .catch((error) => console.error("error while fetching user info ", error));
   }
@@ -129,36 +128,23 @@ function UserPage(props) {
 
           <div>
             {formUpdate && (
-              <Form
-                onSubmit={handleUpdateSubmit}
-                style={{ backgroundColor: "white" }}
-              >
-
-                <Form.Group controlId="formUsername">
-                  <Form.Label>
-                    <b>Username:</b>
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={username}
-                    onChange={handleUsername}
-                  />
-                </Form.Group>
+              <Form onSubmit={handleUpdateSubmit} style={{ backgroundColor: "white" }}>
 
                 <Form.Group controlId="formFullname">
                   <Form.Label>
                     <b>Fullname:</b>
                   </Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={fullname}
-                    onChange={handleName}
-                  />
+                  <Form.Control type="text" value={fullname} onChange={handleName}/>
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
-                  Update
-                </Button>
+                <Form.Group controlId="formUsername">
+                  <Form.Label>
+                    <b>Username:</b>
+                  </Form.Label>
+                  <Form.Control type="text" value={username} onChange={handleUsername}/>
+                </Form.Group>
+
+                <Button variant="primary" type="submit"> Update </Button>
               </Form>
             )}
           </div>

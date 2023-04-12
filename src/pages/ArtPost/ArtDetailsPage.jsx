@@ -64,7 +64,7 @@ function ArtPostDetails() {
           description={artpost.description}/>
           </div>
 
-          {/* {user?._id === artpost.author && (
+          {user?._id === artpost.author && (
             <>
             <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
                 {showUpdateForm ? "Hide Form" : "Edit Art Post"}
@@ -74,7 +74,7 @@ function ArtPostDetails() {
                 Delete
               </Button>
             </>
-          )} */}
+          )}
 
           {showUpdateForm && (
             <Form onSubmit={handleUpdateSubmit}>
