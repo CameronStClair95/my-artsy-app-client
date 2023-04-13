@@ -83,7 +83,8 @@ function ArtPostDetails() {
   useEffect(() => {
     getArtInfo()
   }, [artpostId]);
-
+  console.log("this is a user", user._id)
+  console.log("this is a author", artpost?.author._id)
   return (
     <div>
       <div className={ArtpostCSS.artpost_details_div}>
@@ -132,7 +133,7 @@ function ArtPostDetails() {
                       <Form.Control type="file" onChange={(e) => uploadImage2(e)} />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">Update</Button>
+                    {/* <Button variant="primary" type="submit">Update</Button> */}
                   </Form>
                 )}
               </div>
@@ -207,5 +208,6 @@ function ArtPostDetails() {
 
     </div>
   );
+
 }
 export default ArtPostDetails;
