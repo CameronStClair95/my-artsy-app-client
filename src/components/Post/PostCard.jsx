@@ -11,7 +11,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 
-function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
+function PostCard({ content, place, post_image, postId, getAllPosts, author, getInfo }) {
 
   const [post, setPost] = useState(null);
   const [likedBy, setLikedBy] = useState(null)
@@ -44,6 +44,7 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
         setUpdatedPlace(response.data)
       })
       .then(() => getPosts())
+      .then(() => getInfo())
       .then(() => setShowEditForm(false))
       .catch((error) => {console.error("Error updating post:", error)});
   };
@@ -65,12 +66,15 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
         console.log("this is the response for the post like ", response.data)
         setPost(response.data)
         getPosts()
+        
       })
+
       .catch((error) => console.error(error));
   }
 
   useEffect(() => {
     getPosts()
+
   }, [postId]);
 
   const handleDelete = () => {

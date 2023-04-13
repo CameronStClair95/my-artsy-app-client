@@ -64,10 +64,8 @@ function ArtPostDetails() {
     let imageURL = art_image;
 
     axios.put(`${API_URL}/api/posts/artposts/${artpostId}`, { artist, title, description, medium, year, art_image: artImageFile || art_image })
-      .then((response) => {
-        setArtPost(response.data);
-        setShowUpdateForm(false);
-      })
+      .then((response) => {setShowUpdateForm(false)})
+      .then(() => getArtInfo())
       .catch((error) => { console.error("Error updating artpost:", error) });
   };
 
@@ -97,14 +95,15 @@ function ArtPostDetails() {
               <div className={ArtpostCSS.update_form_outside}>
                 {showUpdateForm && (
                   <Form onSubmit={handleUpdateSubmit}>
+
+                  <Form.Group controlId="formTitle">
+                      <Form.Label>Title:</Form.Label>
+                      <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                    </Form.Group>
+
                     <Form.Group controlId="formArtist">
                       <Form.Label>Artist:</Form.Label>
                       <Form.Control type="text" value={artist} onChange={(e) => setArtist(e.target.value)}/>
-                    </Form.Group>
-
-                    <Form.Group controlId="formTitle">
-                      <Form.Label>Title:</Form.Label>
-                      <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
                     </Form.Group>
 
                     <Form.Group controlId="formDescription">
@@ -133,7 +132,7 @@ function ArtPostDetails() {
                       <Form.Control type="file" onChange={(e) => uploadImage2(e)} />
                     </Form.Group>
 
-                    {/* <Button variant="primary" type="submit">Update</Button> */}
+                    <Button variant="primary" type="submit">Update</Button>
                   </Form>
                 )}
               </div>
@@ -156,7 +155,7 @@ function ArtPostDetails() {
                     {artpost.description && <p>{artpost.description}</p>}
                   </div>
 
-                  {user?._id === artpost.author?._id && (
+                  {user?._id === artpost?.author._id && (
                     <>
                       <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
                         {showUpdateForm ? "Hide Form" : "Edit"} <EditIcon/>

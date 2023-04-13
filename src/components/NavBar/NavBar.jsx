@@ -45,11 +45,7 @@ function NavBar() {
 </Link>
 
               <Dropdown>
-                <Dropdown.Toggle
-                  variant="outline-dark"
-                  size="sm"
-                  id="dropdown-basic"
-                >
+                <Dropdown.Toggle variant="outline-dark" size="sm" id="dropdown-basic">
                   More
                 </Dropdown.Toggle>
 
@@ -62,12 +58,12 @@ function NavBar() {
                     <Link to={`/home/special`}>Special Page</Link>
                   </Dropdown.Item>
 
-                  <Dropdown>
-                    <Dropdown.Toggle size="sm" id="dropdown-basic" drop={"start"}>
+                  <Dropdown> {/* contacts -> linkedin & github */}
+                    <Dropdown.Toggle  variant="outline-dark" size="sm" id="dropdown-basic" drop={"start"}>
                       Contacts
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
+                    <Dropdown.Menu> 
                       <Dropdown.Item>
                         <a href="https://www.linkedin.com/in/cameron-a-8531531ba/" target="_blank" rel="noopener noreferrer">
                           <em>Cam's LinkedIn</em>

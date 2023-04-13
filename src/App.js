@@ -50,7 +50,7 @@ function App() {
         <Route path="home/special" element={<IsPrivate><Special/></IsPrivate>}/>
       </Routes>
 
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }
