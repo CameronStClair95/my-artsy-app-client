@@ -46,26 +46,17 @@ function Comment({author}) {
         e.preventDefault()
         const requestBody = { comment, author: user._id }
 
-        
-
         if (postId) {
             axios.put(`${API_URL}/api/posts/comment/${postId}/post`, requestBody)
-                .then((response) => {
-                    console.log(response.data)
-                    setComment("")
-                })
+                .then(() => {setComment("")})
                 .then(() => getInfo())
                 .catch(error => console.error("error while commenting", error))
         } else if (artpostId) {
             axios.put(`${API_URL}/api/posts/comment/${artpostId}/art`, requestBody)
-                .then((response) => {
-                    console.log(response.data)
-                    setComment("");
-                })
+                .then(() => {setComment("")})
                 .then(() => getInfo())
                 .catch(error => console.error("error while commenting", error))
         }
-
         setComment("")
     }
 

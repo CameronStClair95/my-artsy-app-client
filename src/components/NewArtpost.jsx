@@ -52,11 +52,11 @@ function NewArtpost() {
         return axios.post(`${API_URL}/api/new-post/upload`, file)
           .then(res => res.data)
 
-          .catch(error => console.log("error while uploading image: ", error))
+          .catch(error => console.error("error while uploading image: ", error))
       };
 
       const handleFileUpload = (e) => {
-        // console.log("The file to be uploaded is: ", e.target.files[0]);
+        
         const uploadData = new FormData();
         // imageUrl => this name has to be the same as in the model since we pass
         // req.body to .create() method when creating a new movie in '/api/movies' POST route
@@ -64,7 +64,6 @@ function NewArtpost() {
 
           uploadImage(uploadData)
           .then((response) => {
-            // console.log("response is: ", response);
             // response carries "fileUrl" which we can use to update the state
             setArt_image(response.fileUrl);
             console.log("this is the link for the image", response.fileUrl)

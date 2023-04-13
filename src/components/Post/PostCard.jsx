@@ -52,10 +52,8 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author, get
   function getPosts() {
     axios.get(`${API_URL}/api/posts/posts/${postId}`)
       .then((response) => {
-        /* console.log(response.data.post) */
         setPost(response.data)
         setLikedBy(response.data.post.likedBy)
-        /* console.log("liked by is", response.data.post.likedBy) */
       })
       .catch((error) => console.error("an error trying to set info", error));
   }
@@ -63,10 +61,8 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author, get
   function handleLike() {
     axios.post(`${API_URL}/api/posts/like/${postId}/post`, user)
       .then((response) => {
-        console.log("this is the response for the post like ", response.data)
         setPost(response.data)
         getPosts()
-        
       })
 
       .catch((error) => console.error(error));
@@ -78,15 +74,10 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author, get
   }, [postId]);
 
   const handleDelete = () => {
-    console.log(`Deleting post with id ${postId}`);
+    
     axios.delete(`${API_URL}/api/posts/${postId}`)
-      .then((response) => {
-        console.log("Post deleted successfully:", response.data);
-        navigate("/home"); // Navigate to the home page after successful deletion
-      })
-      .catch((error) => {
-        console.error("Error deleting post:", error);
-      });
+      .then((response) => navigate("/home"))
+      .catch((error) => console.error("Error deleting post:", error))
   };
 
   return (

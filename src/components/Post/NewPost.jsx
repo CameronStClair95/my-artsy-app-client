@@ -51,7 +51,6 @@ function NewPost() {
         setPost_image(response.fileUrl);
         console.log("this is the link for the image", response.fileUrl);
       })
-
       .catch((err) => console.error("Error while uploading the file: ", err));
   };
 

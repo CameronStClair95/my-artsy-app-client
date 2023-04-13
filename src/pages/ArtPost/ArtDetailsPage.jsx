@@ -26,11 +26,8 @@ function ArtPostDetails() {
 
   useEffect(() => {
     axios.get(`${API_URL}/api/posts/artposts/${artpostId}`)
-      .then((response) => {
-        console.log(response.data);
-        setArtPost(response.data);
-      })
-      .catch((error) => console.log(error));
+      .then((response) => setArtPost(response.data))
+      .catch((error) => console.error(error));
   }, [artpostId]);
 
   const handleUpdateSubmit = (e) => {

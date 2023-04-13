@@ -21,7 +21,6 @@ function ArtPostCard({artpostId}) {
   
 
   function handleLike(){
-    console.log('handle like')
     axios.post(`${API_URL}/api/posts/like/${artpostId}/art`, user)
     .then(response => setArtpost(response.data))
     .catch(error => console.log(error))

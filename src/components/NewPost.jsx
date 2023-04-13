@@ -42,8 +42,7 @@ function NewPost() {
     const uploadImage = (file) => {
         return axios.post(`${API_URL}/api/posts/upload`, file)
         .then(res => res.data)
-
-        .catch(error => console.log("error while uploading image", error))
+        .catch(error => console.error("error while uploading image", error))
     }
 
     const handleFileUpload = (e) => {
@@ -57,7 +56,7 @@ function NewPost() {
             console.log("this is the link for the image", response.fileUrl)
         })
 
-        .catch(err => console.log("Error while uploading the file: ", err));
+        .catch(err => console.error("Error while uploading the file: ", err));
     }
 
 

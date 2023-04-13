@@ -18,13 +18,12 @@ function PostDetailsPage() {
   function getInfo(){
     axios.get(`${API_URL}/api/posts/posts/${postId}`)
     .then((response) => {
-      console.log(response.data.post);
       setPost(response.data.post);
       setContent(response.data.post.content);
       setPlace(response.data.post.place);
       setPost_image(response.data.post.post_image);
     })
-    .catch((error) => console.log(error));
+    .catch((error) => console.error(error));
   }
 
   useEffect(() => {

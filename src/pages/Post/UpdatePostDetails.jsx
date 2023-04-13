@@ -22,7 +22,7 @@ function UpdatePostDetails() {
         setPlace(post.place);
         setPost_image(post.post_image);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, [postId]);
 
   const handleContentChange = (e) => setContent(e.target.value);
@@ -47,11 +47,8 @@ function UpdatePostDetails() {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => {
-        console.log(response.data);
-        navigate(`/post/${postId}`);
-      })
-      .catch((error) => console.log(error));
+      .then((response) => navigate(`/post/${postId}`))
+      .catch((error) => console.error(error));
   };
 
   return (

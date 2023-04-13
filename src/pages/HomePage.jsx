@@ -24,14 +24,14 @@ function HomePage() {
   function getAllPosts(){
     axios.get(`${API_URL}/api/home`)
     .then((response) => {
-      console.log(response.data)
+
       setPosts(response.data.posts);
       setArtPosts(response.data.artPosts);
       setNewsPosts(response.data.newsPosts);
       setIsLoading(false); 
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
       setIsLoading(false);
     });
 

@@ -18,30 +18,26 @@ function PostCard({ content, place, post_image, postId, getAllPosts, likedBy, au
   useEffect(() => {
     axios.get(`${API_URL}/api/posts/posts/${postId}`)
       .then(response => setPost(response.data))
-      .catch(error => console.log(error))
+      .catch(error => console.error(error))
   }, [postId])
 
   function handleLike(){
-    console.log('handle like')
     axios.post(`${API_URL}/api/posts/like/${postId}/post`, user)
       .then(response => setPost(response.data))
-      .catch(error => console.log(error))
+      .catch(error => console.error(error))
   }
 
   if (!post) { <div>Loading...</div>}
 
   const handleDelete = () => {
-    console.log(`Deleting post with id ${postId}`)
     axios
       .delete(`${API_URL}/api/posts/${postId}`)
       .then((response) => {
-        console.log("Post deleted successfully:", response.data);
+        
         getAllPosts()
         navigate("/home"); // Navigate to the home page after successful deletion
       })
-      .catch((error) => {
-        console.log("Error deleting post:", error);
-      });
+      .catch((error) => console.error("Error deleting post:", error));
   };
 
   return (

@@ -37,7 +37,7 @@ function ArtPostDetails() {
         setYear(response.data.year);
         setArtImage(response.data.art_image);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }
 
   const uploadImage = (file) => {
@@ -76,13 +76,14 @@ function ArtPostDetails() {
     setShowDeleteConfirmation(false);
   };
 
-  console.log(artpost)
+  
 
   useEffect(() => {
     getArtInfo()
   }, [artpostId]);
-  console.log("this is a user", user._id)
-  console.log("this is a author", artpost?.author._id)
+
+  console.log("fixing the issue ", artpost)
+  
   return (
     <div>
       <div className={ArtpostCSS.artpost_details_div}>

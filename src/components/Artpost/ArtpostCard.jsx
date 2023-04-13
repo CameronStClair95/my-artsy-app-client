@@ -23,30 +23,24 @@ function ArtPostCard({ artist, title, description, medium, year, art_image, auth
       .then((response) => {
         setArtpost(response.data)
       })
-      .catch((error) => {console.log("Error fetching artpost:", error)});
+      .catch((error) => {console.error("Error fetching artpost:", error)});
   }, [artpostId]);
 
   function handleLike() {
-    console.log("handle like");
+    
     axios.post(`${API_URL}/api/posts/like/${artpostId}/art`, user)
       .then((response) => {
         setArtpost(response.data)
-        console.log(response.data.artist)
+        
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }
 
   const handleDelete = () => {
-    console.log(`Deleting post with id ${artpostId}`);
+    
     axios.delete(`${API_URL}/api/posts/artposts/${artpostId}`)
-      .then((response) => {
-        console.log("Post deleted successfully:", response.data);
-        /* getAllPosts(); */
-        navigate("/home"); // Navigate to the home page after successful deletion
-      })
-      .catch((error) => {
-        console.log("Error deleting post:", error);
-      });
+      .then((response) => navigate("/home"))
+      .catch((error) => console.error("Error deleting post:", error));
   };
 
   if (!artpost) {
