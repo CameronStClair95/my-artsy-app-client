@@ -7,6 +7,10 @@ import { AuthContext } from '../context/Auth.context';
 import { useParams } from 'react-router-dom';
 import dayjs, { Dayjs } from 'dayjs';
 
+let relativeTime = require('dayjs/plugin/relativeTime')
+dayjs.extend(relativeTime)
+
+
 function Comment({author}) {
 
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5005';
@@ -90,15 +94,12 @@ function Comment({author}) {
             <div className={CommentCSS.all_comments}>
             {comments &&
                 comments.map((oneComment, index) => {
-                    {/* console.log("result of mapping comments", oneComment) */}
                     return (
-
                         <div key={index} className={CommentCSS.comment_container}>
                             <p>{oneComment.comment}</p>
 
                             <div className={CommentCSS.timestamp}>
-                                <p className={CommentCSS.timestamp_day}>{dayjs(oneComment.createdAt).format("DD/MMM/YY")}</p>
-                                <p className={CommentCSS.timestamp_time}>{dayjs(oneComment.createdAt).format("HH:mm")}</p>
+                                <p className={CommentCSS.timestamp_time}>{dayjs(oneComment.createdAt).fromNow()}</p>
                             </div>
 
                         </div>

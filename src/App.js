@@ -43,9 +43,7 @@ function App() {
         <Route path="posts/artpost" element={<IsPrivate><NewArtpost /></IsPrivate>}/>
         {/* post details */}
         <Route path="/posts/posts/:postId" element={<IsPrivate><PostDetailsPage /></IsPrivate>} />
-        <Route path="/posts/artposts/:artpostId" element={<IsPrivate><ArtPostDetails /></IsPrivate>} />        {/* undefined for now  */}
-        <Route path="/:userId/posts" /> {/* put inside of the isPrivate*/}
-        <Route path="/:userId/favorites" /> {/* chat page with isPrivate */}
+        <Route path="/posts/artposts/:artpostId" element={<IsPrivate><ArtPostDetails /></IsPrivate>} />        
         <Route path="/post/:postId/update" element={<UpdatePostDetails />} />
         {/* error page */}
         <Route path="*" element={<ErrorPage />} />

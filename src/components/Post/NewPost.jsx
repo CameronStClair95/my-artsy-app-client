@@ -57,8 +57,6 @@ function NewPost() {
 
   return (
     <div>
-      
-
       <Form className={postCSS.newpost_form} onSubmit={handlePostSubmit}>
       <h2>Tell us about your latest experience! Write us a Post.</h2>
 
@@ -76,7 +74,7 @@ function NewPost() {
 
         <Form.Group controlId="formImage">
           <Form.Label>Image
-          <Form.Control type="file" onChange={(e) => handleFileUpload(e)}/>
+          <Form.Control type="file" id="file-ip-1-preview" onChange={(e) => handleFileUpload(e)}/>
           </Form.Label>
         </Form.Group>
 
@@ -96,32 +94,6 @@ function NewPost() {
       
       </Form>
       
-
-     {/*  <form className={postCSS.post_form} onSubmit={handlePostSubmit}>
-        <label>
-          What?
-          <input type="text" name="content" value={content} onChange={handleContent}/>
-        </label>
-
-        <label>
-          Where?
-          <input type="text" name="place" value={place} onChange={handlePlace}/>
-        </label>
-
-        <label>
-          Show it
-          <input type="file" name="post_image" onChange={(e) => handleFileUpload(e)}/>
-        </label>
-
-        <Button type="submit" style={{marginTop:"10px"}}>Submit</Button>
-      <div className={postCSS.button_group}>
-        <Link to="/home"><Button size="sm" variant="secondary">Go Back</Button></Link>
-      
-      {postForm && (
-        <Link to="/posts/artpost"><Button size="sm" variant="secondary">Create Artpost</Button></Link>
-      )}
-      </div>
-      </form> */}
     </div>
   );
 }

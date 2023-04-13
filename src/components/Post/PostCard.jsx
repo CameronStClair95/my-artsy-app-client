@@ -134,7 +134,9 @@ function PostCard({ content, place, post_image, postId, getAllPosts, author }) {
         <>
           {user?._id === author?._id &&
             <>
-              <Button onClick={() => setShowEditForm(!showEditForm)}>Update<EditIcon /></Button>
+              <Button onClick={() => setShowEditForm(!showEditForm)}>
+                {showEditForm ? "Hide Form" : "Edit"} <EditIcon/>
+              </Button>
               <Button variant="danger" onClick={() => setShowDeleteConfirmation(true)}>Delete <DeleteOutlineIcon /></Button>
             </>
           }

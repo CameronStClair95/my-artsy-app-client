@@ -61,7 +61,6 @@ function NewArtpost() {
         // response carries "fileUrl" which we can use to update the state
         setArt_image(response.fileUrl);
         console.log("this is the link for the image", response.fileUrl);
-        alert("image uploaded. You can Submit")
       })
       .catch((err) => console.log("Error while uploading the file: ", err));
   };

@@ -30,3 +30,8 @@
     gap: 25px;
     padding: 10px;
 }
+
+.art_feed_title {
+    display: block;
+    width: 100%;
+}

@@ -12,7 +12,6 @@
     border-radius: 12px;
     height: fit-content;
     padding: 10px;   
-    margin-top: 56px;
 }
 
 .user_info img {
@@ -35,18 +34,18 @@ button {
 }
 
 .user_posts {
+    padding: 10px;
+    height: fit-content;
+    border-radius: 12px;  
     background-color: #f8f9fa;
     box-shadow: 15px 5px 10px 2px #e1e1e2;  
-    border-radius: 12px;  
-    height: fit-content;
-    padding: 10px
 }
 
 .user_artposts {
+    flex-grow: 1;
     display: flex;
     flex-wrap: wrap; 
     justify-content: center;
-    flex-grow: 1;
     
     background-color: #f8f9fa;
     box-shadow: 15px 5px 10px 2px #e1e1e2;

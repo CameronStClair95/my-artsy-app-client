@@ -5,6 +5,8 @@ import ArtpostCSS from "../components/Artpost/artpost.module.css";
 import { Button, Form, Modal, Alert } from "react-bootstrap";
 import { AuthContext } from "../context/Auth.context";
 import Comment from "../components/Comment";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
 
 function ArtPostDetails() {
   const { artpostId } = useParams();
@@ -75,6 +77,8 @@ function ArtPostDetails() {
       .catch((error) => { console.error("Error deleting artpost:", error) });
     setShowDeleteConfirmation(false);
   };
+
+  console.log(artpost)
 
   useEffect(() => {
     getArtInfo()
@@ -154,11 +158,11 @@ function ArtPostDetails() {
                   {user?._id === artpost.author?._id && (
                     <>
                       <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
-                        {showUpdateForm ? "Hide Form" : "Edit Art Post"}
+                        {showUpdateForm ? "Hide Form" : "Edit"} <EditIcon/>
                       </Button>
 
                       <Button variant="danger" onClick={() => setShowDeleteConfirmation(!showDeleteConfirmation)}>
-                        Delete
+                        Delete <DeleteOutlineIcon />
                       </Button>
                     </>
                   )}

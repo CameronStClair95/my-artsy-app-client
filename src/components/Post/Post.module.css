@@ -1,7 +1,6 @@
 .post_card {
     display: flex;
     flex-direction: row;
-    gap: 25px;
 }
 
 .post_card_content {
