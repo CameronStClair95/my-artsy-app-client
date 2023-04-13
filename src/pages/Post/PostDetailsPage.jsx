@@ -6,6 +6,8 @@ import Comment from "../../components/Comment";
 
 import PostCSS from "../../components/Post/Post.module.css"
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
+
 function PostDetailsPage() {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
@@ -14,7 +16,7 @@ function PostDetailsPage() {
   const [post_image, setPost_image] = useState("");
 
   function getInfo(){
-    axios.get(`http://localhost:5005/api/posts/posts/${postId}`)
+    axios.get(`${API_URL}/api/posts/posts/${postId}`)
     .then((response) => {
       console.log(response.data.post);
       setPost(response.data.post);
