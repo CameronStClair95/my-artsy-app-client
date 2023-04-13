@@ -156,7 +156,7 @@ function ArtPostDetails() {
                     {artpost.description && <p>{artpost.description}</p>}
                   </div>
 
-                  {user?._id === artpost?.author._id && (
+                  {user?._id === artpost?.author?._id && (
                     <>
                       <Button onClick={() => setShowUpdateForm(!showUpdateForm)}>
                         {showUpdateForm ? "Hide Form" : "Edit"} <EditIcon/>
