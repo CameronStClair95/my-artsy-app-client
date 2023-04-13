@@ -2,14 +2,15 @@ import navbarCSS from "./navbar.module.css";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import pageLogo from "../../images/logo192.png";
+import macArtsy from "../../images/macArtsy.png";
+import macArtsy2 from "../../images/macArtsy2.png";
 
 import { AuthContext } from "../../context/Auth.context";
 
 import { Button, ButtonGroup, Dropdown, Navbar } from "react-bootstrap";
 
 function NavBar() {
-  const { isLoggedIn, logOutUser, user } = useContext(AuthContext); // Get properties from AuthContext
+  const { isLoggedIn, logOutUser, user } = useContext(AuthContext);
   const [showAlert, setShowAlert] = useState(false);
 
   const { userId } = useParams();
@@ -21,22 +22,34 @@ function NavBar() {
 
   return (
     <div className={navbarCSS.navbar}>
-    
-      <img src={pageLogo} className={navbarCSS.logotype} alt="React Logo" />
+      <img src={macArtsy2} className={navbarCSS.logotype2} alt="Macartsy Logo" />
       <Link className={navbarCSS.title_link} to="/home">
-        <h3 className={navbarCSS.title}><span>Macartsy</span></h3>
+        <h3 className={navbarCSS.title}>
+          {/* <span>Macartsy</span> */}
+          <img
+            src={macArtsy}
+            className={navbarCSS.logotype}
+            alt="Macartsy Logo"
+          />
+        </h3>
       </Link>
 
       <div className={navbarCSS.buttons}>
         {isLoggedIn ? (
           <>
             <div className={navbarCSS.right_buttons}>
-              <Link to="/posts/post">
-              <Button size="sm">New Post</Button>
-              </Link>
+            <Link to="/posts/post">
+  <Button variant="outline-dark" size="sm" className={navbarCSS.newPost}>
+    New Post
+  </Button>
+</Link>
 
               <Dropdown>
-                <Dropdown.Toggle size="sm" id="dropdown-basic">
+                <Dropdown.Toggle
+                  variant="outline-dark"
+                  size="sm"
+                  id="dropdown-basic"
+                >
                   More
                 </Dropdown.Toggle>
 
@@ -48,9 +61,11 @@ function NavBar() {
                   <Dropdown.Item>
                     <Link to={`/home/special`}>Special Page</Link>
                   </Dropdown.Item>
-      
+
                   <Dropdown.Item>
-                    <Link to="/" onClick={handleLogOut}>Log Out</Link>
+                    <Link to="/" onClick={handleLogOut}>
+                      Log Out
+                    </Link>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -58,11 +73,21 @@ function NavBar() {
           </>
         ) : (
           <>
-            <Link to="/about"><Button size="sm">About Page</Button></Link>
+            <Link to="/signup">
+              <Button
+                variant="outline-dark"
+                size="sm"
+                className={navbarCSS.signUp}
+              >
+                Sign Up
+              </Button>
+            </Link>
 
-            <Link to="/signup"><Button size="sm">Sign Up</Button></Link>
-
-            <Link to={"/login"}><Button size="sm">Login</Button></Link>
+            <Link to={"/login"}>
+              <Button variant="outline-dark" size="sm">
+                Login
+              </Button>
+            </Link>
           </>
         )}
       </div>

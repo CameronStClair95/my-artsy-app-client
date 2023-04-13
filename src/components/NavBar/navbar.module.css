@@ -1,40 +1,67 @@
-.title {
-    margin: 0;
-    color: white;
-    align-self: center;
-}
-
-.title:hover {
-    color: wheat;
-    font-size: 2rem;
-}
-
-.title_link {
-    text-decoration: none;
-}
-
-.title, .buttons {
-    padding: 15px;
-}
-
-.buttons button{
-    margin: 0 2.5px;
-}
-
-.logotype img {
-    width: 50px;
-    height: 50px;
-}
-
 .navbar {
-    background-color: #116efd;
-    height: 56px;
     display: flex;
-    
     justify-content: space-between;
-}
-
-.right_buttons {
+    align-items: center;
+    background-color: #f7f7f7;
+    /* padding: -1rem;  */
+    border-bottom: 1px solid #e6e6e6;
+    height: 50px;
+  }
+  
+  .logotype {
+    height: 90px;
+    width: 100px;
+    margin-right: 1rem;
     display: flex;
-    flex-direction: row;
-}
+  }
+
+  .logotype2 {
+    height: 90px;
+    margin-right: 1rem;
+    padding-top: 15px ;
+  }
+  
+  .title_link {
+    text-decoration: none;
+  }
+  
+  .buttons {
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
+    justify-content: space-between;
+  }
+
+  .buttons .signUp {
+    margin-right: 8px; 
+  }
+  
+  .right_buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown .dropdown-menu {
+    min-width: auto;
+  }
+  
+  .dropdown .dropdown-menu a {
+    color: #333;
+  }
+  
+  .dropdown .dropdown-menu a:hover {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  button {
+    margin-right: 5px;
+  }
+  
+  button:last-child {
+    margin-right: 0;
+  }
+  
+  .buttons .newPost {
+    margin-right: 8px; 
+  }
