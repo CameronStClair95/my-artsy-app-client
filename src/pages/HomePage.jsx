@@ -80,7 +80,7 @@ function HomePage() {
 
         
             <div className={HomePageCSS.home_posts}>
-            <h4>Home Feed</h4>
+            <h3>Home Feed</h3>
               {posts.map((post) => {
                 return (
                   <PostCard

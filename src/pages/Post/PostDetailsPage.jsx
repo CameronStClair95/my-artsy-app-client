@@ -29,11 +29,13 @@ function PostDetailsPage() {
     <div >
       {post ? (
         <div className={PostCSS.post_details_div}>
-          <div>
-            <PostCard key={post._id} content={content} place={place} post_image={post_image} author={post.author} postId={post._id}/>
+          <div className={PostCSS.post_and_comment}>
+            <div>
+              <PostCard key={post._id} content={content} place={place} post_image={post_image} author={post.author} postId={post._id} />
+            </div>
+
+            <Comment />
           </div>
-          
-          <Comment/>
         </div>
 
       ) : (

@@ -3,10 +3,11 @@
 
     position: fixed;
     bottom: 0;
+    
 
     width: 100%;
 
-    border: 3px solid red;
+    
     text-align: center;
     padding: 10px;
     display: flex;

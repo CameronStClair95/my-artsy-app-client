@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* position: relative; */
+    position: relative;
 }
 
 .comment_input_flexbox {
@@ -14,6 +14,8 @@ gap: 5px;
 
 .comment_title {
     font-size: 1.25rem;
+    margin-bottom: -5px;
+    margin-left: 20px;
 }
 
 .input_box {
@@ -21,16 +23,48 @@ gap: 5px;
     height: 60px;
     background-color: whitesmoke;
     border: 1px solid grey;
-    border-radius: 15px;
+    border-radius: 16px;
+}
+
+.form_box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: transparent;
+    word-break: break-all;
+
+    
 }
 
 .comment_container {
     width: 400px;
-    height: 60px;
-    background-color: whitesmoke;
-    border-radius: 10px;
-    word-break: break-all;
-    margin-top: 12px;
+    height: fit-content;
+    margin: 12px 0;
     padding: 10px 15px;
     border: 0.5px dashed grey;
+
+    background-color: rgba(16,109,253, 0.05);
+    box-shadow: 2px 5px 5px 5px grey;
+    border-radius: 10px;
+    word-break: break-all;
+}
+
+.timestamp {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.timestamp_day, .timestamp_time {
+    color: lightgrey;
+}
+
+.all_comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 450px;
+    height: 375px;
+    overflow: scroll;
 }

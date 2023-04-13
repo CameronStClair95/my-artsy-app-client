@@ -5,8 +5,13 @@ import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 import { AuthContext } from '../context/Auth.context';
 import { useParams } from 'react-router-dom';
+import dayjs, { Dayjs } from 'dayjs';
 
-function Comment() {
+let relativeTime = require('dayjs/plugin/relativeTime')
+dayjs.extend(relativeTime)
+
+
+function Comment({author}) {
 
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5005';
     const { user } = useContext(AuthContext)
@@ -32,9 +37,7 @@ function Comment() {
                 .catch(error => console.error("error while commenting", error))
         } else if (artpostId) {
             axios.get(`${API_URL}/api/posts/artposts/${artpostId}`)
-                .then((response) => {
-                    console.log("response.data -> ", response.data)
-                    setComments(response.data.postComments)})
+                .then((response) => {setComments(response.data.postComments)})
                 .catch(error => console.error("error while commenting", error))
         }
     }
@@ -43,14 +46,13 @@ function Comment() {
         e.preventDefault()
         const requestBody = { comment, author: user._id }
 
-        /* setComments([...comments, {comment, author: {username: user.username}}]); */
+        
 
         if (postId) {
             axios.put(`${API_URL}/api/posts/comment/${postId}/post`, requestBody)
                 .then((response) => {
                     console.log(response.data)
                     setComment("")
-                    /* setComments(response.data.post.postComments) */
                 })
                 .then(() => getInfo())
                 .catch(error => console.error("error while commenting", error))
@@ -59,7 +61,6 @@ function Comment() {
                 .then((response) => {
                     console.log(response.data)
                     setComment("");
-                    /* setComments([...comments, response.data.post.postComments]) */
                 })
                 .then(() => getInfo())
                 .catch(error => console.error("error while commenting", error))
@@ -69,7 +70,6 @@ function Comment() {
     }
 
     useEffect(() => {
-        console.log("information fetched")
         getInfo()
     }, [])
 
@@ -83,24 +83,29 @@ function Comment() {
                     <h3 className={CommentCSS.comment_title}>Write a Comment</h3>
                 </div>
 
-                <div className={CommentCSS.input_box}>
-                    <form onSubmit={handleCommentSubmit} >
-                        <input value={comment} onChange={writeCommentHandler} className={CommentCSS.input_box} />
+                <div>
+                    <form onSubmit={handleCommentSubmit} className={CommentCSS.form_box}>
+                        <input maxLength={200} value={comment} onChange={writeCommentHandler} className={CommentCSS.input_box}/>
                         <Button type="submit" onClick={sendCommentHandler} size='sm'>Submit <SendIcon fontSize='small' /></Button>
                     </form>
                 </div>
             </div>
 
+            <div className={CommentCSS.all_comments}>
             {comments &&
                 comments.map((oneComment, index) => {
                     return (
-
                         <div key={index} className={CommentCSS.comment_container}>
                             <p>{oneComment.comment}</p>
-                            {/* <p>{oneComment.author.username}</p> */}
+
+                            <div className={CommentCSS.timestamp}>
+                                <p className={CommentCSS.timestamp_time}>{dayjs(oneComment.createdAt).fromNow()}</p>
+                            </div>
+
                         </div>
                     )
                 })}
+            </div>
         </div>
     )
 }

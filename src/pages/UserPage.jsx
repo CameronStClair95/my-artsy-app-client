@@ -56,7 +56,6 @@ function UserPage(props) {
         //for the updating the user information
         setFullName(response.data.fullname);
         setUsername(response.data.username);
-        console.log("user info: ", response.data);
       })
       .catch((error) => console.error("error while fetching user info ", error));
   }
@@ -82,7 +81,7 @@ function UserPage(props) {
       })
       .then(() => getUserInfo())
       .then(() => setFormUpdate(false))
-      .catch((error) => console.error("error while updating user ",error));
+      .catch((error) => console.error("error while updating user ", error));
   }
 
   function handleDelete() {
@@ -99,17 +98,19 @@ function UserPage(props) {
   return (
     <div>
       <div className={UserPageCSS.grid}>
-        <div className={UserPageCSS.user}>
+
+        <div>
           <h1>Profile</h1>
-          <div className={UserPageCSS}>
-            <AccountCircleIcon/>
+          <div className={UserPageCSS.user}>
+
+            <AccountCircleIcon />
             <p>{userInfo?.fullname}</p>
             <p>@{userInfo?.username}</p>
             <p>{userInfo?.email}</p>
 
             {userId === user?._id && (
               <div className={UserPageCSS.button_group}>
-                
+
                 <Button
                   variant="warning"
                   onClick={() => setFormUpdate(!formUpdate)}
@@ -125,42 +126,31 @@ function UserPage(props) {
                 </Button>
               </div>
             )}
-          </div>
 
-          <div>
-            {formUpdate && (
-              <Form
-                onSubmit={handleUpdateSubmit}
-                style={{ backgroundColor: "white" }}
-              >
 
-                <Form.Group controlId="formUsername">
-                  <Form.Label>
-                    <b>Username:</b>
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={username}
-                    onChange={handleUsername}
-                  />
-                </Form.Group>
 
-                <Form.Group controlId="formFullname">
-                  <Form.Label>
-                    <b>Fullname:</b>
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={fullname}
-                    onChange={handleName}
-                  />
-                </Form.Group>
+            <div>
+              {formUpdate && (
+                <Form onSubmit={handleUpdateSubmit} style={{ backgroundColor: "white" }}>
 
-                <Button variant="primary" type="submit">
-                  Update
-                </Button>
-              </Form>
-            )}
+                  <Form.Group controlId="formFullname">
+                    <Form.Label>
+                      <b>Fullname:</b>
+                    </Form.Label>
+                    <Form.Control type="text" value={fullname} onChange={handleName} />
+                  </Form.Group>
+
+                  <Form.Group controlId="formUsername">
+                    <Form.Label>
+                      <b>Username:</b>
+                    </Form.Label>
+                    <Form.Control type="text" value={username} onChange={handleUsername} />
+                  </Form.Group>
+
+                  <Button variant="primary" type="submit"> Update </Button>
+                </Form>
+              )}
+            </div>
           </div>
         </div>
 
@@ -179,17 +169,17 @@ function UserPage(props) {
 
         <div>
           <h1>Artposts</h1>
-        <div className={UserPageCSS.user_artposts}>
-          {artPosts.map((artpost) => {
-            return (
-              artpost.author &&
-              artpost.author?._id === userInfo?._id && (
-                <ArtPostCard key={artpost._id} {...artpost} artpostId={artpost._id} />
-              )
-            );
-          })}
-        </div>
+          <div className={UserPageCSS.user_artposts}>
+            {artPosts.map((artpost) => {
+              return (
+                artpost.author &&
+                artpost.author?._id === userInfo?._id && (
+                  <ArtPostCard key={artpost._id} {...artpost} artpostId={artpost._id} />
+                )
+              );
+            })}
           </div>
+        </div>
       </div>
       <Modal
         show={showDeleteConfirmation}

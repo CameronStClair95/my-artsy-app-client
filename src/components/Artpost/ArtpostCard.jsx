@@ -22,9 +22,6 @@ function ArtPostCard({ artist, title, description, medium, year, art_image, auth
     axios.get(`${API_URL}/api/posts/artposts/${artpostId}`)
       .then((response) => {
         setArtpost(response.data)
-        /* console.log("user is", user._id)
-        console.log("artpost author", artpost.author)
-        console.log("author ID", author) */
       })
       .catch((error) => {console.log("Error fetching artpost:", error)});
   }, [artpostId]);

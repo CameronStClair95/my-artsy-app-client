@@ -62,6 +62,35 @@ function NavBar() {
                     <Link to={`/home/special`}>Special Page</Link>
                   </Dropdown.Item>
 
+                  <Dropdown>
+                    <Dropdown.Toggle size="sm" id="dropdown-basic" drop={"start"}>
+                      Contacts
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <a href="https://www.linkedin.com/in/cameron-a-8531531ba/" target="_blank" rel="noopener noreferrer">
+                          <em>Cam's LinkedIn</em>
+                        </a>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <a href="https://www.linkedin.com/in/maksym-kopychanskyi-380316203/" target="_blank" rel="noopener noreferrer">
+                          <em>Max's LinkedIn</em>
+                        </a>                        
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <a href="https://github.com/CameronStClair95" target="_blank" rel="noopener noreferrer">
+                          <em>Cam's Github</em>
+                        </a>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                      <a href="https://github.com/Sup-Maxx" target="_blank" rel="noopener noreferrer">
+                          <em>Max's Github</em>
+                        </a>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+      
                   <Dropdown.Item>
                     <Link to="/" onClick={handleLogOut}>
                       Log Out
